@@ -144,7 +144,7 @@
     {
       "id": "noida-authority",
       "title": "Noida Authority",
-      "url": "https://noidaauthorityonline.in/",
+      "url": "https://noidaauthorityonline.in/en",
       "category": "land-gis",
       "tags": ["noida", "authority", "land", "industrial"],
       "note": "Noida Authority's official portal — notices, schemes, and citizen/industrial services.",
@@ -154,7 +154,7 @@
         "typicalUse": "Checking current Noida industrial-plot scheme launches or notices.",
         "quirks": [
           "Domain is not a .gov.in/.up.gov.in address — confidence on this being the sole official URL is medium; verify against Noida Authority's official social channels (@noida_authority) if in doubt",
-          "An automated check returned 404 on this exact URL — a sibling path (noidaauthorityonline.in/en) was also seen in search results; if this 404s for you too, try that path or search 'Noida Authority official website' fresh before relying on this entry"
+          "Links to the /en path directly. The bare root returns 404 to scripted requests and only redirects to /en for real browsers, so the link checker will keep flagging the root if anyone changes it back"
         ]
       },
       "authRequired": false,

@@ -1,5 +1,8 @@
 # One-off icon generator — draws the UPInfradesk app icon with System.Drawing
 # (no image libraries, no network). Re-run only if the mark ever changes.
+#
+# The mark: a desk edge with three routes of decreasing length rising from it,
+# and a node on the shortest — the index, and the infrastructure it points at.
 Add-Type -AssemblyName System.Drawing
 
 function New-Icon {
@@ -14,17 +17,19 @@ function New-Icon {
   $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
   $g.Clear([System.Drawing.Color]::Transparent)
 
-  $bg = [System.Drawing.Color]::FromArgb(255, 0x6E, 0x34, 0x19)   # --accent-strong
-  $fg = [System.Drawing.Color]::White
+  $top    = [System.Drawing.Color]::FromArgb(255, 0x8C, 0x43, 0x21)   # --accent
+  $bottom = [System.Drawing.Color]::FromArgb(255, 0x5E, 0x2B, 0x14)   # deeper umber
+  $fg     = [System.Drawing.Color]::White
 
-  $bgBrush = New-Object System.Drawing.SolidBrush($bg)
+  $rect = New-Object System.Drawing.Rectangle(0, 0, $Size, $Size)
+  $grad = New-Object System.Drawing.Drawing2D.LinearGradientBrush(
+    $rect, $top, $bottom, 150.0)
 
   if ($Maskable) {
-    # Maskable: fill the FULL canvas edge-to-edge (OS applies its own mask/crop),
-    # keep the glyph within the inner ~80% safe zone.
-    $g.FillRectangle($bgBrush, 0, 0, $Size, $Size)
+    # Maskable: fill edge to edge; the OS applies its own mask.
+    $g.FillRectangle($grad, 0, 0, $Size, $Size)
   } else {
-    $radius = [int]($Size * 0.22)
+    $radius = [int]($Size * 0.23)
     $path = New-Object System.Drawing.Drawing2D.GraphicsPath
     $d = $radius * 2
     $path.AddArc(0, 0, $d, $d, 180, 90)
@@ -32,31 +37,43 @@ function New-Icon {
     $path.AddArc($Size - $d, $Size - $d, $d, $d, 0, 90)
     $path.AddArc(0, $Size - $d, $d, $d, 90, 90)
     $path.CloseFigure()
-    $g.FillPath($bgBrush, $path)
+    $g.FillPath($grad, $path)
   }
 
-  # Glyph: three horizontal bars (matches the in-app header mark), centered.
-  $fgBrush = New-Object System.Drawing.SolidBrush($fg)
-  $safe = if ($Maskable) { $Size * 0.30 } else { $Size * 0.22 }
-  $usable = $Size - 2 * $safe
-  $barHeight = $usable * 0.11
-  $gap = $usable * 0.15
-  $totalH = $barHeight * 3 + $gap * 2
-  $startY = ($Size - $totalH) / 2
-  $widths = @(0.62, 0.85, 1.0)
-  for ($i = 0; $i -lt 3; $i++) {
-    $w = $usable * $widths[$i]
-    $x = $safe
-    $y = $startY + $i * ($barHeight + $gap)
-    $r = $barHeight / 2
-    $rectPath = New-Object System.Drawing.Drawing2D.GraphicsPath
-    $dd = $r * 2
-    $rectPath.AddArc($x, $y, $dd, $dd, 90, 180)
-    $rectPath.AddArc($x + $w - $dd, $y, $dd, $dd, 270, 180)
-    $rectPath.CloseFigure()
-    $g.FillPath($fgBrush, $rectPath)
+  # Glyph geometry mirrors the 32x32 SVG in index.html, scaled to this canvas.
+  # Maskable art stays inside the inner ~80% safe zone.
+  $scale = if ($Maskable) { $Size / 32.0 * 0.78 } else { $Size / 32.0 * 0.94 }
+  $offX = ($Size - 32.0 * $scale) / 2.0
+  $offY = ($Size - 32.0 * $scale) / 2.0
+  function P([double]$x, [double]$y) {
+    New-Object System.Drawing.PointF(($offX + $x * $scale), ($offY + $y * $scale))
   }
 
+  $strokeW = 2.6 * $scale
+  $bars = @(
+    @{ x1 = 5.0; x2 = 27.0; y = 24.0; alpha = 242 },
+    @{ x1 = 7.0; x2 = 20.0; y = 18.5; alpha = 180 },
+    @{ x1 = 7.0; x2 = 15.0; y = 13.0; alpha = 115 }
+  )
+  foreach ($b in $bars) {
+    $c = [System.Drawing.Color]::FromArgb($b.alpha, $fg.R, $fg.G, $fg.B)
+    $pen = New-Object System.Drawing.Pen($c, $strokeW)
+    $pen.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
+    $pen.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
+    $g.DrawLine($pen, (P $b.x1 $b.y), (P $b.x2 $b.y))
+    $pen.Dispose()
+  }
+
+  # The node on the shortest route.
+  $nodePen = New-Object System.Drawing.Pen(
+    [System.Drawing.Color]::FromArgb(242, $fg.R, $fg.G, $fg.B), (2.4 * $scale))
+  $r = 3.1 * $scale
+  $cx = $offX + 24.5 * $scale
+  $cy = $offY + 13.0 * $scale
+  $g.DrawEllipse($nodePen, ($cx - $r), ($cy - $r), ($r * 2), ($r * 2))
+  $nodePen.Dispose()
+
+  $grad.Dispose()
   $g.Dispose()
   $bmp.Save($OutPath, [System.Drawing.Imaging.ImageFormat]::Png)
   $bmp.Dispose()

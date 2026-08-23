@@ -19,6 +19,9 @@
   --amber:#8A5D08; --amber-bg:#FBEECE; --amber-border:#E9C874;
   --red:#A32A20; --red-bg:#FAE2DF; --red-border:#E7A79C;
   --focus:#8C4321;
+  /* Popovers sit on a warm tint so they read as floating above the page
+     rather than as another panel belonging to it. */
+  --popover-bg:#FDF3EC; --popover-bg-alt:#F8E7DA; --popover-border:#E4BFA6;
   --shadow-float:0 16px 40px -12px rgba(24,23,20,.22), 0 4px 12px -2px rgba(24,23,20,.10);
   --shadow-card:0 1px 2px rgba(24,23,20,.06);
   --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
@@ -40,6 +43,7 @@
     --amber:#E8C15E; --amber-bg:#382C10; --amber-border:#5C4A1C;
     --red:#EE998E; --red-bg:#3A1D19; --red-border:#5E332B;
     --focus:#E2916A;
+    --popover-bg:#2A211B; --popover-bg-alt:#332720; --popover-border:#5A4234;
     --shadow-float:0 16px 40px -12px rgba(0,0,0,.65), 0 4px 12px -2px rgba(0,0,0,.5);
     --shadow-card:0 1px 2px rgba(0,0,0,.3);
   }
@@ -51,6 +55,7 @@
   --amber:#E8C15E; --amber-bg:#382C10; --amber-border:#5C4A1C;
   --red:#EE998E; --red-bg:#3A1D19; --red-border:#5E332B;
   --focus:#E2916A;
+  --popover-bg:#2A211B; --popover-bg-alt:#332720; --popover-border:#5A4234;
   --shadow-float:0 16px 40px -12px rgba(0,0,0,.65), 0 4px 12px -2px rgba(0,0,0,.5);
   --shadow-card:0 1px 2px rgba(0,0,0,.3);
 }
@@ -126,6 +131,7 @@ ul{list-style:none;padding:0}
 .side-sub a:hover{background:var(--surface-2);color:var(--ink);border-left-color:var(--border-strong)}
 .side-sub a.is-current{color:var(--accent-strong);border-left-color:var(--accent);font-weight:500}
 .sidebar-empty{padding:var(--sp-3);font-size:.8125rem;color:var(--ink-faint)}
+.side-group-extra{margin-top:var(--sp-3);padding-top:var(--sp-3);border-top:1px solid var(--border)}
 #sidebar-scrim{display:none}
 
 /* Desktop: sidebar always visible, content offset. Collapsing hides it. */
@@ -152,9 +158,17 @@ ul{list-style:none;padding:0}
 @media (prefers-reduced-motion: reduce){
   .sidebar{transition:none}
 }
-.brand{display:flex;align-items:center;gap:var(--sp-2);font-weight:700;font-size:1.125rem;letter-spacing:-.01em}
-.brand-mark{width:28px;height:28px;border-radius:7px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
-.brand-mark svg{width:16px;height:16px;stroke:var(--accent-on)}
+.brand{display:flex;align-items:center;gap:var(--sp-2);font-size:1.125rem;letter-spacing:-.015em}
+.brand-mark{
+  width:30px;height:30px;border-radius:9px;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(150deg,var(--accent) 0%,var(--accent-strong) 100%);
+  color:var(--accent-on);
+  box-shadow:0 1px 2px rgba(24,23,20,.18), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.brand-mark svg{width:20px;height:20px}
+.brand-word{font-weight:500;color:var(--ink-soft)}
+.brand-word-accent{font-weight:700;color:var(--ink)}
 .header-actions{display:flex;align-items:center;gap:var(--sp-2)}
 .icon-btn{
   display:flex;align-items:center;gap:var(--sp-1);min-width:48px;min-height:48px;padding:0 var(--sp-3);
@@ -272,20 +286,23 @@ ul{list-style:none;padding:0}
 .card-btn.is-active{color:var(--accent)}
 .card-btn[aria-pressed="true"] svg{transform:rotate(180deg)}
 
-/* mobile inline detail (chevron expand) */
-.card-inline-detail{display:none;border-top:1px solid var(--border);padding:var(--sp-3) var(--sp-4) var(--sp-4)}
+/* mobile inline detail (chevron expand) — same warm tint as the floating
+   panel, so the expanded detail reads as the same kind of thing on a phone */
+.card-inline-detail{display:none;border-top:1px solid var(--popover-border);background:var(--popover-bg)}
 .card-inline-detail.is-open{display:block}
+.card-inline-detail .detail-head{border-radius:0}
+.card{overflow:hidden}
 
 /* ---------- Detail panel (floating, desktop) ---------- */
 .detail-panel{
-  position:fixed;z-index:60;width:320px;max-height:min(520px,80vh);overflow-y:auto;
-  background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-lg);
+  position:fixed;z-index:70;width:320px;max-height:min(520px,80vh);overflow-y:auto;
+  background:var(--popover-bg);border:1px solid var(--popover-border);border-radius:var(--radius-lg);
   box-shadow:var(--shadow-float);padding:0;
 }
 .detail-panel[hidden]{display:none}
-.detail-block + .detail-block{border-top:1px solid var(--border)}
+.detail-block + .detail-block{border-top:1px solid var(--popover-border)}
 .detail-block{padding:var(--sp-3) var(--sp-4)}
-.detail-head{padding:var(--sp-4);padding-bottom:var(--sp-3)}
+.detail-head{padding:var(--sp-4);padding-bottom:var(--sp-3);background:var(--popover-bg-alt)}
 .detail-title{font-size:1rem;font-weight:700;margin-bottom:2px}
 .detail-owner{font-size:.8125rem;color:var(--ink-faint)}
 .detail-label{font-size:.6875rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:var(--sp-1)}
@@ -364,6 +381,54 @@ ul{list-style:none;padding:0}
 .instr-badge-list{list-style:none;padding:0}
 .instr-badge-list li{display:flex;align-items:center;gap:var(--sp-2)}
 
+/* ---------- Contacts view (F12) ---------- */
+#contacts-view{max-width:900px;margin:0 auto;padding:var(--sp-5) var(--sp-4) var(--sp-7)}
+#contacts-view[hidden]{display:none}
+#contacts-view h1{font-size:1.5rem;font-weight:700;margin-bottom:var(--sp-2)}
+.contacts-lede{font-size:.9375rem;color:var(--ink-soft);line-height:1.6;margin-bottom:var(--sp-4);max-width:62ch}
+.contacts-source{
+  background:var(--popover-bg);border:1px solid var(--popover-border);border-radius:var(--radius-md);
+  padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-5);font-size:.8125rem;color:var(--ink-soft);line-height:1.6;
+}
+.contacts-source a{color:var(--accent-strong);font-weight:500}
+.contacts-source .src-line{display:block}
+.office-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:var(--sp-4);margin-bottom:var(--sp-5);
+}
+.office-card dl{display:grid;grid-template-columns:auto 1fr;gap:var(--sp-2) var(--sp-4);font-size:.875rem;margin:0}
+.office-card dt{font-weight:600;color:var(--ink-faint);white-space:nowrap}
+.office-card dd{margin:0;color:var(--ink)}
+.contact-group{margin-bottom:var(--sp-5)}
+.contact-group h2{font-size:1.0625rem;font-weight:700;margin-bottom:var(--sp-2)}
+.contacts-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.contacts-table th{
+  text-align:left;font-size:.6875rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-faint);padding:var(--sp-2) var(--sp-3);border-bottom:2px solid var(--border-strong);
+}
+.contacts-table td{padding:var(--sp-3);border-bottom:1px solid var(--border);vertical-align:top}
+.contacts-table tbody tr:hover{background:var(--surface-2)}
+.contact-name{font-weight:600}
+.contact-note{display:block;font-size:.75rem;color:var(--ink-faint);margin-top:2px;line-height:1.4}
+.contacts-table a{color:var(--accent-strong);word-break:break-word}
+.contact-na{color:var(--ink-faint);font-style:italic}
+.contact-tel{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:700px){
+  .contacts-table thead{display:none}
+  .contacts-table, .contacts-table tbody, .contacts-table tr, .contacts-table td{display:block;width:100%}
+  .contacts-table tr{
+    border:1px solid var(--border);border-radius:var(--radius-md);
+    margin-bottom:var(--sp-3);padding:var(--sp-3);background:var(--surface);
+  }
+  .contacts-table td{border:0;padding:2px 0}
+  .contacts-table td[data-label]::before{
+    content:attr(data-label) ": ";font-size:.6875rem;font-weight:700;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  .office-card dl{grid-template-columns:1fr;gap:2px}
+  .office-card dt{margin-top:var(--sp-2)}
+}
+
 /* ---------- Empty / error states ---------- */
 .state-block{text-align:center;padding:var(--sp-7) var(--sp-4);color:var(--ink-soft)}
 .state-block h2{font-size:1.125rem;margin-bottom:var(--sp-2);color:var(--ink)}
@@ -382,15 +447,25 @@ ul{list-style:none;padding:0}
       </button>
       <div class="brand">
         <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M4 18h5M4 12h9M4 6h16"/></svg>
+          <!-- A desk edge with three stacked routes rising from it: the index
+               (the desk) and the infrastructure it points at (the spans). -->
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M5 24h22" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" opacity=".95"/>
+            <path d="M7 18.5h13" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" opacity=".7"/>
+            <path d="M7 13h8" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" opacity=".45"/>
+            <circle cx="24.5" cy="13" r="3.1" stroke="currentColor" stroke-width="2.4"/>
+          </svg>
         </span>
-        UPInfradesk
+        <span class="brand-word">UP<span class="brand-word-accent">Infradesk</span></span>
       </div>
     </div>
     <div class="header-actions">
       <button type="button" id="flagged-toggle" class="icon-btn flagged" aria-pressed="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
         <span id="flagged-count">0</span>
+      </button>
+      <button type="button" id="contacts-open" class="icon-btn" aria-label="Invest UP departments and contacts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </button>
       <button type="button" id="instructions-open" class="icon-btn" aria-label="Instructions">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
@@ -432,6 +507,7 @@ ul{list-style:none;padding:0}
   </div>
 
   <div id="instructions-view" hidden></div>
+  <div id="contacts-view" hidden></div>
 </main>
 
 <div class="detail-panel" id="detail-panel" role="tooltip" hidden></div>
@@ -451,9 +527,6 @@ ul{list-style:none;padding:0}
     <div class="card-footer">
       <div class="badges"></div>
       <div class="card-buttons">
-        <button type="button" class="card-btn copy-btn" aria-label="Copy link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        </button>
         <button type="button" class="card-btn pin-btn" aria-label="Pin" aria-pressed="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5M9 3h6l-1 6 3 3v2H7v-2l3-3-1-6Z"/></svg>
         </button>
@@ -552,10 +625,22 @@ function setData(json){
   renderAll();
 }
 
+function getJSON(path){
+  return fetch(path, { cache: "no-cache" })
+    .then(function(res){
+      if (!res.ok) throw new Error(path + " — HTTP " + res.status + " " + res.statusText);
+      return res.text();
+    })
+    .then(function(text){
+      try { return JSON.parse(text); }
+      catch(e){ throw new Error(path + " is not valid JSON: " + e.message); }
+    });
+}
+
 function fetchData(){
-  // Single-file review builds embed the content directly so the page works with
-  // no server alongside it. The deployed site has no such tag and always fetches
-  // links.json, keeping "one file for logic, one file for data" intact.
+  // Single-file review builds embed the whole dataset directly so the page works
+  // with no server alongside it. The deployed site has no such tag and always
+  // fetches from disk.
   var embedded = document.getElementById("embedded-links-data");
   if (embedded){
     try {
@@ -567,20 +652,32 @@ function fetchData(){
     }
   }
 
-  fetch("links.json", { cache: "no-cache" })
-    .then(function(res){
-      if (!res.ok) throw new Error("HTTP " + res.status + " " + res.statusText);
-      return res.text();
+  // links.json is an index; each category's entries live in its own file so no
+  // single file grows unwieldy. They are fetched in parallel and merged.
+  getJSON("links.json")
+    .then(function(index){
+      var cats = index.categories || [];
+      return Promise.all(cats.map(function(c){ return getJSON(c.file); }))
+        .then(function(parts){
+          var merged = [];
+          parts.forEach(function(p){ merged = merged.concat(p.links || []); });
+          index.links = merged;
+          return index;
+        });
     })
-    .then(function(text){
-      var json;
-      try { json = JSON.parse(text); }
-      catch(e){ throw new Error("links.json is not valid JSON: " + e.message); }
-      setData(json);
-    })
-    .catch(function(err){
-      renderLoadError(err);
-    });
+    .then(setData)
+    .catch(renderLoadError);
+}
+
+function fetchContacts(){
+  if (state.contacts) return Promise.resolve(state.contacts);
+  var embedded = document.getElementById("embedded-contacts-data");
+  if (embedded){
+    state.contacts = JSON.parse(embedded.textContent);
+    return Promise.resolve(state.contacts);
+  }
+  var ref = (state.data && state.data.contacts) || { file: "data/contacts.json" };
+  return getJSON(ref.file).then(function(c){ state.contacts = c; return c; });
 }
 
 function renderLoadError(err){
@@ -643,6 +740,7 @@ function wireStaticUI(){
   });
 
   document.getElementById("instructions-open").addEventListener("click", openInstructions);
+  document.getElementById("contacts-open").addEventListener("click", openContacts);
 
   document.addEventListener("keydown", function(e){
     var tag = (document.activeElement && document.activeElement.tagName) || "";
@@ -861,9 +959,9 @@ function stickyOffset(){
 }
 
 function scrollToAnchor(id){
-  // The sidebar stays available while reading the Instructions page, so a jump
-  // from there has to bring the index back before the target exists.
-  if (!document.getElementById("instructions-view").hidden) closeInstructions();
+  // The sidebar stays available on the Instructions and Contacts pages, so a
+  // jump from either has to bring the index back before the target exists.
+  if (document.getElementById("index-view").hidden) showView("index");
 
   var target = document.getElementById(id);
   if (!target) return;
@@ -938,6 +1036,21 @@ function renderSidebar(model){
 
     nav.appendChild(group);
   });
+
+  // Separate destination rather than a section of the index, so it sits apart.
+  var extra = el("div", "side-group side-group-extra");
+  var extraRow = el("div", "side-group-row");
+  var contactsLink = el("a", "side-link");
+  contactsLink.href = "#contacts";
+  contactsLink.appendChild(el("span", null, "Departments & Contacts"));
+  contactsLink.addEventListener("click", function(e){
+    e.preventDefault();
+    openContacts();
+    if (!isDesktopLayout()) closeSidebar();
+  });
+  extraRow.appendChild(contactsLink);
+  extra.appendChild(extraRow);
+  nav.appendChild(extra);
 
   observeSections();
 }
@@ -1052,11 +1165,6 @@ function buildCard(link){
   if (!link.deprecated && isStale === "verify") badges.appendChild(badge("verify", "Verify", "badge-verify"));
   if (!link.deprecated && isStale === "stale") badges.appendChild(badge("stale", "Stale", "badge-stale"));
 
-  node.querySelector(".copy-btn").addEventListener("click", function(e){
-    e.preventDefault();
-    copyToClipboard(link.url, this);
-  });
-
   var pinBtn = node.querySelector(".pin-btn");
   var isPinned = link.pinned || state.pins.indexOf(link.id) !== -1;
   pinBtn.setAttribute("aria-pressed", String(isPinned));
@@ -1082,24 +1190,6 @@ function buildCard(link){
   attachHoverDetail(node, link);
 
   return node;
-}
-
-function copyToClipboard(text, btn){
-  var done = function(){
-    var original = btn.getAttribute("aria-label");
-    btn.setAttribute("aria-label", "Copied");
-    setTimeout(function(){ btn.setAttribute("aria-label", original); }, 1200);
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(done).catch(function(){});
-  } else {
-    var ta = document.createElement("textarea");
-    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand("copy"); } catch(e){}
-    document.body.removeChild(ta);
-    done();
-  }
 }
 
 /* ---------------- Detail content (F3a) ---------------- */
@@ -1398,6 +1488,179 @@ function policyRow(link, isChild){
   return tr;
 }
 
+/* ---------------- Contacts view (F12) ----------------
+   A transcription of the official Invest UP directory. Anything the source does
+   not publish is rendered as "Not available" — never inferred, never filled in
+   from another source without saying so. */
+
+function showView(which){
+  var views = { index: "index-view", instructions: "instructions-view", contacts: "contacts-view" };
+  Object.keys(views).forEach(function(k){
+    document.getElementById(views[k]).hidden = (k !== which);
+  });
+  window.scrollTo(0, 0);
+}
+
+function closeInstructions(){ showView("index"); }
+function closeContacts(){ showView("index"); }
+
+function naSpan(text){
+  return el("span", "contact-na", text || "Not available");
+}
+
+function contactCell(value, kind, note){
+  var td = el("td");
+  if (!value){
+    td.appendChild(naSpan());
+  } else if (kind === "email"){
+    value.split(/,\s*/).forEach(function(addr, i){
+      if (i) td.appendChild(document.createElement("br"));
+      var a = el("a", null, addr);
+      a.href = "mailto:" + addr;
+      td.appendChild(a);
+    });
+  } else if (kind === "tel"){
+    value.split(/,\s*/).forEach(function(num, i){
+      if (i) td.appendChild(document.createElement("br"));
+      var a = el("a", "contact-tel", num);
+      a.href = "tel:" + num.replace(/[^\d+]/g, "");
+      td.appendChild(a);
+    });
+  } else {
+    td.appendChild(document.createTextNode(value));
+  }
+  if (note) td.appendChild(el("span", "contact-note", note));
+  return td;
+}
+
+function openContacts(){
+  showView("contacts");
+  var view = document.getElementById("contacts-view");
+  view.textContent = "";
+  view.appendChild(el("p", null, "Loading contacts…"));
+
+  fetchContacts().then(function(data){
+    view.textContent = "";
+
+    var back = el("button", "instr-back");
+    back.type = "button";
+    back.appendChild(icon("back"));
+    back.appendChild(document.createTextNode(" Back to index"));
+    back.addEventListener("click", closeContacts);
+    view.appendChild(back);
+
+    view.appendChild(el("h1", null, data.title));
+    view.appendChild(el("p", "contacts-lede", data.note));
+
+    // Provenance first: this is transcribed data, and the reader should know
+    // exactly what it came from and how old it is before trusting a number.
+    var src = el("div", "contacts-source");
+    Object.keys(data.source).forEach(function(k){
+      var s = data.source[k];
+      var line = el("span", "src-line");
+      line.appendChild(document.createTextNode("Source: "));
+      var a = el("a", null, s.label);
+      a.href = s.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+      line.appendChild(a);
+      line.appendChild(document.createTextNode(
+        " — that page last updated " + formatDate(s.sourceUpdated)
+      ));
+      src.appendChild(line);
+    });
+    src.appendChild(el("span", "src-line", "Transcribed here on " + formatDate(data.transcribedOn) + "."));
+    view.appendChild(src);
+
+    // Head office
+    var office = data.office;
+    var card = el("div", "office-card");
+    card.appendChild(el("h2", null, office.name));
+    var dl = el("dl");
+    function row(term, node){
+      dl.appendChild(el("dt", null, term));
+      var dd = el("dd");
+      if (typeof node === "string") dd.appendChild(document.createTextNode(node));
+      else dd.appendChild(node);
+      dl.appendChild(dd);
+    }
+    row("Address", office.address);
+    if (office.addressAlt){
+      var altWrap = el("span");
+      altWrap.appendChild(document.createTextNode(office.addressAlt));
+      altWrap.appendChild(el("span", "contact-note", office.addressNote));
+      row("Also listed as", altWrap);
+    }
+    var phoneWrap = el("span");
+    office.phones.forEach(function(p, i){
+      if (i) phoneWrap.appendChild(document.createElement("br"));
+      var a = el("a", "contact-tel", p);
+      a.href = "tel:" + p.replace(/[^\d+]/g, "");
+      phoneWrap.appendChild(a);
+    });
+    row("Phone", phoneWrap);
+    var hd = el("span");
+    var hdA = el("a", "contact-tel", office.helpdesk);
+    hdA.href = "tel:" + office.helpdesk.replace(/[^\d+]/g, "");
+    hd.appendChild(hdA);
+    hd.appendChild(el("span", "contact-note", office.helpdeskHours));
+    row("Helpdesk", hd);
+    var em = el("a", null, office.email);
+    em.href = "mailto:" + office.email;
+    row("Email", em);
+    card.appendChild(dl);
+    view.appendChild(card);
+
+    // Department-wise tables
+    data.groups.forEach(function(g){
+      var section = el("div", "contact-group");
+      section.appendChild(el("h2", null, g.group));
+
+      var table = el("table", "contacts-table");
+      var thead = el("thead");
+      var hr = el("tr");
+      ["Name", "Designation", "Phone", "Email"].forEach(function(h){
+        hr.appendChild(el("th", null, h));
+      });
+      thead.appendChild(hr);
+      table.appendChild(thead);
+
+      var tbody = el("tbody");
+      g.people.forEach(function(p){
+        var tr = el("tr");
+
+        var tdName = el("td");
+        tdName.dataset.label = "Name";
+        tdName.appendChild(el("span", "contact-name", p.name));
+        tr.appendChild(tdName);
+
+        var tdDes = contactCell(p.designation, "text");
+        tdDes.dataset.label = "Designation";
+        tr.appendChild(tdDes);
+
+        var tdTel = contactCell(p.phone, "tel");
+        tdTel.dataset.label = "Phone";
+        tr.appendChild(tdTel);
+
+        var emails = p.email || "";
+        if (p.emailAlt) emails = emails ? emails + ", " + p.emailAlt : p.emailAlt;
+        var tdMail = contactCell(emails, "email", p.emailNote);
+        tdMail.dataset.label = "Email";
+        tr.appendChild(tdMail);
+
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      section.appendChild(table);
+      view.appendChild(section);
+    });
+  }).catch(function(err){
+    view.textContent = "";
+    var block = el("div", "state-block");
+    block.appendChild(el("h2", null, "Couldn't load contacts"));
+    block.appendChild(el("p", null, String(err && err.message ? err.message : err)));
+    view.appendChild(block);
+  });
+}
+
 /* ---------------- Instructions view (F8) ---------------- */
 
 function instrSection(heading, bodyBuilder){
@@ -1418,16 +1681,10 @@ function pWithCode(parent, parts){
 }
 
 function openInstructions(){
-  document.getElementById("index-view").hidden = true;
+  showView("instructions");
   var view = document.getElementById("instructions-view");
-  view.hidden = false;
   view.textContent = "";
   view.appendChild(buildInstructions());
-  window.scrollTo(0, 0);
-}
-function closeInstructions(){
-  document.getElementById("instructions-view").hidden = true;
-  document.getElementById("index-view").hidden = false;
 }
 
 function buildInstructions(){
@@ -1460,7 +1717,12 @@ function buildInstructions(){
     pWithCode(s, ["On desktop, hover a card for a moment to open its detail panel. On mobile, tap the chevron. On keyboard, focus a card and press ", instrCode("i"), " or ", instrCode("?"), "; ", instrCode("Escape"), " closes it. The panel explains what the resource actually contains, when to reach for it, and what to watch out for — read this before you tap through."]);
   }));
 
-  frag.appendChild(instrSection("5. Reading the badges", function(s){
+  frag.appendChild(instrSection("5. Departments & contacts", function(s){
+    instrP(s, "The people icon in the header opens a department-wise directory of Invest UP — head office numbers, and for each cell the officer, designation, phone and email. Numbers and addresses are tappable.");
+    instrP(s, "It is a transcription of the official Invest UP Who's Who and Contact Us pages, and it shows exactly which page each part came from and when that page was last updated. Anything the source does not publish reads “Not available” rather than being guessed. Postings change without the official page being updated, so confirm by phone before anything that matters.");
+  }));
+
+  frag.appendChild(instrSection("6. Reading the badges", function(s){
     var ul = el("ul", "instr-badge-list");
     var items = [["lock","Login required"],["desktop","Desktop-only — unusable or unreliable on a phone"],["verify","Verify — due for a recheck"],["stale","Stale — significantly overdue; treat with caution"]];
     items.forEach(function(it){
@@ -1472,37 +1734,37 @@ function buildInstructions(){
     s.appendChild(ul);
   }));
 
-  frag.appendChild(instrSection("6. Using the Policy table", function(s){
+  frag.appendChild(instrSection("7. Using the Policy table", function(s){
     instrP(s, "Click any column header to sort. Amendments are nested under their parent policy. The document icon opens the file directly for most rows; a distinct icon marks rows that land on a landing page instead, meaning one extra click is coming.");
   }));
 
-  frag.appendChild(instrSection("7. Pinning", function(s){
+  frag.appendChild(instrSection("8. Pinning", function(s){
     instrP(s, "Tap the pin icon on any card to add it to the Pinned strip. Pins are stored only on this device, in this browser — they are not synced anywhere, and are lost if browser data is cleared.");
   }));
 
-  frag.appendChild(instrSection("8. When a link is broken", function(s){
+  frag.appendChild(instrSection("9. When a link is broken", function(s){
     pWithCode(s, ["Check the badge first. If it’s flagged, try the parent domain, or that portal’s own search. If you find a working replacement, the fix is a one-line edit to ", instrCode("links.json"), " and a commit."]);
   }));
 
-  frag.appendChild(instrSection("9. Monthly maintenance", function(s){
+  frag.appendChild(instrSection("10. Monthly maintenance", function(s){
     pWithCode(s, ["Run ", instrCode("node tools/check-links.mjs"), " locally. Open every amber/red link and confirm the content is still current, not just that the URL resolves — no script can verify that. Update ", instrCode("lastVerified"), ", mark superseded entries ", instrCode("deprecated"), ", bump ", instrCode("lastReviewed"), ", and commit."]);
   }));
 
-  frag.appendChild(instrSection("10. Adding a link", function(s){
+  frag.appendChild(instrSection("11. Adding a link", function(s){
     pWithCode(s, ["Add an entry to the ", instrCode("links"), " array in ", instrCode("links.json"), " with at minimum: ", instrCode("id"), ", ", instrCode("title"), ", ", instrCode("url"), ", ", instrCode("category"), ", ", instrCode("tags"), ", ", instrCode("note"), ", ", instrCode("detail.owner"), ", ", instrCode("detail.whatItGives"), ", ", instrCode("authRequired"), ", ", instrCode("mobileFriendly"), ", ", instrCode("lastVerified"), ". Populate ", instrCode("detail.dataFields"), " by actually opening the resource once — that field is what stops exploratory clicking, and it is worth the extra two minutes. Never host a copy of a document; link to the source only, and never let anything internal into this public repository."]);
   }));
 
-  frag.appendChild(instrSection("11. Offline behaviour", function(s){
+  frag.appendChild(instrSection("12. Offline behaviour", function(s){
     instrP(s, "The index itself works offline once you’ve opened it while connected. The destinations it links to do not — every one of them needs a live connection.");
   }));
 
-  frag.appendChild(instrSection("12. Troubleshooting", function(s){
+  frag.appendChild(instrSection("13. Troubleshooting", function(s){
     pWithCode(s, ["Stale-looking icon after an update: force-quit and reopen the app; if that doesn’t clear it, remove and re-add it to your home screen."]);
     pWithCode(s, ["Empty search results: check whether “flagged only” is switched on."]);
     pWithCode(s, ["Blank page: most likely a syntax error in ", instrCode("links.json"), " — the app should show an error state with the fetch status instead; if you see a truly blank page, that’s a bug worth reporting."]);
   }));
 
-  frag.appendChild(instrSection("13. Passwords", function(s){
+  frag.appendChild(instrSection("14. Passwords", function(s){
     pWithCode(s, ["This tool stores no credentials, by design — anything a page can store, any script on that page can read, and ", instrCode("localStorage"), " is plain text. Use your browser’s or OS’s password manager for the portals themselves; it is already encrypted at the OS level and already handles these logins."]);
   }));
 

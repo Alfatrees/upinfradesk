@@ -1,0 +1,79 @@
+{
+  "categoryId": "investup",
+  "links": [
+    {
+      "id": "invest-up-home",
+      "title": "Invest UP — Official Site",
+      "url": "https://invest.up.gov.in/",
+      "category": "investup",
+      "tags": [
+        "invest up",
+        "home",
+        "news",
+        "sectors"
+      ],
+      "note": "Main Invest UP site — sector pages, news, and policy index.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "Sector overviews, news and events, and links into the broader policy index.",
+        "typicalUse": "Starting point for external-facing sector information to share with an investor.",
+        "relatedIds": [
+          "invest-up-policy-index",
+          "udyami-mitra"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "invest-up-policy-index",
+      "title": "Invest UP — Policies & Government Orders Index",
+      "url": "https://invest.up.gov.in/policies/",
+      "category": "investup",
+      "tags": [
+        "policy index",
+        "government orders",
+        "go",
+        "all policies"
+      ],
+      "note": "The master list of every current UP industrial policy and GO — start here if a specific policy isn't yet in this index.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "A live, continuously-updated index of all state industrial policies and government orders — the fallback source when a specific policy entry here is missing or outdated.",
+        "typicalUse": "Checking whether a newer policy or amendment exists that this index hasn't caught up to yet.",
+        "quirks": [
+          "This is a live index page, not a single dated document — that's why it lives here in Invest UP rather than in the sortable Policies table, which expects per-document dates"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 30
+    },
+    {
+      "id": "udyami-mitra",
+      "title": "Invest UP — Udyami Mitra",
+      "url": "https://invest.up.gov.in/udyami-mitra/",
+      "category": "investup",
+      "tags": [
+        "udyami mitra",
+        "investment facilitation officer",
+        "district facilitator"
+      ],
+      "note": "District-level investor facilitation officers — who to contact on the ground.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "The Udyami Mitra scheme roster — professionally qualified facilitators assigned per district/region to bridge investors and government departments.",
+        "typicalUse": "Finding the named facilitation contact for a specific district when an investor needs boots-on-the-ground help.",
+        "quirks": [
+          "Scheme launched 2023 as 'Mukhya Mantri Udyami Mitra' — roster/contacts may turn over; treat named contacts as more perishable than the rest of this index"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    }
+  ]
+}

@@ -25,13 +25,22 @@ const outArg = args.find((a) => !a.startsWith("--"));
 const outPath = outArg ? resolve(outArg) : join(ROOT, "upinfradesk-review.html");
 
 const html = await readFile(join(ROOT, "index.html"), "utf8");
-const linksRaw = await readFile(join(ROOT, "links.json"), "utf8");
 
-// Fail loudly rather than shipping a broken review build.
-JSON.parse(linksRaw);
+// links.json is only an index now, so flatten it and every category file into
+// the single merged object the app expects when data is embedded.
+const index = JSON.parse(await readFile(join(ROOT, "links.json"), "utf8"));
+let merged = [];
+for (const cat of index.categories) {
+  const part = JSON.parse(await readFile(join(ROOT, cat.file), "utf8"));
+  merged = merged.concat(part.links || []);
+}
+index.links = merged;
+
+const contactsRaw = await readFile(join(ROOT, index.contacts.file), "utf8");
+JSON.parse(contactsRaw); // fail loudly rather than ship a broken review build
 
 // `</script>` inside JSON string content would close the tag early.
-const safeJson = linksRaw.replace(/<\//g, "<\\/");
+const esc = (s) => s.replace(/<\//g, "<\\/");
 
 const marker = "</head>";
 if (!html.includes(marker)) {
@@ -40,7 +49,8 @@ if (!html.includes(marker)) {
 
 const injected = html.replace(
   marker,
-  `<script type="application/json" id="embedded-links-data">\n${safeJson}\n</script>\n${marker}`
+  `<script type="application/json" id="embedded-links-data">\n${esc(JSON.stringify(index))}\n</script>\n` +
+    `<script type="application/json" id="embedded-contacts-data">\n${esc(contactsRaw)}\n</script>\n${marker}`
 );
 
 // The service worker and manifest have no meaning in a single-file copy, and a

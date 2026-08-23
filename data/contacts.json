@@ -1,0 +1,207 @@
+{
+  "title": "Invest UP — Departments & Contacts",
+  "source": {
+    "whosWho": {
+      "label": "Invest UP — Who's Who",
+      "url": "https://invest.up.gov.in/whos-who/",
+      "sourceUpdated": "2026-04-13"
+    },
+    "contactUs": {
+      "label": "Invest UP — Contact Us",
+      "url": "https://invest.up.gov.in/contact-us/",
+      "sourceUpdated": "2026-06-03"
+    }
+  },
+  "transcribedOn": "2026-08-24",
+  "note": "Reproduced from the official Invest UP directory on the dates shown. Names and postings change without the page being updated — treat anything important as needing confirmation by phone before you rely on it.",
+  "office": {
+    "name": "Invest UP (head office)",
+    "address": "4th Floor, Block A, PICUP Bhawan, Lucknow, Uttar Pradesh 226010",
+    "addressNote": "The Invest UP site gives 4th Floor in the body of its contact page and 6th Floor in the footer of the same page. Both are reproduced here unresolved.",
+    "addressAlt": "6th Floor, Block A, PICUP Bhawan, Lucknow, Uttar Pradesh 226010",
+    "phones": ["+91-522-2720236", "+91-522-2720238", "+91-522-3129570"],
+    "helpdesk": "+91-522-6923000",
+    "helpdeskHours": "9:30 AM to 6:00 PM, Monday to Saturday (working days)",
+    "email": "info@investup.org.in"
+  },
+  "groups": [
+    {
+      "group": "Leadership",
+      "people": [
+        {
+          "name": "Shri Deepak Kumar (IAS)",
+          "designation": "Infrastructure & Industrial Development Commissioner",
+          "phone": "+91-522-2289002, +91-522-2226126",
+          "email": "iidcup.84@gmail.com",
+          "emailNote": "Published as a personal address on the official directory, not an @up.gov.in one."
+        },
+        {
+          "name": "Shri Alok Kumar (IAS)",
+          "designation": "Additional Chief Secretary, Infrastructure & Industrial Development Department",
+          "phone": "+91-522-2226117, +91-522-2226118",
+          "email": "ps.iid@up.gov.in"
+        },
+        {
+          "name": "Shri Vijay Kiran Anand (IAS)",
+          "designation": "Secretary, Infrastructure & Industrial Development Department cum CEO, Invest UP",
+          "phone": null,
+          "email": "ceo@investup.org.in"
+        },
+        {
+          "name": "Smt. Prerna Sharma (IAS)",
+          "designation": "Additional Chief Executive Officer, Invest UP",
+          "phone": null,
+          "email": "prerna.sharma@investup.org.in"
+        },
+        {
+          "name": "Shri Shashank Chaudhary (IAS)",
+          "designation": "Additional Chief Executive Officer, Invest UP",
+          "phone": null,
+          "email": "shashank.chaudhary@investup.org.in"
+        },
+        {
+          "name": "Shri Bishwajeet Rai",
+          "designation": "Joint Chief Executive Officer / Finance Controller, Invest UP",
+          "phone": null,
+          "email": "fc@investup.org.in"
+        }
+      ]
+    },
+    {
+      "group": "Policy Cell",
+      "people": [
+        {
+          "name": "Shri Nikhil Dixit",
+          "designation": "Assistant General Manager",
+          "phone": "+91-8112366555",
+          "email": "agmpolicy@investup.org.in"
+        },
+        {
+          "name": "Shri Shiv Kumar Shukla",
+          "designation": "Coordinator",
+          "phone": "+91-9793403333",
+          "email": "skshukla1959up@gmail.com",
+          "emailNote": "Published as a personal address on the official directory."
+        },
+        {
+          "name": "Piyush Kumar Singh",
+          "designation": "Advisor",
+          "phone": "+91-8527470242",
+          "email": "advisor@investup.org.in"
+        }
+      ]
+    },
+    {
+      "group": "Udyami Mitra Cell",
+      "people": [
+        {
+          "name": "Shri Himanshu Bhatia",
+          "designation": "General Manager",
+          "phone": "+91-8960440837",
+          "email": "gmudyamimitra@investup.org.in"
+        },
+        {
+          "name": "Shri Ritesh Saxena",
+          "designation": "Assistant General Manager",
+          "phone": "+91-7905224361",
+          "email": "agmudyamimitra@investup.org.in"
+        }
+      ]
+    },
+    {
+      "group": "Grievance Redressal / External Events Cell",
+      "people": [
+        {
+          "name": "Shri Himanshu Bhatia",
+          "designation": "General Manager",
+          "phone": "+91-8960440837",
+          "email": "gmudyamimitra@investup.org.in",
+          "emailNote": "Same officer and contact as the Udyami Mitra Cell — one person covers both."
+        }
+      ]
+    },
+    {
+      "group": "IT / EoDB / Nivesh Mitra Cell",
+      "people": [
+        {
+          "name": "Shri Pankaj Arora",
+          "designation": "General Manager",
+          "phone": "+91-9839222090",
+          "email": "pankajarora@investup.org.in",
+          "emailAlt": "ub.pankajarora@gov.in"
+        },
+        {
+          "name": "Mohd. Wali Abbas",
+          "designation": "Assistant General Manager (also listed as Web Information Manager)",
+          "phone": "+91-9415157990",
+          "email": "waliabbas@investup.org.in",
+          "emailAlt": "ub.waliabbas@gov.in"
+        }
+      ]
+    },
+    {
+      "group": "Admin / HR Cell",
+      "people": [
+        {
+          "name": "Shri Hargovind Singh",
+          "designation": "General Manager",
+          "phone": "+91-9918151969",
+          "email": "hargovindsingh1963@gmail.com",
+          "emailNote": "Published as a personal address on the official directory."
+        },
+        {
+          "name": "Shri Susheel Chandra Tripathi",
+          "designation": "Protocol Officer",
+          "phone": "+91-9532804552",
+          "email": "stipathi322@gmail.com",
+          "emailNote": "Published as a personal address on the official directory."
+        }
+      ]
+    },
+    {
+      "group": "Investment Promotion Cell",
+      "people": [
+        {
+          "name": "Shri Anuruddha Kshatriya",
+          "designation": "General Manager",
+          "phone": "+91-9118712084",
+          "email": "gminvestmentpromotion@investup.org.in"
+        },
+        {
+          "name": "Shri Sameer Mehdi",
+          "designation": "Assistant General Manager",
+          "phone": "+91-9625556253",
+          "email": "agminvestmentpromotion@investup.org.in"
+        },
+        {
+          "name": "Shri Ashutosh Bajpai",
+          "designation": "Assistant General Manager — Media",
+          "phone": "+91-9335393341",
+          "email": "ashutoshbajpai@investup.org.in"
+        }
+      ]
+    },
+    {
+      "group": "Legal Cell",
+      "people": [
+        {
+          "name": "Shri Shanta Nand",
+          "designation": "General Manager",
+          "phone": "+91-9415218433",
+          "email": "gmlegal@investup.org.in"
+        }
+      ]
+    },
+    {
+      "group": "Coordination Cell",
+      "people": [
+        {
+          "name": "Shri Anand Kumar Pandey",
+          "designation": "Assistant General Manager — Coordination",
+          "phone": "+91-9457575769",
+          "email": "agmcoordination@investup.org.in"
+        }
+      ]
+    }
+  ]
+}

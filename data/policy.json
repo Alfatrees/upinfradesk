@@ -1,0 +1,372 @@
+{
+  "categoryId": "policy",
+  "links": [
+    {
+      "id": "up-iiep-2022",
+      "title": "UP Industrial Investment & Employment Promotion Policy 2022",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2023/02/Uttar_Pradesh_Industrial_Investment_Employment_Promotion_Policy_2022-en.pdf",
+      "category": "policy",
+      "tags": [
+        "policy",
+        "incentive",
+        "subsidy",
+        "IIEP",
+        "2022",
+        "capital subsidy",
+        "SGST reimbursement"
+      ],
+      "note": "Flagship state industrial incentive policy — capital subsidy, SGST reimbursement, or PLI top-up.",
+      "docType": "Policy",
+      "issuingAuthority": "IIDD / Invest UP (nodal agency)",
+      "publishedDate": "2022-11-04",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "IIDD, Govt. of UP — Invest UP is the nodal implementation agency",
+        "whatItGives": "Full incentive structure: a one-time choice between capital subsidy, net SGST reimbursement, or a PLI top-up, plus stamp duty exemption and sector-specific provisions, across Large/Mega/Super Mega/Ultra Mega investment slabs.",
+        "typicalUse": "Quoting exact incentive slabs and eligibility to an investor by sector and investment size.",
+        "quirks": [
+          "Cabinet approval reported 3 Nov 2022; the published document itself is dated 4 Nov 2022 — cite the document date",
+          "invest.up.gov.in has intermittently presented an invalid/self-signed TLS certificate in automated checks — verify manually in-browser if a script flags it"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "up-mmlp-2024",
+      "title": "UP Multi-Modal Logistics Park Policy 2024",
+      "url": "https://invest.up.gov.in/uttar-pradesh-multi-modal-logistics-park-policy-2024/",
+      "category": "policy",
+      "tags": [
+        "policy",
+        "logistics",
+        "mmlp",
+        "warehousing",
+        "2024"
+      ],
+      "note": "Incentive framework for large private multi-modal logistics park investments.",
+      "docType": "Policy",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": "2024-12-18",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "HTML",
+      "directDocument": false,
+      "detail": {
+        "owner": "IIDD, Govt. of UP",
+        "whatItGives": "Incentives for MMLP projects with minimum ₹1,000 crore investment: 30% upfront land-cost subsidy on IDA-allocated land, 100% stamp duty exemption on leased land, and related provisions.",
+        "typicalUse": "Pitching logistics-park incentives to a large investor (₹1,000cr+ threshold).",
+        "quirks": [
+          "Direct policy PDF not confirmed during this research pass — this links to the official Invest UP landing page, which links onward to the document; verify and update to a direct PDF URL when confirmed",
+          "Cabinet approval and GO both dated December 2024 — landing page carries the fuller detail"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-unified-building-regs-2026",
+      "title": "UP Unified Building Regulations for Industrial Development Authorities, 2026 (Draft)",
+      "url": "https://niveshmitra.up.nic.in/Documents/DraftPolicies/Unified_Building_Regulations_for_Industrial_Development_Authorities.pdf",
+      "category": "policy",
+      "tags": [
+        "building regulations",
+        "unified",
+        "draft",
+        "2026",
+        "far",
+        "consultation"
+      ],
+      "note": "Draft regulation to standardise construction norms across all UP IDAs — still in public consultation.",
+      "docType": "Regulation",
+      "issuingAuthority": "Govt. of UP (proposed — covers Noida, GNIDA, YEIDA, UPSIDA, UPEIDA, GIDA, BIDA)",
+      "publishedDate": null,
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP (draft stage)",
+        "whatItGives": "Proposed unified FAR/construction norms intended to replace authority-by-authority variation across Noida, Greater Noida, YEIDA, UPSIDA, UPEIDA, GIDA (Gorakhpur) and BIDA (Bundelkhand).",
+        "typicalUse": "Understanding where building norms are headed — NOT yet the operative rule; the 2018 UPSIDA regulations (and its 2024 update) still govern today.",
+        "quirks": [
+          "STILL A DRAFT as of this research pass — released for public consultation; not yet notified/adopted. Do not cite as final without checking current status first",
+          "Confirms BIDA (Bundelkhand) and GIDA (Gorakhpur) exist as separate IDAs beyond UPSIDA/YEIDA/GNIDA/Noida/UPEIDA — worth adding their own portals in a future update"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 30
+    },
+    {
+      "id": "upsida-land-building-regs-2018",
+      "title": "UPSIDA Land Development & Building Regulations, 2018",
+      "url": "https://eservices.onlineupsida.com/doc/UPSIDALandBuildingRegulations2018updated.pdf",
+      "category": "policy",
+      "tags": [
+        "regulation",
+        "building",
+        "land development",
+        "upsida",
+        "2018",
+        "far"
+      ],
+      "note": "Base construction/land-development rulebook for UPSIDA industrial areas.",
+      "docType": "Regulation",
+      "issuingAuthority": "UPSIDA",
+      "publishedDate": null,
+      "lastAmendedDate": "2024-10-10",
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "FAR, setbacks, coverage, and building-approval norms for construction on UPSIDA-allotted plots.",
+        "typicalUse": "Confirming buildable FAR/coverage on a specific plot before an investor commits.",
+        "quirks": [
+          "publishedDate left blank deliberately — only the regulation year (2018) is confirmed, not a specific gazette/notification date; do not infer one, source it from the document if it's needed",
+          "A substantially revised 2024 edition exists (see related amendment entry) — the 2018 base document may be significantly superseded, not just lightly amended; confirm current operative version with UPSIDA before relying on specific clause numbers",
+          "Served from eservices.onlineupsida.com, which is reliable. The same document also sits on upsida.obpas.up.gov.in, but that host times out intermittently — if someone sends you an OBPAS link for this and it hangs, use this copy instead",
+          "A copy also circulates on stagingupsida.com — a staging domain, not production; do not cite it"
+        ],
+        "relatedIds": [
+          "upsida-land-building-regs-2024"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "upsida-land-building-regs-2024",
+      "title": "UPSIDA Land Development & Building Regulations — 2024 Update",
+      "url": "https://upsida.in/assets/pdf/bldg%20regulation%202024%20oct%2010.pdf",
+      "category": "policy",
+      "tags": [
+        "regulation",
+        "building",
+        "land development",
+        "upsida",
+        "2024",
+        "amendment"
+      ],
+      "note": "2024 revision of the UPSIDA building/land-development regulations.",
+      "docType": "Amendment",
+      "issuingAuthority": "UPSIDA",
+      "publishedDate": "2024-10-10",
+      "lastAmendedDate": null,
+      "amendmentOf": "upsida-land-building-regs-2018",
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "Updated construction/FAR norms superseding parts of the 2018 regulation — exact scope of changes not itemised during this research pass.",
+        "typicalUse": "Always check this before the 2018 base document for any plot-level construction question.",
+        "quirks": [
+          "Hosted on upsida.in — a third UPSIDA-related domain alongside onlineupsida.com and upsida.obpas.up.gov.in; UPSIDA's domain sprawl is a recurring issue, confirm which is live if a link breaks",
+          "Title suggests a full revision rather than a narrow amendment — read it as the current governing document, with 2018 as historical baseline"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-private-business-park-2025",
+      "title": "UP Private Business Park Development Scheme 2025",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/04/Govt_Business-Park-Policy_Feb2026-Eng_20426.pdf",
+      "category": "policy",
+      "tags": [
+        "business park",
+        "it",
+        "knowledge services",
+        "reit",
+        "2025",
+        "scheme"
+      ],
+      "note": "Scheme enabling private developers/REITs to build commercial 'business park' campuses.",
+      "docType": "Guideline",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": null,
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP",
+        "whatItGives": "Framework letting private developers, REITs, and global enterprises co-develop commercial/IT business-park campuses in UP.",
+        "typicalUse": "Pitching to a developer or REIT interested in building (not just occupying) commercial space in UP.",
+        "quirks": [
+          "Naming is inconsistent across sources: the scheme is commonly referred to as '2025', but the file path itself says 'Feb2026' and was uploaded to the server in April 2026 — publishedDate left blank until the actual GO date is confirmed from the document text itself, not a filename"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-plug-and-play-sheds",
+      "title": "Plug-and-Play Industrial Shed Policy (DBFOT Model)",
+      "url": "https://invest.up.gov.in/plug-and-play-industrial-shed-policy/",
+      "category": "policy",
+      "tags": [
+        "plug and play",
+        "sheds",
+        "msme",
+        "dbfot",
+        "ready-built"
+      ],
+      "note": "Ready-built rentable industrial sheds for MSMEs, via a DBFOT PPP model.",
+      "docType": "Guideline",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": null,
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "HTML",
+      "directDocument": false,
+      "detail": {
+        "owner": "Govt. of UP",
+        "whatItGives": "Lets MSMEs rent-and-operate ready-built sheds with utilities already in place, instead of buying land and building — land stays with the IDA throughout the concession.",
+        "typicalUse": "Steering a smaller/MSME investor away from a full land purchase toward a faster, lower-capex shed rental.",
+        "quirks": [
+          "Direct policy PDF not confirmed during this research pass — landing page only; source the actual GO/policy document on next review"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-data-centre-policy-2026",
+      "title": "UP Data Centre Policy 2026",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/07/UPDCP-2026-Notification-English.pdf",
+      "category": "policy",
+      "tags": [
+        "data centre",
+        "data center",
+        "policy",
+        "2026",
+        "AI",
+        "green",
+        "GPU",
+        "incentive"
+      ],
+      "note": "Current data centre policy — replaces the 2021 policy, targets AI-ready and green capacity.",
+      "docType": "Policy",
+      "issuingAuthority": "IT & Electronics Dept. / Invest UP",
+      "publishedDate": "2026-07-09",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP — IT & Electronics Department, with Invest UP as facilitation agency",
+        "whatItGives": "The incentive framework for data centre investment: capital and interest subsidies, land, stamp duty and electricity concessions, plus specific incentives for Tier-3/Tier-4 facilities, an AI Compute Booster, and green/sustainable operations.",
+        "typicalUse": "Quoting data centre incentives and eligibility to a hyperscale, colocation, or AI-infrastructure investor.",
+        "quirks": [
+          "The filenames on the Invest UP page are inverted relative to their labels — the 3.6 MB file at the '...UPDCP-2026-Notification-English.pdf' path is the FULL POLICY (linked here), while the 737 KB file at the '...2026/08/policy_En.pdf' path is actually the approval/notification. Do not assume the path name tells you which document you are opening.",
+          "Cabinet approval was reported 6 Jul 2026; the policy document itself carries 9 Jul 2026 — the document date is used here",
+          "Supersedes the UP Data Centre Policy 2021, which expired 27 Jan 2026 — make sure an investor is not still quoting 2021 terms"
+        ],
+        "relatedIds": [
+          "up-iiep-2022"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-gcc-policy-2024",
+      "title": "UP Global Capability Centres (GCC) Policy 2024",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/04/UP-GCC-Policy_200426.pdf",
+      "category": "policy",
+      "tags": [
+        "gcc",
+        "global capability centre",
+        "policy",
+        "2024",
+        "IT",
+        "back office",
+        "tier 2"
+      ],
+      "note": "Incentive framework for global in-house/capability centres, aimed at tier-2 and tier-3 cities.",
+      "docType": "Policy",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": "2025-05-07",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP — Invest UP as nodal agency",
+        "whatItGives": "Fiscal incentives and regulatory support for MNCs and Indian companies setting up Global Capability Centres (IT, R&D, finance, HR and back-office operations), with an explicit push toward tier-2 and tier-3 cities rather than only NCR.",
+        "typicalUse": "Pitching a multinational considering a captive/GIC operation in UP, especially outside the Noida belt.",
+        "quirks": [
+          "Named '2024' but only notified 7 May 2025 — and the PDF linked here was re-uploaded to a 2026/04 path (20 Apr 2026). An earlier 05 Jun 2025 copy also still exists at a 2025/06 path. Expect this URL to move again; the '2024' in the title is the policy name, not its notification date.",
+          "A separate draft (Draft-UP-GCC_280924.pdf) is still indexed by search engines — do not cite the draft as the operative policy",
+          "The operative processing document is the Implementation Rules 2025 (nested below), not this policy alone"
+        ],
+        "relatedIds": [
+          "up-gcc-rules-2025",
+          "up-iiep-2022"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "up-gcc-rules-2025",
+      "title": "GCC Policy — Implementation Rules 2025",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/03/GCC-SOP_140326.pdf",
+      "category": "policy",
+      "tags": [
+        "gcc",
+        "rules",
+        "sop",
+        "implementation",
+        "2025",
+        "procedure"
+      ],
+      "note": "The operative procedure/SOP for actually processing GCC policy claims.",
+      "docType": "Rules",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": "2026-03-14",
+      "lastAmendedDate": null,
+      "amendmentOf": "up-gcc-policy-2024",
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP — Invest UP",
+        "whatItGives": "The implementation rules and standard operating procedure under the GCC Policy 2024 — eligibility tests, application route, documentation, and sanction process. This is what a claim is actually assessed against.",
+        "typicalUse": "Working an actual GCC incentive application, as opposed to pitching the headline policy.",
+        "quirks": [
+          "Nested here under the GCC Policy for convenience — it is implementation rules, not a formal amendment to the policy text",
+          "A Hindi version dated 07 Jan 2026 also exists at a separate 2026/01 path; this entry links the English rules dated 14 Mar 2026"
+        ],
+        "relatedIds": [
+          "up-gcc-policy-2024"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    }
+  ]
+}

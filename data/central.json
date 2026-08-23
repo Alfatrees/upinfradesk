@@ -1,0 +1,245 @@
+{
+  "categoryId": "central",
+  "links": [
+    {
+      "id": "pm-gati-shakti",
+      "title": "PM Gati Shakti — National Master Plan",
+      "url": "https://pmgatishakti.gov.in/pmgatishakti/login",
+      "category": "central",
+      "tags": [
+        "gati shakti",
+        "infrastructure",
+        "master plan",
+        "national",
+        "gis"
+      ],
+      "note": "National multi-modal infrastructure GIS platform spanning all central ministries.",
+      "detail": {
+        "owner": "DPIIT, Ministry of Commerce & Industry, Govt. of India",
+        "whatItGives": "Layered GIS view of existing and planned infrastructure (road, rail, ports, power, etc.) across India, used for infrastructure gap analysis around a candidate site.",
+        "typicalUse": "Checking planned connectivity infrastructure near a site, beyond what's already built.",
+        "quirks": [
+          "The bare pmgatishakti.gov.in root 404s in automated checks — this /pmgatishakti/login path is the real entry point",
+          "Full layer access requires a login/registration tied to a ministry or state department"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "dpiit",
+      "title": "DPIIT — Department for Promotion of Industry and Internal Trade",
+      "url": "https://dpiit.gov.in/",
+      "category": "central",
+      "tags": [
+        "dpiit",
+        "central",
+        "industrial policy",
+        "startup india",
+        "ease of doing business"
+      ],
+      "note": "Central department behind national industrial policy, EoDB rankings, and land bank tools.",
+      "detail": {
+        "owner": "Ministry of Commerce & Industry, Govt. of India",
+        "whatItGives": "National industrial policy documents, state EoDB ranking methodology, and links to DPIIT-run tools like India Industrial Land Bank.",
+        "typicalUse": "Referencing national policy or EoDB ranking context in a state pitch.",
+        "relatedIds": [
+          "india-industrial-land-bank",
+          "pm-gati-shakti"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "morth",
+      "title": "MoRTH — Ministry of Road Transport & Highways",
+      "url": "https://morth.gov.in/",
+      "category": "central",
+      "tags": [
+        "morth",
+        "highways",
+        "road",
+        "central ministry"
+      ],
+      "note": "National road/highway policy and project information.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "National highway policy, standards, and project-level information relevant to connectivity around industrial sites.",
+        "typicalUse": "Checking national highway policy or a specific NH project status."
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "nhai",
+      "title": "NHAI — National Highways Authority of India",
+      "url": "https://nhai.gov.in/",
+      "category": "central",
+      "tags": [
+        "nhai",
+        "highways",
+        "expressway",
+        "project status"
+      ],
+      "note": "Highway project execution — status of specific NH/expressway stretches.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "Project-level status for national highways and expressways, including stretches feeding UP's industrial corridors.",
+        "typicalUse": "Verifying the completion status of a highway segment relevant to a site's connectivity."
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "nicdc",
+      "title": "NICDC — National Industrial Corridor Development Corporation",
+      "url": "https://www.nicdc.in/",
+      "category": "central",
+      "tags": [
+        "nicdc",
+        "industrial corridor",
+        "smart city",
+        "central"
+      ],
+      "note": "Implements India's industrial corridor programme, including nodes touching UP.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "Master-planned industrial corridor/smart-city node information, including any UP-touching corridor nodes.",
+        "typicalUse": "Referencing national industrial-corridor context alongside UPEIDA's expressway corridors.",
+        "relatedIds": [
+          "upeida"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "dfccil",
+      "title": "DFCCIL — Dedicated Freight Corridor Corporation of India",
+      "url": "https://dfccil.com/",
+      "category": "central",
+      "tags": [
+        "dfccil",
+        "freight corridor",
+        "rail",
+        "logistics"
+      ],
+      "note": "Rail freight corridor project status — relevant to logistics/MMLP site selection.",
+      "detail": {
+        "owner": "Ministry of Railways, Govt. of India",
+        "whatItGives": "Status of the Eastern and Western Dedicated Freight Corridors, including UP-touching sections relevant to logistics park siting.",
+        "typicalUse": "Checking freight-corridor connectivity for a logistics or MMLP-policy pitch.",
+        "relatedIds": [
+          "up-mmlp-2024"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "mohua",
+      "title": "MoHUA — Ministry of Housing & Urban Affairs",
+      "url": "https://mohua.gov.in/",
+      "category": "central",
+      "tags": [
+        "mohua",
+        "urban affairs",
+        "housing",
+        "central ministry"
+      ],
+      "note": "National urban development policy and scheme information.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "National urban planning, housing, and municipal-infrastructure policy relevant to urban industrial siting.",
+        "typicalUse": "Referencing national urban-policy schemes alongside a state industrial pitch."
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "cgwa",
+      "title": "CGWA — Central Ground Water Authority (NOC)",
+      "url": "https://cgwa.mowr.gov.in/",
+      "category": "central",
+      "tags": [
+        "cgwa",
+        "groundwater",
+        "noc",
+        "water",
+        "clearance"
+      ],
+      "note": "NOC authority for groundwater extraction — needed for many industrial units.",
+      "detail": {
+        "owner": "Ministry of Jal Shakti, Govt. of India",
+        "whatItGives": "The No Objection Certificate process for groundwater/tube-well extraction that industrial units routinely need alongside state clearances.",
+        "typicalUse": "Pointing an investor to the groundwater NOC process when their project needs a borewell/tube well.",
+        "quirks": [
+          "Domain confidence is medium — CGWA sits under the renamed Ministry of Jal Shakli/Dept. of Water Resources and may have migrated its portal; verify this URL still resolves to the current NOC system on next review"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "seiaa-up",
+      "title": "SEIAA UP — Environmental Clearance (via PARIVESH)",
+      "url": "https://parivesh.nic.in/",
+      "category": "central",
+      "tags": [
+        "seiaa",
+        "environment clearance",
+        "parivesh",
+        "eia"
+      ],
+      "note": "UP's State Environment Impact Assessment Authority has no standalone portal — apply via the national PARIVESH system.",
+      "detail": {
+        "owner": "SEIAA Uttar Pradesh (Secretariat: Directorate of Environment, Govt. of UP) — processed via national MoEFCC system",
+        "whatItGives": "Environmental clearance application, tracking, and committee-agenda documents for projects requiring EIA in UP.",
+        "typicalUse": "Any project needing environmental clearance — this is the actual filing system, not the secretariat's office contact.",
+        "quirks": [
+          "SEIAA UP itself has no dedicated public website — all case processing runs through the national PARIVESH portal; don't waste time searching for a UP-specific SEIAA site"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "uppcb",
+      "title": "UPPCB — UP Pollution Control Board",
+      "url": "https://uppcb.up.gov.in/",
+      "category": "central",
+      "tags": [
+        "uppcb",
+        "pollution",
+        "consent",
+        "environment",
+        "noc"
+      ],
+      "note": "State pollution-control consent (CTE/CTO) and monitoring.",
+      "detail": {
+        "owner": "Govt. of UP",
+        "whatItGives": "Consent to Establish (CTE) and Consent to Operate (CTO) application processes, plus pollution monitoring data.",
+        "typicalUse": "Pointing an investor to CTE/CTO application requirements.",
+        "quirks": [
+          "Multiple lookalike/legacy domains exist for UPPCB (uppcb.com, uppcbims.co.in, uppcb-org.com) — this .up.gov.in address is the government-confirmed one; verify before trusting an alternate domain",
+          "An automated check hit a redirect to an internal error page (frmHttpErrorPage.aspx), the same pattern seen on GNIDA — likely anti-automation behavior on NIC-hosted UP sites rather than actual downtime; confirm manually in a browser"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    }
+  ]
+}

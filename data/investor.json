@@ -1,0 +1,135 @@
+{
+  "categoryId": "investor",
+  "links": [
+    {
+      "id": "nivesh-mitra",
+      "title": "Nivesh Mitra 3.0 — Single Window Portal",
+      "url": "https://niveshmitra.up.gov.in/",
+      "category": "investor",
+      "tags": [
+        "single window",
+        "approvals",
+        "clearances",
+        "application",
+        "login"
+      ],
+      "note": "UP's single-window system for investor approvals and clearances.",
+      "detail": {
+        "owner": "Department of Infrastructure & Industrial Development (IIDD), Govt. of UP",
+        "whatItGives": "Application tracking and department-wise clearance status for registered investors/units.",
+        "typicalUse": "Checking or progressing a specific unit's clearance status.",
+        "quirks": [
+          "Requires registered login",
+          "Session times out quickly on shared connections"
+        ],
+        "relatedIds": [
+          "nivesh-mitra-know-approvals"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-07-10",
+      "pinned": true
+    },
+    {
+      "id": "nivesh-mitra-know-approvals",
+      "title": "Nivesh Mitra — Know Your Approvals",
+      "url": "https://niveshmitra.up.nic.in/Wizard.aspx",
+      "category": "investor",
+      "tags": [
+        "approvals",
+        "checklist",
+        "wizard",
+        "clearances",
+        "know your approvals"
+      ],
+      "note": "Wizard tool that lists exactly which approvals a given business/industry needs.",
+      "detail": {
+        "owner": "Department of Infrastructure & Industrial Development (IIDD), Govt. of UP",
+        "whatItGives": "A guided checklist of required departmental clearances based on sector, scale, and location inputs — answers 'what do I even need to apply for' before touching Nivesh Mitra proper.",
+        "typicalUse": "First question from a new investor: 'what approvals will I need?' — run this before opening a full application.",
+        "quirks": [
+          "Still hosted on the legacy niveshmitra.up.nic.in domain even though the main portal has moved to niveshmitra.up.gov.in — this may migrate; re-verify if it 404s"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "nivesh-sarathi",
+      "title": "Nivesh Sarathi — Investor CRM & Grievance Portal",
+      "url": "https://niveshsarathi.up.gov.in/",
+      "category": "investor",
+      "tags": [
+        "grievance",
+        "crm",
+        "investment intent",
+        "land facilitation",
+        "tracking"
+      ],
+      "note": "Invest UP's CRM for investment intents, land facilitation requests, and grievance redressal.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "One place for investors to log investment intent, request land facilitation, raise a query against any department, and track resolution — distinct from Nivesh Mitra, which is for formal statutory clearances.",
+        "typicalUse": "Escalating a stuck investor query, or logging a new investment intent/land requirement for facilitation.",
+        "quirks": [
+          "Launched Nov 2022 — newer and less well-known than Nivesh Mitra; don't confuse the two by name"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "upsida-obpas",
+      "title": "UPSIDA OBPAS — Online Building Plan Approval System",
+      "url": "https://upsida.obpas.up.gov.in/",
+      "category": "investor",
+      "tags": [
+        "building plan",
+        "approval",
+        "obpas",
+        "construction",
+        "architect"
+      ],
+      "note": "Online submission and approval of building plans within UPSIDA industrial areas.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "End-to-end online building-plan submission, scrutiny, and approval workflow for allottees, architects, and UPSIDA officers.",
+        "typicalUse": "Guiding an allottee through building-plan approval, or checking where a submitted plan stands.",
+        "quirks": [
+          "Separate logins/roles for allottee, architect, and officer — point the right party to the right role"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": false,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "upsida-eauction",
+      "title": "UPSIDA — E-Auction Notices",
+      "url": "https://onlineupsida.com/eauction.aspx",
+      "category": "investor",
+      "tags": [
+        "e-auction",
+        "plots",
+        "bidding",
+        "notice",
+        "upsida"
+      ],
+      "note": "Live and upcoming plot e-auction notices, organised by region.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "Region-wise (Agra, Aligarh, Ayodhya, Bareilly, Ghaziabad, and more) listing of plots currently or soon up for e-auction, with notice PDFs.",
+        "typicalUse": "Time-sensitive — checking whether a specific district has an active auction an investor could bid in.",
+        "quirks": []
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 30
+    }
+  ]
+}

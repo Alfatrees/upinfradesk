@@ -1,0 +1,165 @@
+{
+  "categoryId": "reference",
+  "links": [
+    {
+      "id": "upsida-present-rates",
+      "title": "UPSIDA — Present Rates",
+      "url": "https://onlineupsida.com/present-rates.aspx",
+      "category": "reference",
+      "tags": [
+        "rates",
+        "pricing",
+        "upsida",
+        "present rates",
+        "sqm"
+      ],
+      "note": "Current per-sqm allotment rates across UPSIDA industrial areas.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "The authoritative current rate table by industrial area — distinct from PropertyHub's per-plot indicative pricing.",
+        "typicalUse": "Quoting the official current rate for an industrial area, not just an indicative plot price.",
+        "quirks": [
+          "A staging-domain copy of this page (stagingupsida.com) surfaces in search results — always use the onlineupsida.com production URL, never the staging one"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "igrsup",
+      "title": "IGRSUP — Circle Rates (Stamp & Registration)",
+      "url": "https://igrsup.gov.in/",
+      "category": "reference",
+      "tags": [
+        "circle rate",
+        "stamp duty",
+        "registration",
+        "valuation",
+        "igrsup"
+      ],
+      "note": "Official circle-rate lookup for stamp duty/valuation across UP.",
+      "detail": {
+        "owner": "Stamp & Registration Department, Govt. of UP",
+        "whatItGives": "District/tehsil/locality-level circle rates used for stamp duty and property valuation — the field a plain-text search for 'circle rate' should surface.",
+        "typicalUse": "Estimating stamp duty or minimum registration value for a land transaction.",
+        "dataFields": [
+          "District",
+          "Tehsil",
+          "Locality/Mohalla",
+          "Land-use category",
+          "Circle rate per unit area"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "upsida-operating-manual",
+      "title": "UPSIDA Operating Manual",
+      "url": "https://onlineupsida.com/pdf/Operating-Manaul-2023.pdf",
+      "category": "reference",
+      "tags": [
+        "manual",
+        "operating manual",
+        "upsida",
+        "sop",
+        "procedure"
+      ],
+      "note": "UPSIDA's internal operating procedures, publicly posted.",
+      "docType": "Guideline",
+      "issuingAuthority": "UPSIDA",
+      "publishedDate": null,
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "The procedural rulebook UPSIDA staff themselves operate under — allotment process, transfer rules, penalty clauses.",
+        "typicalUse": "Settling a procedural dispute or question by citing UPSIDA's own manual rather than informal practice.",
+        "quirks": [
+          "publishedDate left blank deliberately — the filename says '2023' but that isn't a confirmed publication date, so it isn't asserted here; source it from the document itself if it's needed"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "up-revenue-code-2006",
+      "title": "Uttar Pradesh Revenue Code, 2006",
+      "url": "https://www.indiacode.nic.in/handle/123456789/17001",
+      "category": "reference",
+      "tags": [
+        "revenue code",
+        "land law",
+        "act",
+        "2006",
+        "india code"
+      ],
+      "note": "The consolidated state revenue/land law — 39 prior laws merged into one code.",
+      "docType": "Rules",
+      "issuingAuthority": "Govt. of UP (U.P. Act No. 8 of 2012)",
+      "publishedDate": "2012-12-12",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "HTML/PDF",
+      "directDocument": false,
+      "detail": {
+        "owner": "Govt. of UP — hosted on the central India Code repository",
+        "whatItGives": "The full statutory text governing land classification, revenue records, mutation, and related land-law questions across UP.",
+        "typicalUse": "Citing statutory basis for a land-classification or revenue-record question.",
+        "quirks": [
+          "Complicated date history — drafted as a 2006 bill, but only received presidential assent on 29 Nov 2012 as U.P. Act No. 8 of 2012, published in the UP Gazette on 12 Dec 2012 (the date used here). Different sections then commenced on different notified dates — e.g. several core sections commenced only from 18 Dec 2015. Do not cite '2006' as the enactment date; verify which sections are in force for the specific provision you're citing."
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 365
+    },
+    {
+      "id": "up-rera",
+      "title": "UP RERA — Real Estate Regulatory Authority",
+      "url": "https://www.up-rera.in/",
+      "category": "reference",
+      "tags": [
+        "rera",
+        "real estate",
+        "promoter",
+        "project registration",
+        "verification",
+        "developer"
+      ],
+      "note": "Registered-project and promoter lookup — due diligence on any developer counterparty.",
+      "detail": {
+        "owner": "Uttar Pradesh Real Estate Regulatory Authority (under the RERA Act, 2016)",
+        "whatItGives": "Searchable register of real estate projects and promoters/agents in UP, with registration status and complaint history — the public record for checking whether a developer and their project are actually registered and in good standing.",
+        "dataFields": [
+          "Project name",
+          "Promoter name",
+          "RERA registration number",
+          "Registration status",
+          "Project location/district",
+          "Agent registration"
+        ],
+        "typicalUse": "Due diligence on a private developer counterparty — relevant to business park, plug-and-play shed, and private-township proposals where a developer partner is involved.",
+        "quirks": [
+          "Registration lookups are served from a separate uprera.azurewebsites.net application — the domain change mid-journey is expected, not a phishing redirect",
+          "Covers real estate promoters, not industrial allottees — a unit taking a UPSIDA plot will not appear here"
+        ],
+        "relatedIds": [
+          "up-private-business-park-2025",
+          "up-plug-and-play-sheds"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    }
+  ]
+}

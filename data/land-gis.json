@@ -1,0 +1,339 @@
+{
+  "categoryId": "land-gis",
+  "links": [
+    {
+      "id": "upsida-propertyhub",
+      "title": "UPSIDA PropertyHub — Available Plots",
+      "url": "https://eservices.onlineupsida.com/PropertyHub/Index.aspx",
+      "category": "land-gis",
+      "tags": [
+        "plot",
+        "land bank",
+        "rates",
+        "allotment",
+        "upsida",
+        "available"
+      ],
+      "note": "Plot-level land bank with indicative rates. No login.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "Individual plot records across UPSIDA industrial areas — the only public source with plot-level pricing.",
+        "dataFields": [
+          "District",
+          "Industrial Area",
+          "Estimated price per sqm",
+          "Plot number",
+          "Available plot size (sqm)",
+          "Total estimated cost",
+          "GIS deep-link",
+          "Book-now (routes to Nivesh Mitra)"
+        ],
+        "filters": [
+          "Proposed sector",
+          "District",
+          "Price band",
+          "Plot size band"
+        ],
+        "typicalUse": "First stop when matching a project requirement to candidate parcels.",
+        "quirks": [
+          "Paginated ASP.NET grid — no bulk export",
+          "GIS link opens OneMapUP with the plot pre-selected via UNIQUEPLOTID",
+          "Rates are indicative, not the allotment price",
+          "Desktop only in practice — the grid is unusable on a phone"
+        ],
+        "relatedIds": [
+          "onemapup-upsida"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": false,
+      "lastVerified": "2026-08-23",
+      "pinned": true
+    },
+    {
+      "id": "onemapup-upsida",
+      "title": "OneMapUP — UPSIDA GIS Layer",
+      "url": "https://onemapup.nic.in/upsida/master.aspx",
+      "category": "land-gis",
+      "tags": [
+        "gis",
+        "map",
+        "land bank",
+        "spatial",
+        "upsida"
+      ],
+      "note": "State GIS viewer with the UPSIDA industrial land layer.",
+      "detail": {
+        "owner": "UPSIDA / NIC UP",
+        "whatItGives": "Map-based view of UPSIDA plots and industrial area boundaries, deep-linkable from PropertyHub via plot ID.",
+        "dataFields": [
+          "Plot boundary",
+          "Industrial area boundary",
+          "District layer",
+          "Land use layer"
+        ],
+        "typicalUse": "Visual confirmation of a plot's location and surroundings before a site visit.",
+        "quirks": [
+          "Heavy map layer — slow on mobile data",
+          "Layer toggles are not obvious on first use"
+        ],
+        "relatedIds": [
+          "upsida-propertyhub"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": false,
+      "lastVerified": "2026-05-01",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "india-industrial-land-bank",
+      "title": "India Industrial Land Bank (DPIIT)",
+      "url": "https://indiaindustriallandbank.gov.in/",
+      "category": "land-gis",
+      "tags": [
+        "land bank",
+        "national",
+        "dpiit",
+        "gis",
+        "clusters",
+        "iilb"
+      ],
+      "note": "National GIS repository of industrial parks and available land across all states.",
+      "detail": {
+        "owner": "DPIIT, Ministry of Commerce & Industry, Govt. of India (with Invest India, NCoG, BISAG-N)",
+        "whatItGives": "Cross-state view of ~4,500+ industrial parks, GIS mapping of clusters, and existing infrastructure — useful for benchmarking UP land against other states.",
+        "typicalUse": "Comparing UP's offer against other states for a multi-state site-selection process.",
+        "quirks": [
+          "Formerly branded as part of the 'Industrial Information System' — now consolidated as India Industrial Land Bank (IILB); the NCOG-hosted iis.ncog.gov.in system is closely related, possibly overlapping data",
+          "Requires registration/login for deeper drill-down on some views",
+          "An automated check got a 403 — consistent with bot-blocking on a government WAF, not necessarily a dead link; confirm manually in a browser"
+        ],
+        "relatedIds": [
+          "industrial-information-system-ncog"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "industrial-information-system-ncog",
+      "title": "Industrial Information System (NCOG)",
+      "url": "https://iis.ncog.gov.in/",
+      "category": "land-gis",
+      "tags": [
+        "gis",
+        "national",
+        "ncog",
+        "land bank",
+        "clusters"
+      ],
+      "note": "NCOG's GIS-based industrial land and infrastructure information system.",
+      "detail": {
+        "owner": "National Centre of Geo-Informatics (NCOG), MeitY",
+        "whatItGives": "GIS layers for industrial clusters, external/internal infrastructure, and links out to state-level GIS portals and land banks.",
+        "typicalUse": "Infrastructure-layer detail (roads, utilities) around a candidate cluster, beyond what the plot-level portals show.",
+        "quirks": [
+          "Closely related to India Industrial Land Bank — the two may be converging into one system; check both if one seems incomplete"
+        ],
+        "relatedIds": [
+          "india-industrial-land-bank"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "yeida",
+      "title": "YEIDA — Yamuna Expressway Industrial Development Authority",
+      "url": "https://www.yamunaexpresswayauthority.com/",
+      "category": "land-gis",
+      "tags": [
+        "yeida",
+        "yamuna expressway",
+        "authority",
+        "noida",
+        "land"
+      ],
+      "note": "Official YEIDA site — notices, schemes, and land allotment updates for the Yamuna Expressway belt.",
+      "detail": {
+        "owner": "YEIDA (est. 2001, UP Industrial Area Development Act 1976)",
+        "whatItGives": "Authority notices, residential/industrial scheme announcements, and administrative updates for districts along the Yamuna Expressway (Gautam Buddh Nagar, Bulandshahr, Aligarh, Hathras, Mathura, Agra).",
+        "typicalUse": "Checking current YEIDA scheme launches or notices before referring an investor there.",
+        "quirks": [
+          "Several unofficial broker/aggregator sites use similar names (e.g. yamunaexpressway.co) — this is the authority's own domain, not a broker site; double-check the URL bar",
+          "An automated check got a 405 (method not allowed) — the site likely just rejects the check script's request type; confirm manually in a browser"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "gnida",
+      "title": "GNIDA — Greater Noida Industrial Development Authority",
+      "url": "https://gnida.up.gov.in/",
+      "category": "land-gis",
+      "tags": [
+        "gnida",
+        "greater noida",
+        "authority",
+        "land"
+      ],
+      "note": "Official GNIDA site — notices, schemes, and services for Greater Noida's industrial areas.",
+      "detail": {
+        "owner": "GNIDA, Govt. of UP",
+        "whatItGives": "Authority notices, scheme launches, and administrative services for Greater Noida industrial and institutional land.",
+        "typicalUse": "Checking current GNIDA allotment schemes or notices.",
+        "quirks": [
+          "A second site, greaternoidaauthority.in, also brands itself as the official GNIDA site — the .up.gov.in domain here is the more authoritative government address",
+          "An automated check hit a redirect to an internal error page (frmHttpErrorPage.aspx) — consistent with this NIC-hosted ASP.NET site blocking non-browser requests rather than the site being down; confirm manually in a browser before treating as broken"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "noida-authority",
+      "title": "Noida Authority",
+      "url": "https://noidaauthorityonline.in/en",
+      "category": "land-gis",
+      "tags": [
+        "noida",
+        "authority",
+        "land",
+        "industrial"
+      ],
+      "note": "Noida Authority's official portal — notices, schemes, and citizen/industrial services.",
+      "detail": {
+        "owner": "New Okhla Industrial Development Authority (Noida)",
+        "whatItGives": "Authority notices, plot schemes, and services for Noida's industrial and institutional land.",
+        "typicalUse": "Checking current Noida industrial-plot scheme launches or notices.",
+        "quirks": [
+          "Domain is not a .gov.in/.up.gov.in address — confidence on this being the sole official URL is medium; verify against Noida Authority's official social channels (@noida_authority) if in doubt",
+          "Links to the /en path directly. The bare root returns 404 to scripted requests and only redirects to /en for real browsers, so the link checker will keep flagging the root if anyone changes it back"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "upeida",
+      "title": "UPEIDA — UP Expressways Industrial Development Authority",
+      "url": "https://upeida.up.gov.in/",
+      "category": "land-gis",
+      "tags": [
+        "upeida",
+        "expressway",
+        "industrial corridor",
+        "bundelkhand",
+        "purvanchal",
+        "ganga expressway"
+      ],
+      "note": "Official UPEIDA site — industrial corridor land along UP's expressways (Purvanchal, Bundelkhand, Ganga).",
+      "detail": {
+        "owner": "UPEIDA, Govt. of UP (UP Industrial Area Development Act 1976)",
+        "whatItGives": "Industrial land parcels and scheme notices along the Purvanchal, Bundelkhand, Agra-Lucknow and Ganga Expressway corridors.",
+        "typicalUse": "Site selection for projects targeting the eastern/southern UP expressway corridors rather than the NCR belt.",
+        "quirks": []
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "invest-up-land-bank",
+      "title": "Invest UP — Land Bank Page",
+      "url": "https://invest.up.gov.in/land-bank/",
+      "category": "land-gis",
+      "tags": [
+        "invest up",
+        "land bank",
+        "overview",
+        "industrial areas"
+      ],
+      "note": "Invest UP's own summary/entry point into the state's industrial land bank.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "A state-level overview and links into the IDA-wise land bank details (UPSIDA, YEIDA, GNIDA, etc.) — a good starting orientation page before going to a specific authority's own system.",
+        "typicalUse": "Framing the state's overall land availability for an investor pitch before drilling into a specific authority.",
+        "relatedIds": [
+          "upsida-propertyhub",
+          "india-industrial-land-bank"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "gida",
+      "title": "GIDA — Gorakhpur Industrial Development Authority",
+      "url": "https://gidagkp.in/",
+      "category": "land-gis",
+      "tags": [
+        "gida",
+        "gorakhpur",
+        "authority",
+        "purvanchal",
+        "eastern up",
+        "land"
+      ],
+      "note": "Industrial land and schemes for the Gorakhpur / eastern UP belt.",
+      "detail": {
+        "owner": "GIDA, Govt. of UP (constituted 30 Nov 1989 under the UP Industrial Area Development Act 1976)",
+        "whatItGives": "Authority notices, plot schemes, and administrative services across GIDA's development area in eastern UP — roughly 27,000 acres under its master plan.",
+        "typicalUse": "Site options for an investor targeting eastern UP / the Gorakhpur link-expressway belt rather than NCR or the western districts.",
+        "quirks": [
+          "A separate ERP system runs at pms.gidaerp.in for project/works management — distinct from this public site; don't confuse the two",
+          "Not covered by UPSIDA's PropertyHub — GIDA plots do not appear in the UPSIDA plot-level land bank, so check here separately"
+        ],
+        "relatedIds": [
+          "bida",
+          "upeida"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "bida",
+      "title": "BIDA — Bundelkhand Industrial Development Authority",
+      "url": "https://bida.co.in/",
+      "category": "land-gis",
+      "tags": [
+        "bida",
+        "bundelkhand",
+        "jhansi",
+        "authority",
+        "land",
+        "expressway"
+      ],
+      "note": "Industrial land authority for the Bundelkhand region, headquartered at Jhansi.",
+      "detail": {
+        "owner": "BIDA, Govt. of UP (constituted under the UP Industrial Area Development Act 1976)",
+        "whatItGives": "Notices, scheme information, and authority detail for the planned integrated industrial and urban township in Bundelkhand — the region served by the Bundelkhand Expressway and the defence corridor node at Jhansi.",
+        "typicalUse": "Site options in Bundelkhand, particularly for defence-corridor-adjacent or lower-land-cost proposals.",
+        "quirks": [
+          "The site is slow — the root URL repeatedly timed out at 25s in checks while inner pages (e.g. /about-bida) loaded fine; give it time rather than assuming it is down",
+          "Runs on a .co.in domain rather than .gov.in/.up.gov.in, which is unusual for a statutory authority — it is the address cited by public sources, but confirm in-browser before circulating it externally",
+          "Not covered by UPSIDA's PropertyHub — BIDA plots do not appear in the UPSIDA plot-level land bank"
+        ],
+        "relatedIds": [
+          "gida",
+          "upeida"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    }
+  ]
+}

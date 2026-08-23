@@ -1,0 +1,109 @@
+name: Deploy to Cloudflare Pages
+
+# Only runs for commits already on this repository. Deliberately does NOT use
+# pull_request or pull_request_target: this repo is public, and those triggers
+# are how fork-supplied code gets near deployment credentials.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate links.json
+        # A malformed links.json is the one failure that leaves the live site
+        # showing an error state instead of the index, so it blocks the deploy
+        # rather than shipping and failing in the browser.
+        run: |
+          node --input-type=module -e '
+            import { readFile } from "node:fs/promises";
+            const raw = await readFile("links.json", "utf8");
+            let data;
+            try {
+              data = JSON.parse(raw);
+            } catch (err) {
+              console.error("links.json is not valid JSON:", err.message);
+              process.exit(1);
+            }
+
+            const categories = new Set((data.categories ?? []).map((c) => c.id));
+            const ids = new Set();
+            const problems = [];
+
+            for (const link of data.links ?? []) {
+              for (const field of ["id", "title", "url", "category", "note"]) {
+                if (!link[field]) problems.push(`${link.id ?? "(no id)"}: missing ${field}`);
+              }
+              if (ids.has(link.id)) problems.push(`${link.id}: duplicate id`);
+              ids.add(link.id);
+              if (!categories.has(link.category)) {
+                problems.push(`${link.id}: unknown category "${link.category}"`);
+              }
+              if (link.url && !/^https:\/\//.test(link.url)) {
+                problems.push(`${link.id}: url is not absolute HTTPS`);
+              }
+              if (!link.detail?.whatItGives) {
+                problems.push(`${link.id}: missing detail.whatItGives`);
+              }
+            }
+
+            for (const link of data.links ?? []) {
+              for (const rel of link.detail?.relatedIds ?? []) {
+                if (!ids.has(rel)) problems.push(`${link.id}: relatedIds -> unknown "${rel}"`);
+              }
+              if (link.amendmentOf && !ids.has(link.amendmentOf)) {
+                problems.push(`${link.id}: amendmentOf -> unknown "${link.amendmentOf}"`);
+              }
+            }
+
+            if (problems.length) {
+              console.error("links.json failed validation:");
+              for (const p of problems) console.error("  - " + p);
+              process.exit(1);
+            }
+            console.log(`links.json OK - ${data.links.length} links across ${categories.size} categories`);
+          '
+
+      - name: Warn if cached files changed without a cache bump
+        # Not fatal, but the most common PWA failure is shipping new content
+        # under an old cache name, which leaves installed phones on a stale copy.
+        run: |
+          if ! git diff --quiet HEAD~1 HEAD -- index.html links.json manifest.webmanifest icons 2>/dev/null; then
+            if git diff --quiet HEAD~1 HEAD -- sw.js 2>/dev/null; then
+              echo "::warning::Cached files changed but sw.js did not. Bump CACHE_NAME in sw.js so installed devices pick up this deploy."
+            fi
+          fi
+        continue-on-error: true
+
+      - name: Stage the site
+        # Only the files the site actually serves. Tooling, the README and CI
+        # config stay out of the deployed output.
+        run: |
+          mkdir -p dist/icons
+          cp index.html links.json manifest.webmanifest sw.js dist/
+          cp icons/* dist/icons/
+          ls -R dist
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=upinfradesk --branch=main

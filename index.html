@@ -343,13 +343,19 @@ ul{list-style:none;padding:0}
 .policy-indent::before{content:"↳";position:absolute;left:0;color:var(--ink-faint)}
 .policy-date{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
 .policy-date.is-empty{color:var(--ink-faint);font-style:italic}
+/* Every policy link is the accent colour so it reads as the actionable thing in
+   the row on any background. The direct-file vs landing-page distinction is
+   carried by the label and icon, not by colour — colour alone can't be the
+   only signal. */
 .policy-doc-link{
-  display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:var(--radius-sm);
-  color:var(--ink-faint);
+  display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 var(--sp-2);
+  border-radius:var(--radius-sm);color:var(--accent);font-weight:600;font-size:.8125rem;
+  text-decoration:none;white-space:nowrap;
 }
-.policy-doc-link:hover{background:var(--surface-2);color:var(--accent)}
-.policy-doc-link.indirect{color:var(--amber)}
-.policy-doc-link svg{width:16px;height:16px}
+.policy-doc-link:hover{background:var(--accent-soft);color:var(--accent-strong)}
+.policy-doc-link svg{width:16px;height:16px;flex:none}
+.policy-doc-label{text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.policy-doc-link.indirect .policy-doc-label{text-decoration-style:dashed}
 
 /* stacked cards on narrow screens */
 @media (max-width:600px){
@@ -549,6 +555,7 @@ ul{list-style:none;padding:0}
 <template id="icon-sort-asc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 15l4-4 4 4"/></svg></template>
 <template id="icon-sort-desc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l4 4 4-4"/></svg></template>
 <template id="icon-external"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></template>
+<template id="icon-document"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6M9 15l3 3 3-3"/></svg></template>
 <template id="icon-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></template>
 <template id="icon-chevron-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></template>
 
@@ -1439,7 +1446,9 @@ function renderPolicyTable(links){
   cols.forEach(function(c){
     var th = el("th");
     if (!c[0]){
-      th.appendChild(el("span", "visually-hidden", c[1]));
+      // Not sortable, but the column carries a real label now that each cell
+      // says whether it opens the document or a landing page.
+      th.appendChild(document.createTextNode(c[1]));
       trHead.appendChild(th);
       return;
     }
@@ -1495,10 +1504,17 @@ function policyRow(link, isChild){
   tdAmend.dataset.label = "Last Amended"; tr.appendChild(tdAmend);
 
   var tdLink = el("td"); tdLink.dataset.label = "Open";
-  var a = el("a", "policy-doc-link" + (link.directDocument === false ? " indirect" : ""));
+  var indirect = link.directDocument === false;
+  var a = el("a", "policy-doc-link" + (indirect ? " indirect" : ""));
   a.href = link.url; a.target = "_blank"; a.rel = "noopener noreferrer";
-  a.setAttribute("aria-label", (link.directDocument === false ? "Open landing page for " : "Open document: ") + link.title);
-  a.appendChild(icon("external"));
+  a.setAttribute(
+    "aria-label",
+    indirect
+      ? "Open the landing page for " + link.title + " — the document is one further click from there"
+      : "Open the document: " + link.title
+  );
+  a.appendChild(icon(indirect ? "external" : "document"));
+  a.appendChild(el("span", "policy-doc-label", indirect ? "Landing page" : "Document"));
   tdLink.appendChild(a);
   tr.appendChild(tdLink);
 
@@ -1754,7 +1770,8 @@ function buildInstructions(){
   }));
 
   frag.appendChild(instrSection("7. Using the Policy table", function(s){
-    instrP(s, "Click any column header to sort. Amendments are nested under their parent policy. The document icon opens the file directly for most rows; a distinct icon marks rows that land on a landing page instead, meaning one extra click is coming.");
+    instrP(s, "Click any column header to sort. Amendments are nested under their parent policy.");
+    instrP(s, "The last column says what you will actually get. “Document” opens the file itself. “Landing page” means the official site does not expose a direct file link, so you will land on a page and need one more click — those are marked with a dashed underline and an outward arrow rather than a download icon.");
   }));
 
   frag.appendChild(instrSection("8. Pinning", function(s){

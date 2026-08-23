@@ -2,7 +2,7 @@
 //
 // IMPORTANT: bump CACHE_NAME on every deploy that changes any cached file.
 // Without it, installed phones keep serving an old shell (spec §7).
-const CACHE_NAME = "upinfradesk-v6";
+const CACHE_NAME = "upinfradesk-v7";
 
 // Content files are listed by the app itself; see CONTENT_FILES below.
 const SHELL_FILES = [

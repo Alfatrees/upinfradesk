@@ -138,7 +138,16 @@ async function main() {
   }
   lines.push("");
   lines.push(`---`);
-  lines.push(`This report never edits \`links.json\`. A 403 or block usually means bot-blocking, not a dead link — confirm manually in a browser before marking anything \`deprecated\`.`);
+  lines.push(`## How to read this report`);
+  lines.push("");
+  lines.push(`This script never edits \`links.json\`. Confirm every failure in a real browser before marking anything \`deprecated\`. Known false-positive patterns on Indian government hosts:`);
+  lines.push("");
+  lines.push(`- **TLS error on \`invest.up.gov.in\`** — that server does not send its full intermediate certificate chain. Browsers recover automatically (AIA fetching); Node's \`fetch\` does not. These links work fine for users. Treat as noise unless a browser also warns.`);
+  lines.push(`- **403 / 405** — bot-blocking or a WAF rejecting the script's request method, not a dead link (seen on DPIIT, YEIDA, PM Gati Shakti).`);
+  lines.push(`- **302 to \`frmHttpErrorPage.aspx\` / \`rmHttpErrorPage.aspx\`** — anti-automation behaviour on NIC-hosted UP ASP.NET sites (seen on GNIDA, UPPCB).`);
+  lines.push(`- **Timeout** — several of these hosts are genuinely just slow (BIDA in particular). Retry before concluding anything.`);
+  lines.push("");
+  lines.push(`A link that resolves is still not proof the content is *current*. Only human review catches a superseded policy sitting at a working URL.`);
 
   await writeFile(REPORT_PATH, lines.join("\n"), "utf8");
   console.log(`\nReport written to ${REPORT_PATH}`);

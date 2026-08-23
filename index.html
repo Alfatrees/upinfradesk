@@ -449,6 +449,21 @@ function init(){
 }
 
 function fetchData(){
+  // Single-file review builds embed the content directly so the page works with
+  // no server alongside it. The deployed site has no such tag and always fetches
+  // links.json, keeping "one file for logic, one file for data" intact.
+  var embedded = document.getElementById("embedded-links-data");
+  if (embedded){
+    try {
+      state.data = JSON.parse(embedded.textContent);
+      renderAll();
+      return;
+    } catch(e){
+      renderLoadError(new Error("Embedded link data is not valid JSON: " + e.message));
+      return;
+    }
+  }
+
   fetch("links.json", { cache: "no-cache" })
     .then(function(res){
       if (!res.ok) throw new Error("HTTP " + res.status + " " + res.statusText);
@@ -1021,7 +1036,7 @@ function policyRow(link, isChild){
   var tdType = el("td", null, link.docType || "—"); tdType.dataset.label = "Type"; tr.appendChild(tdType);
   var tdAuth = el("td", null, link.issuingAuthority || "—"); tdAuth.dataset.label = "Authority"; tr.appendChild(tdAuth);
 
-  var tdPub = el("td", "policy-date" + (link.publishedDate ? "" : " is-empty"), link.publishedDate ? formatDate(link.publishedDate) : "unverified");
+  var tdPub = el("td", "policy-date" + (link.publishedDate ? "" : " is-empty"), link.publishedDate ? formatDate(link.publishedDate) : "not recorded");
   tdPub.dataset.label = "Published"; tr.appendChild(tdPub);
 
   var tdAmend = el("td", "policy-date" + (link.lastAmendedDate ? "" : " is-empty"), link.lastAmendedDate ? formatDate(link.lastAmendedDate) : "—");

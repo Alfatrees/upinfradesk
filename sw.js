@@ -3,7 +3,7 @@
 // IMPORTANT: bump CACHE_NAME on every deploy that changes any cached file.
 // This is the single most common PWA failure per the build spec (§7) —
 // without a version bump, installed phones serve a stale shell forever.
-const CACHE_NAME = "upinfradesk-v1";
+const CACHE_NAME = "upinfradesk-v2";
 
 const SHELL_FILES = [
   "./",

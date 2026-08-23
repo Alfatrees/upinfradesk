@@ -196,6 +196,50 @@
       "mobileFriendly": true,
       "lastVerified": "2026-08-23"
     },
+    {
+      "id": "gida",
+      "title": "GIDA — Gorakhpur Industrial Development Authority",
+      "url": "https://gidagkp.in/",
+      "category": "land-gis",
+      "tags": ["gida", "gorakhpur", "authority", "purvanchal", "eastern up", "land"],
+      "note": "Industrial land and schemes for the Gorakhpur / eastern UP belt.",
+      "detail": {
+        "owner": "GIDA, Govt. of UP (constituted 30 Nov 1989 under the UP Industrial Area Development Act 1976)",
+        "whatItGives": "Authority notices, plot schemes, and administrative services across GIDA's development area in eastern UP — roughly 27,000 acres under its master plan.",
+        "typicalUse": "Site options for an investor targeting eastern UP / the Gorakhpur link-expressway belt rather than NCR or the western districts.",
+        "quirks": [
+          "A separate ERP system runs at pms.gidaerp.in for project/works management — distinct from this public site; don't confuse the two",
+          "Not covered by UPSIDA's PropertyHub — GIDA plots do not appear in the UPSIDA plot-level land bank, so check here separately"
+        ],
+        "relatedIds": ["bida", "upeida"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "bida",
+      "title": "BIDA — Bundelkhand Industrial Development Authority",
+      "url": "https://bida.co.in/",
+      "category": "land-gis",
+      "tags": ["bida", "bundelkhand", "jhansi", "authority", "land", "expressway"],
+      "note": "Industrial land authority for the Bundelkhand region, headquartered at Jhansi.",
+      "detail": {
+        "owner": "BIDA, Govt. of UP (constituted under the UP Industrial Area Development Act 1976)",
+        "whatItGives": "Notices, scheme information, and authority detail for the planned integrated industrial and urban township in Bundelkhand — the region served by the Bundelkhand Expressway and the defence corridor node at Jhansi.",
+        "typicalUse": "Site options in Bundelkhand, particularly for defence-corridor-adjacent or lower-land-cost proposals.",
+        "quirks": [
+          "The site is slow — the root URL repeatedly timed out at 25s in checks while inner pages (e.g. /about-bida) loaded fine; give it time rather than assuming it is down",
+          "Runs on a .co.in domain rather than .gov.in/.up.gov.in, which is unusual for a statutory authority — it is the address cited by public sources, but confirm in-browser before circulating it externally",
+          "Not covered by UPSIDA's PropertyHub — BIDA plots do not appear in the UPSIDA plot-level land bank"
+        ],
+        "relatedIds": ["gida", "upeida"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
 
     {
       "id": "nivesh-mitra",
@@ -377,7 +421,7 @@
       "note": "Base construction/land-development rulebook for UPSIDA industrial areas.",
       "docType": "Regulation",
       "issuingAuthority": "UPSIDA",
-      "publishedDate": "2018-01-01",
+      "publishedDate": null,
       "lastAmendedDate": "2024-10-10",
       "amendmentOf": null,
       "fileFormat": "PDF",
@@ -387,7 +431,7 @@
         "whatItGives": "FAR, setbacks, coverage, and building-approval norms for construction on UPSIDA-allotted plots.",
         "typicalUse": "Confirming buildable FAR/coverage on a specific plot before an investor commits.",
         "quirks": [
-          "publishedDate is the regulation year, not a specific gazette date — an exact notification date was not confirmed during this pass; verify before citing precisely",
+          "publishedDate left blank deliberately — only the regulation year (2018) is confirmed, not a specific gazette/notification date; do not infer one, source it from the document if it's needed",
           "A substantially revised 2024 edition exists (see related amendment entry) — the 2018 base document may be significantly superseded, not just lightly amended; confirm current operative version with UPSIDA before relying on specific clause numbers"
         ],
         "relatedIds": ["upsida-land-building-regs-2024"]
@@ -434,7 +478,7 @@
       "note": "Scheme enabling private developers/REITs to build commercial 'business park' campuses.",
       "docType": "Guideline",
       "issuingAuthority": "IIDD / Invest UP",
-      "publishedDate": "2026-02-01",
+      "publishedDate": null,
       "lastAmendedDate": null,
       "amendmentOf": null,
       "fileFormat": "PDF",
@@ -443,7 +487,9 @@
         "owner": "Govt. of UP",
         "whatItGives": "Framework letting private developers, REITs, and global enterprises co-develop commercial/IT business-park campuses in UP.",
         "typicalUse": "Pitching to a developer or REIT interested in building (not just occupying) commercial space in UP.",
-        "quirks": ["File path says 'Feb2026' though uploaded April 2026 — publishedDate here uses the document's own Feb 2026 label; confirm against the actual GO date on next review"]
+        "quirks": [
+          "Naming is inconsistent across sources: the scheme is commonly referred to as '2025', but the file path itself says 'Feb2026' and was uploaded to the server in April 2026 — publishedDate left blank until the actual GO date is confirmed from the document text itself, not a filename"
+        ]
       },
       "authRequired": false,
       "mobileFriendly": true,
@@ -474,6 +520,95 @@
       "mobileFriendly": true,
       "lastVerified": "2026-08-23",
       "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-data-centre-policy-2026",
+      "title": "UP Data Centre Policy 2026",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/07/UPDCP-2026-Notification-English.pdf",
+      "category": "policy",
+      "tags": ["data centre", "data center", "policy", "2026", "AI", "green", "GPU", "incentive"],
+      "note": "Current data centre policy — replaces the 2021 policy, targets AI-ready and green capacity.",
+      "docType": "Policy",
+      "issuingAuthority": "IT & Electronics Dept. / Invest UP",
+      "publishedDate": "2026-07-09",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP — IT & Electronics Department, with Invest UP as facilitation agency",
+        "whatItGives": "The incentive framework for data centre investment: capital and interest subsidies, land, stamp duty and electricity concessions, plus specific incentives for Tier-3/Tier-4 facilities, an AI Compute Booster, and green/sustainable operations.",
+        "typicalUse": "Quoting data centre incentives and eligibility to a hyperscale, colocation, or AI-infrastructure investor.",
+        "quirks": [
+          "The filenames on the Invest UP page are inverted relative to their labels — the 3.6 MB file at the '...UPDCP-2026-Notification-English.pdf' path is the FULL POLICY (linked here), while the 737 KB file at the '...2026/08/policy_En.pdf' path is actually the approval/notification. Do not assume the path name tells you which document you are opening.",
+          "Cabinet approval was reported 6 Jul 2026; the policy document itself carries 9 Jul 2026 — the document date is used here",
+          "Supersedes the UP Data Centre Policy 2021, which expired 27 Jan 2026 — make sure an investor is not still quoting 2021 terms"
+        ],
+        "relatedIds": ["up-iiep-2022"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-gcc-policy-2024",
+      "title": "UP Global Capability Centres (GCC) Policy 2024",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/04/UP-GCC-Policy_200426.pdf",
+      "category": "policy",
+      "tags": ["gcc", "global capability centre", "policy", "2024", "IT", "back office", "tier 2"],
+      "note": "Incentive framework for global in-house/capability centres, aimed at tier-2 and tier-3 cities.",
+      "docType": "Policy",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": "2025-05-07",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP — Invest UP as nodal agency",
+        "whatItGives": "Fiscal incentives and regulatory support for MNCs and Indian companies setting up Global Capability Centres (IT, R&D, finance, HR and back-office operations), with an explicit push toward tier-2 and tier-3 cities rather than only NCR.",
+        "typicalUse": "Pitching a multinational considering a captive/GIC operation in UP, especially outside the Noida belt.",
+        "quirks": [
+          "Named '2024' but only notified 7 May 2025 — and the PDF linked here was re-uploaded to a 2026/04 path (20 Apr 2026). An earlier 05 Jun 2025 copy also still exists at a 2025/06 path. Expect this URL to move again; the '2024' in the title is the policy name, not its notification date.",
+          "A separate draft (Draft-UP-GCC_280924.pdf) is still indexed by search engines — do not cite the draft as the operative policy",
+          "The operative processing document is the Implementation Rules 2025 (nested below), not this policy alone"
+        ],
+        "relatedIds": ["up-gcc-rules-2025", "up-iiep-2022"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "up-gcc-rules-2025",
+      "title": "GCC Policy — Implementation Rules 2025",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/03/GCC-SOP_140326.pdf",
+      "category": "policy",
+      "tags": ["gcc", "rules", "sop", "implementation", "2025", "procedure"],
+      "note": "The operative procedure/SOP for actually processing GCC policy claims.",
+      "docType": "Rules",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": "2026-03-14",
+      "lastAmendedDate": null,
+      "amendmentOf": "up-gcc-policy-2024",
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP — Invest UP",
+        "whatItGives": "The implementation rules and standard operating procedure under the GCC Policy 2024 — eligibility tests, application route, documentation, and sanction process. This is what a claim is actually assessed against.",
+        "typicalUse": "Working an actual GCC incentive application, as opposed to pitching the headline policy.",
+        "quirks": [
+          "Nested here under the GCC Policy for convenience — it is implementation rules, not a formal amendment to the policy text",
+          "A Hindi version dated 07 Jan 2026 also exists at a separate 2026/01 path; this entry links the English rules dated 14 Mar 2026"
+        ],
+        "relatedIds": ["up-gcc-policy-2024"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
     },
 
     {
@@ -693,7 +828,7 @@
       "note": "UPSIDA's internal operating procedures, publicly posted.",
       "docType": "Guideline",
       "issuingAuthority": "UPSIDA",
-      "publishedDate": "2023-01-01",
+      "publishedDate": null,
       "lastAmendedDate": null,
       "amendmentOf": null,
       "fileFormat": "PDF",
@@ -702,7 +837,7 @@
         "owner": "UPSIDA",
         "whatItGives": "The procedural rulebook UPSIDA staff themselves operate under — allotment process, transfer rules, penalty clauses.",
         "typicalUse": "Settling a procedural dispute or question by citing UPSIDA's own manual rather than informal practice.",
-        "quirks": ["publishedDate is inferred from the filename ('2023') only — an exact publication date was not independently confirmed; verify before citing precisely"]
+        "quirks": ["publishedDate left blank deliberately — the filename says '2023' but that isn't a confirmed publication date, so it isn't asserted here; source it from the document itself if it's needed"]
       },
       "authRequired": false,
       "mobileFriendly": true,
@@ -718,7 +853,7 @@
       "note": "The consolidated state revenue/land law — 39 prior laws merged into one code.",
       "docType": "Rules",
       "issuingAuthority": "Govt. of UP (U.P. Act No. 8 of 2012)",
-      "publishedDate": "2006-01-01",
+      "publishedDate": "2012-12-12",
       "lastAmendedDate": null,
       "amendmentOf": null,
       "fileFormat": "HTML/PDF",
@@ -727,12 +862,36 @@
         "owner": "Govt. of UP — hosted on the central India Code repository",
         "whatItGives": "The full statutory text governing land classification, revenue records, mutation, and related land-law questions across UP.",
         "typicalUse": "Citing statutory basis for a land-classification or revenue-record question.",
-        "quirks": ["Formally enacted 2006, received the operative U.P. Act No. 8 designation in 2012 — the India Code entry is the authoritative consolidated text; other PDF copies circulate but this is the citable source"]
+        "quirks": [
+          "Complicated date history — drafted as a 2006 bill, but only received presidential assent on 29 Nov 2012 as U.P. Act No. 8 of 2012, published in the UP Gazette on 12 Dec 2012 (the date used here). Different sections then commenced on different notified dates — e.g. several core sections commenced only from 18 Dec 2015. Do not cite '2006' as the enactment date; verify which sections are in force for the specific provision you're citing."
+        ]
       },
       "authRequired": false,
       "mobileFriendly": true,
       "lastVerified": "2026-08-23",
       "reviewIntervalDays": 365
+    },
+    {
+      "id": "up-rera",
+      "title": "UP RERA — Real Estate Regulatory Authority",
+      "url": "https://www.up-rera.in/",
+      "category": "reference",
+      "tags": ["rera", "real estate", "promoter", "project registration", "verification", "developer"],
+      "note": "Registered-project and promoter lookup — due diligence on any developer counterparty.",
+      "detail": {
+        "owner": "Uttar Pradesh Real Estate Regulatory Authority (under the RERA Act, 2016)",
+        "whatItGives": "Searchable register of real estate projects and promoters/agents in UP, with registration status and complaint history — the public record for checking whether a developer and their project are actually registered and in good standing.",
+        "dataFields": ["Project name", "Promoter name", "RERA registration number", "Registration status", "Project location/district", "Agent registration"],
+        "typicalUse": "Due diligence on a private developer counterparty — relevant to business park, plug-and-play shed, and private-township proposals where a developer partner is involved.",
+        "quirks": [
+          "Registration lookups are served from a separate uprera.azurewebsites.net application — the domain change mid-journey is expected, not a phishing redirect",
+          "Covers real estate promoters, not industrial allottees — a unit taking a UPSIDA plot will not appear here"
+        ],
+        "relatedIds": ["up-private-business-park-2025", "up-plug-and-play-sheds"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
     },
 
     {

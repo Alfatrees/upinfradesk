@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UPInfradesk — UP Infrastructure &amp; Investment Resource Index</title>
+<meta name="description" content="A single, searchable index of public UP infrastructure and investment-facilitation resources — GIS portals, investor systems, policies, and central agency links, with detail on what each one actually gives you.">
+<meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+/* ---------- Tokens ---------- */
+:root{
+  --bg:#FAFAFA; --surface:#FFFFFF; --surface-2:#F1F0ED; --border:#E3E1DC; --border-strong:#CFCBC2;
+  --ink:#181714; --ink-soft:#57544C; --ink-faint:#8B8779;
+  --accent:#8C4321; --accent-strong:#6E3419; --accent-on:#FFFFFF; --accent-soft:#F3E2D8;
+  --amber:#8A5D08; --amber-bg:#FBEECE; --amber-border:#E9C874;
+  --red:#A32A20; --red-bg:#FAE2DF; --red-border:#E7A79C;
+  --green:#2F6B3A; --green-bg:#E4F0E3;
+  --focus:#8C4321;
+  --shadow-float:0 16px 40px -12px rgba(24,23,20,.22), 0 4px 12px -2px rgba(24,23,20,.10);
+  --shadow-card:0 1px 2px rgba(24,23,20,.06);
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px;
+  --font-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"Cascadia Mono","Segoe UI Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --header-h:60px;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#151412; --surface:#1D1B18; --surface-2:#252220; --border:#37342E; --border-strong:#4A473F;
+    --ink:#F3F0E9; --ink-soft:#BAB5A8; --ink-faint:#8A8578;
+    --accent:#E2916A; --accent-strong:#EFAA88; --accent-on:#20130A; --accent-soft:#3A281E;
+    --amber:#E8C15E; --amber-bg:#382C10; --amber-border:#5C4A1C;
+    --red:#EE998E; --red-bg:#3A1D19; --red-border:#5E332B;
+    --green:#8FC498; --green-bg:#1D2E1F;
+    --focus:#E2916A;
+    --shadow-float:0 16px 40px -12px rgba(0,0,0,.65), 0 4px 12px -2px rgba(0,0,0,.5);
+    --shadow-card:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+
+/* ---------- Reset ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--font-ui);
+  font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  min-height:100dvh;
+}
+h1,h2,h3,p,ul,dl,dd{margin:0}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+input{font:inherit}
+ul{list-style:none;padding:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+
+/* ---------- Layout shell ---------- */
+.shell{max-width:960px;margin:0 auto;padding:0 var(--sp-4) var(--sp-7)}
+.app-header{
+  position:sticky;top:0;z-index:40;background:var(--bg);
+  border-bottom:1px solid var(--border);
+}
+.app-header-inner{
+  max-width:960px;margin:0 auto;padding:0 var(--sp-4);
+  height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);
+}
+.brand{display:flex;align-items:center;gap:var(--sp-2);font-weight:700;font-size:1.125rem;letter-spacing:-.01em}
+.brand-mark{width:28px;height:28px;border-radius:7px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
+.brand-mark svg{width:16px;height:16px;stroke:var(--accent-on)}
+.header-actions{display:flex;align-items:center;gap:var(--sp-2)}
+.icon-btn{
+  display:flex;align-items:center;gap:var(--sp-1);min-width:48px;min-height:48px;padding:0 var(--sp-3);
+  border-radius:var(--radius-sm);color:var(--ink-soft);transition:background .15s,color .15s;
+}
+.icon-btn:hover{background:var(--surface-2);color:var(--ink)}
+.icon-btn svg{width:20px;height:20px}
+.icon-btn.flagged{color:var(--red);font-weight:600;font-size:.875rem}
+.icon-btn.flagged.is-active{background:var(--red-bg);color:var(--red)}
+
+/* ---------- Offline bar ---------- */
+#offline-bar{
+  background:var(--amber-bg);color:var(--amber);border-bottom:1px solid var(--amber-border);
+  font-size:.875rem;font-weight:500;padding:var(--sp-2) var(--sp-4);text-align:center;
+}
+#offline-bar[hidden]{display:none}
+
+/* ---------- Pinned strip ---------- */
+.pinned-section{padding-top:var(--sp-5)}
+.section-label{
+  font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);
+  margin-bottom:var(--sp-2);display:block;
+}
+.pinned-scroll{
+  display:flex;gap:var(--sp-2);overflow-x:auto;padding-bottom:var(--sp-2);scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+}
+.pinned-scroll::-webkit-scrollbar{height:6px}
+.pinned-scroll::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
+.pin-chip{
+  scroll-snap-align:start;flex:none;display:flex;align-items:center;gap:var(--sp-2);
+  background:var(--surface);border:1px solid var(--border);border-radius:999px;
+  padding:var(--sp-2) var(--sp-4);font-size:.875rem;font-weight:500;min-height:48px;
+  white-space:nowrap;transition:border-color .15s,transform .1s;
+}
+.pin-chip:hover{border-color:var(--border-strong)}
+.pin-chip:active{transform:scale(.97)}
+.pin-chip svg{width:14px;height:14px;color:var(--ink-faint);flex:none}
+
+/* ---------- Search ---------- */
+.search-wrap{
+  position:sticky;top:var(--header-h);z-index:30;background:var(--bg);
+  padding:var(--sp-4) 0;
+}
+.search-field{
+  position:relative;display:flex;align-items:center;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-card);
+}
+.search-field svg{width:20px;height:20px;color:var(--ink-faint);position:absolute;left:var(--sp-4);pointer-events:none}
+#search{
+  width:100%;background:transparent;border:0;padding:14px var(--sp-4) 14px 46px;
+  font-size:1rem;color:var(--ink);min-height:48px;border-radius:var(--radius-md);
+}
+#search::placeholder{color:var(--ink-faint)}
+#search-clear{
+  position:absolute;right:2px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  border-radius:999px;color:var(--ink-faint);
+}
+#search-clear[hidden]{display:none}
+#search-clear:hover{background:var(--surface-2);color:var(--ink)}
+#search-status{font-size:.8125rem;color:var(--ink-faint);padding:var(--sp-2) var(--sp-1) 0}
+
+/* ---------- Categories ---------- */
+.category{border-bottom:1px solid var(--border)}
+.category:last-child{border-bottom:0}
+.category-toggle{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:var(--sp-4) var(--sp-1);min-height:48px;text-align:left;
+}
+.category-toggle-left{display:flex;align-items:center;gap:var(--sp-2)}
+.category-toggle svg.chev{width:18px;height:18px;color:var(--ink-faint);transition:transform .18s ease}
+.category[data-collapsed="true"] .category-toggle svg.chev{transform:rotate(-90deg)}
+.category-title{font-size:1.125rem;font-weight:700;letter-spacing:-.005em}
+.category-count{font-size:.8125rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.category-body{padding-bottom:var(--sp-5)}
+.category[data-collapsed="true"] .category-body{display:none}
+
+.card-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--sp-3);
+}
+
+/* ---------- Link card ---------- */
+.card{
+  position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-card);transition:border-color .15s,transform .1s;
+}
+.card:hover{border-color:var(--border-strong)}
+.card.is-hovered,.card.is-open{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.card-link{
+  display:block;padding:var(--sp-4);padding-bottom:var(--sp-2);text-decoration:none;min-height:48px;border-radius:var(--radius-md) var(--radius-md) 0 0;
+}
+.card-title{font-size:1.0625rem;font-weight:600;letter-spacing:-.005em;margin-bottom:2px}
+.card-note{font-size:.875rem;color:var(--ink-soft);line-height:1.4}
+.card-deprecated .card-title{text-decoration:line-through;color:var(--ink-faint)}
+.card-deprecated-note{font-size:.75rem;color:var(--red);padding:0 var(--sp-4);margin-top:2px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3) var(--sp-3)}
+.badges{display:flex;flex-wrap:wrap;gap:var(--sp-1)}
+.badge{
+  display:inline-flex;align-items:center;gap:3px;font-size:.6875rem;font-weight:600;
+  padding:3px 7px;border-radius:6px;line-height:1.3;white-space:nowrap;
+}
+.badge svg{width:11px;height:11px}
+.badge-lock{background:var(--surface-2);color:var(--ink-soft)}
+.badge-desktop{background:var(--surface-2);color:var(--ink-soft)}
+.badge-verify{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.badge-stale{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.card-buttons{display:flex;align-items:center;gap:0}
+.card-btn{
+  width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);
+  color:var(--ink-faint);transition:background .15s,color .15s;
+}
+.card-btn svg{width:16px;height:16px}
+.card-btn:hover{background:var(--surface-2);color:var(--ink)}
+.card-btn.is-active{color:var(--accent)}
+.card-btn[aria-pressed="true"] svg{transform:rotate(180deg)}
+
+/* mobile inline detail (chevron expand) */
+.card-inline-detail{display:none;border-top:1px solid var(--border);padding:var(--sp-3) var(--sp-4) var(--sp-4)}
+.card-inline-detail.is-open{display:block}
+
+/* ---------- Detail panel (floating, desktop) ---------- */
+.detail-panel{
+  position:fixed;z-index:60;width:320px;max-height:min(520px,80vh);overflow-y:auto;
+  background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-float);padding:0;
+}
+.detail-panel[hidden]{display:none}
+.detail-block + .detail-block{border-top:1px solid var(--border)}
+.detail-block{padding:var(--sp-3) var(--sp-4)}
+.detail-head{padding:var(--sp-4);padding-bottom:var(--sp-3)}
+.detail-title{font-size:1rem;font-weight:700;margin-bottom:2px}
+.detail-owner{font-size:.8125rem;color:var(--ink-faint)}
+.detail-label{font-size:.6875rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:var(--sp-1)}
+.detail-text{font-size:.875rem;line-height:1.5;color:var(--ink-soft)}
+.detail-tags{font-size:.875rem;line-height:1.6;color:var(--ink-soft)}
+.detail-quirks{margin:0;padding:0}
+.detail-quirks li{font-size:.8125rem;line-height:1.5;color:var(--ink-soft);padding-left:var(--sp-4);position:relative;margin-bottom:2px}
+.detail-quirks li::before{content:"";position:absolute;left:2px;top:.6em;width:4px;height:4px;border-radius:50%;background:var(--amber)}
+.detail-related{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.detail-related button{
+  font-size:.8125rem;font-weight:500;color:var(--accent-strong);background:var(--accent-soft);
+  padding:4px 10px;border-radius:999px;
+}
+.detail-related button:hover{filter:brightness(.95)}
+.detail-meta{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-faint)}
+.detail-warn-head{color:var(--amber);font-weight:700}
+
+/* ---------- Policy table ---------- */
+.policy-wrap{overflow-x:auto}
+.policy-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.policy-table caption{text-align:left;margin-bottom:var(--sp-2);font-size:.8125rem;color:var(--ink-faint)}
+.policy-table th{
+  text-align:left;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-faint);padding:var(--sp-2) var(--sp-3);border-bottom:2px solid var(--border-strong);white-space:nowrap;
+}
+.policy-table th button{display:inline-flex;align-items:center;gap:4px;min-height:32px}
+.policy-table th button svg{width:12px;height:12px;opacity:.5}
+.policy-table th[aria-sort="ascending"] button svg,.policy-table th[aria-sort="descending"] button svg{opacity:1;color:var(--accent)}
+.policy-table td{padding:var(--sp-3);border-bottom:1px solid var(--border);vertical-align:top}
+.policy-table tbody tr:hover{background:var(--surface-2)}
+.policy-table tbody tr.is-open{background:var(--accent-soft)}
+.policy-doc-cell{display:flex;align-items:flex-start;gap:var(--sp-2)}
+.policy-doc-title{font-weight:600}
+.policy-doc-title.is-amendment{font-weight:500;font-size:.8125rem;color:var(--ink-soft)}
+.policy-indent{display:inline-block;width:18px;flex:none;position:relative}
+.policy-indent::before{content:"↳";position:absolute;left:0;color:var(--ink-faint)}
+.policy-date{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap}
+.policy-date.is-empty{color:var(--ink-faint);font-style:italic}
+.policy-doc-link{
+  display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:var(--radius-sm);
+  color:var(--ink-faint);
+}
+.policy-doc-link:hover{background:var(--surface-2);color:var(--accent)}
+.policy-doc-link.indirect{color:var(--amber)}
+.policy-doc-link svg{width:16px;height:16px}
+.policy-detail-row td{padding:0;border-bottom:1px solid var(--border)}
+
+/* stacked cards on narrow screens */
+@media (max-width:600px){
+  .policy-table thead{display:none}
+  .policy-table, .policy-table tbody, .policy-table tr, .policy-table td{display:block;width:100%}
+  .policy-table tr{border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:var(--sp-3);padding:var(--sp-3);background:var(--surface)}
+  .policy-table td{border:0;padding:2px 0}
+  .policy-table td[data-label]::before{content:attr(data-label) ": ";font-size:.6875rem;font-weight:700;text-transform:uppercase;color:var(--ink-faint)}
+  .policy-table td.policy-doc-cell-wrap{padding-bottom:var(--sp-2)}
+  .policy-doc-cell{align-items:center}
+}
+
+/* ---------- Footer ---------- */
+.app-footer{
+  margin-top:var(--sp-7);padding:var(--sp-5) var(--sp-1);border-top:1px solid var(--border);
+  font-size:.8125rem;color:var(--ink-faint);text-align:center;line-height:1.6;
+}
+.app-footer strong{color:var(--ink-soft);font-weight:500}
+
+/* ---------- Instructions view ---------- */
+#instructions-view{max-width:720px;margin:0 auto;padding:var(--sp-5) var(--sp-4) var(--sp-7)}
+#instructions-view[hidden]{display:none}
+.instr-back{display:inline-flex;align-items:center;gap:var(--sp-1);font-weight:500;color:var(--accent-strong);margin-bottom:var(--sp-5);min-height:44px}
+.instr-back svg{width:16px;height:16px}
+#instructions-view h1{font-size:1.5rem;font-weight:700;margin-bottom:var(--sp-5)}
+.instr-section{margin-bottom:var(--sp-5)}
+.instr-section h2{font-size:1.0625rem;font-weight:700;margin-bottom:var(--sp-2)}
+.instr-section p,.instr-section li{font-size:.9375rem;line-height:1.6;color:var(--ink-soft);margin-bottom:var(--sp-2)}
+.instr-section ul{padding-left:var(--sp-4);list-style:disc}
+.instr-section code{background:var(--surface-2);padding:1px 6px;border-radius:4px;font-family:var(--font-mono);font-size:.85em;color:var(--ink)}
+.instr-badge-list{list-style:none;padding:0}
+.instr-badge-list li{display:flex;align-items:center;gap:var(--sp-2)}
+
+/* ---------- Empty / error states ---------- */
+.state-block{text-align:center;padding:var(--sp-7) var(--sp-4);color:var(--ink-soft)}
+.state-block h2{font-size:1.125rem;margin-bottom:var(--sp-2);color:var(--ink)}
+.state-block button{margin-top:var(--sp-4);display:inline-flex;min-height:44px;padding:0 var(--sp-4);align-items:center;background:var(--accent);color:var(--accent-on);border-radius:var(--radius-sm);font-weight:600}
+</style>
+</head>
+<body>
+
+<a class="visually-hidden" href="#main">Skip to content</a>
+
+<header class="app-header">
+  <div class="app-header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M4 18h5M4 12h9M4 6h16"/></svg>
+      </span>
+      UPInfradesk
+    </div>
+    <div class="header-actions">
+      <button type="button" id="flagged-toggle" class="icon-btn flagged" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+        <span id="flagged-count">0</span>
+      </button>
+      <button type="button" id="instructions-open" class="icon-btn" aria-label="Instructions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="offline-bar" role="status" hidden></div>
+
+<main id="main">
+  <div id="index-view" class="shell">
+
+    <section class="pinned-section" id="pinned-section" hidden>
+      <span class="section-label">Pinned</span>
+      <div class="pinned-scroll" id="pinned-scroll"></div>
+    </section>
+
+    <div class="search-wrap">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <label class="visually-hidden" for="search">Search resources</label>
+        <input type="text" id="search" placeholder="Search titles, tags, notes, or data fields…" autocomplete="off" spellcheck="false">
+        <button type="button" id="search-clear" hidden aria-label="Clear search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="search-status" aria-live="polite"></div>
+    </div>
+
+    <div id="categories"></div>
+    <div id="load-state"></div>
+  </div>
+
+  <div id="instructions-view" hidden></div>
+</main>
+
+<div class="detail-panel" id="detail-panel" role="tooltip" hidden></div>
+
+<footer class="app-footer" id="app-footer">
+  Independent resource. Not affiliated with the Government of Uttar Pradesh.
+  <span id="footer-asof"></span>
+</footer>
+
+<template id="tpl-card">
+  <article class="card">
+    <a class="card-link" target="_blank" rel="noopener noreferrer">
+      <div class="card-title"></div>
+      <div class="card-note"></div>
+    </a>
+    <div class="card-deprecated-note" hidden></div>
+    <div class="card-footer">
+      <div class="badges"></div>
+      <div class="card-buttons">
+        <button type="button" class="card-btn copy-btn" aria-label="Copy link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+        <button type="button" class="card-btn pin-btn" aria-label="Pin" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5M9 3h6l-1 6 3 3v2H7v-2l3-3-1-6Z"/></svg>
+        </button>
+        <button type="button" class="card-btn chevron-btn" aria-label="Show details" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="card-inline-detail"></div>
+  </article>
+</template>
+
+<template id="icon-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></template>
+<template id="icon-desktop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></template>
+<template id="icon-verify"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg></template>
+<template id="icon-stale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></template>
+<template id="icon-sort-none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg></template>
+<template id="icon-sort-asc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 15l4-4 4 4"/></svg></template>
+<template id="icon-sort-desc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l4 4 4-4"/></svg></template>
+<template id="icon-external"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg></template>
+<template id="icon-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></template>
+<template id="icon-chevron-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></template>
+
+<script>
+"use strict";
+(function(){
+
+/* ============================================================
+   UPInfradesk — app logic
+   Single-file per spec: no build step, no external dependencies,
+   no innerHTML with data-derived content — DOM built via
+   createElement/textContent, icons cloned from static <template>s.
+   ============================================================ */
+
+/* ---------------- Tiny DOM helpers ---------------- */
+
+function icon(name){
+  var tpl = document.getElementById("icon-" + name);
+  var svg = tpl.content.firstElementChild.cloneNode(true);
+  svg.setAttribute("aria-hidden", "true");
+  return svg;
+}
+function el(tag, className, text){
+  var e = document.createElement(tag);
+  if (className) e.className = className;
+  if (text !== undefined && text !== null) e.textContent = text;
+  return e;
+}
+
+var state = {
+  data: null,
+  collapsed: loadJSON("upinfradesk:collapsed", {}),
+  pins: loadJSON("upinfradesk:pins", []),
+  query: "",
+  flaggedOnly: false,
+  policySort: { key: "lastAmendedDate", dir: "desc" },
+  openDetailId: null,
+  hoverTimer: null,
+  closeTimer: null
+};
+
+function loadJSON(key, fallback){
+  try{
+    var raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  }catch(e){ return fallback; }
+}
+function saveJSON(key, val){
+  try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){ /* storage unavailable — pins/collapse state just won't persist */ }
+}
+
+/* ---------------- Data load ---------------- */
+
+function init(){
+  wireStaticUI();
+  fetchData();
+  if ("serviceWorker" in navigator){
+    navigator.serviceWorker.register("sw.js").catch(function(){ /* offline support degrades gracefully without it */ });
+  }
+  window.addEventListener("online", updateOfflineBar);
+  window.addEventListener("offline", updateOfflineBar);
+  updateOfflineBar();
+}
+
+function fetchData(){
+  fetch("links.json", { cache: "no-cache" })
+    .then(function(res){
+      if (!res.ok) throw new Error("HTTP " + res.status + " " + res.statusText);
+      return res.text();
+    })
+    .then(function(text){
+      var json;
+      try { json = JSON.parse(text); }
+      catch(e){ throw new Error("links.json is not valid JSON: " + e.message); }
+      state.data = json;
+      renderAll();
+    })
+    .catch(function(err){
+      renderLoadError(err);
+    });
+}
+
+function renderLoadError(err){
+  var el2 = document.getElementById("load-state");
+  el2.textContent = "";
+  var block = el("div", "state-block");
+  block.appendChild(el("h2", null, "Couldn't load the resource index"));
+  block.appendChild(el("p", null, String(err && err.message ? err.message : err)));
+  var btn = el("button", null, "Retry");
+  btn.type = "button";
+  btn.addEventListener("click", function(){ el2.textContent = ""; fetchData(); });
+  block.appendChild(btn);
+  el2.appendChild(block);
+}
+
+/* ---------------- Offline bar (F7) ---------------- */
+
+function updateOfflineBar(){
+  var bar = document.getElementById("offline-bar");
+  if (!navigator.onLine){
+    var asOf = state.data ? formatDate(state.data.lastReviewed) : "";
+    bar.textContent = "You're offline. Showing the cached index" + (asOf ? " as of " + asOf : "") + ". Destination links need a connection.";
+    bar.hidden = false;
+  } else {
+    bar.hidden = true;
+  }
+}
+
+/* ---------------- Static UI wiring ---------------- */
+
+function wireStaticUI(){
+  var search = document.getElementById("search");
+  var clearBtn = document.getElementById("search-clear");
+
+  var fineHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (fineHover) search.focus();
+
+  search.addEventListener("input", function(){
+    state.query = search.value;
+    clearBtn.hidden = state.query.length === 0;
+    renderCategories();
+  });
+  search.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && search.value){
+      search.value = "";
+      state.query = "";
+      clearBtn.hidden = true;
+      renderCategories();
+    }
+  });
+  clearBtn.addEventListener("click", function(){
+    search.value = ""; state.query = ""; clearBtn.hidden = true; search.focus(); renderCategories();
+  });
+
+  document.getElementById("flagged-toggle").addEventListener("click", function(){
+    state.flaggedOnly = !state.flaggedOnly;
+    this.setAttribute("aria-pressed", String(state.flaggedOnly));
+    this.classList.toggle("is-active", state.flaggedOnly);
+    renderCategories();
+  });
+
+  document.getElementById("instructions-open").addEventListener("click", openInstructions);
+
+  document.addEventListener("keydown", function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    if (e.key === "i" || e.key === "?"){
+      var card = document.activeElement && document.activeElement.closest && document.activeElement.closest(".card");
+      if (card){ e.preventDefault(); toggleDetailForCard(card); }
+    } else if (e.key === "Escape"){
+      closeFloatingPanel();
+    }
+  });
+
+  window.addEventListener("scroll", function(){ if (state.openDetailId) closeFloatingPanel(); }, { passive: true });
+  window.addEventListener("resize", function(){ if (state.openDetailId) closeFloatingPanel(); });
+}
+
+/* ---------------- Rendering: top level ---------------- */
+
+function renderAll(){
+  renderFooter();
+  renderPinned();
+  renderCategories();
+}
+
+function renderFooter(){
+  var asof = document.getElementById("footer-asof");
+  asof.textContent = " Data as of " + formatDate(state.data.lastReviewed) + ".";
+}
+
+function formatDate(iso){
+  if (!iso) return "unknown";
+  var d = new Date(iso + "T00:00:00");
+  if (isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+/* ---------------- Staleness (F6) ---------------- */
+
+function stalenessOf(link){
+  if (!link.lastVerified) return "none";
+  var interval = link.reviewIntervalDays || state.data.defaultReviewIntervalDays || 90;
+  var last = new Date(link.lastVerified + "T00:00:00").getTime();
+  var days = (Date.now() - last) / 86400000;
+  if (days > interval * 2) return "stale";
+  if (days > interval) return "verify";
+  return "none";
+}
+
+function allLinksFlat(){
+  return state.data.links || [];
+}
+
+/* ---------------- Search matching (F1) ---------------- */
+
+function normalizeStr(s){
+  return (s || "").toString().normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+}
+
+function linkMatches(link, catLabel, q){
+  if (!q) return true;
+  var hay = [
+    link.title, catLabel,
+    (link.tags || []).join(" "),
+    link.note,
+    link.detail && link.detail.whatItGives,
+    link.detail && (link.detail.dataFields || []).join(" ")
+  ].join(" ");
+  return normalizeStr(hay).indexOf(normalizeStr(q)) !== -1;
+}
+
+/* ---------------- Pinned strip (F4) ---------------- */
+
+function renderPinned(){
+  var section = document.getElementById("pinned-section");
+  var scroll = document.getElementById("pinned-scroll");
+  var byId = {};
+  allLinksFlat().forEach(function(l){ byId[l.id] = l; });
+
+  var ids = [];
+  allLinksFlat().forEach(function(l){ if (l.pinned && ids.indexOf(l.id) === -1) ids.push(l.id); });
+  state.pins.forEach(function(id){ if (byId[id] && ids.indexOf(id) === -1) ids.push(id); });
+
+  scroll.textContent = "";
+  if (ids.length === 0){ section.hidden = true; return; }
+  section.hidden = false;
+
+  ids.forEach(function(id){
+    var link = byId[id];
+    if (!link || link.deprecated) return;
+    var chip = el("button", "pin-chip");
+    chip.type = "button";
+    chip.appendChild(icon("external"));
+    chip.appendChild(el("span", null, link.title));
+    chip.addEventListener("click", function(){ window.open(link.url, "_blank", "noopener,noreferrer"); });
+    scroll.appendChild(chip);
+  });
+}
+
+function togglePin(id){
+  var i = state.pins.indexOf(id);
+  if (i === -1) state.pins.push(id); else state.pins.splice(i, 1);
+  saveJSON("upinfradesk:pins", state.pins);
+  renderPinned();
+}
+
+/* ---------------- Categories + cards (F2, F3) ---------------- */
+
+function renderCategories(){
+  var root = document.getElementById("categories");
+  root.textContent = "";
+  var q = state.query.trim();
+
+  var cats = (state.data.categories || []).slice().sort(function(a,b){ return a.order - b.order; });
+  var flaggedTotal = 0;
+
+  cats.forEach(function(cat){
+    var links = allLinksFlat().filter(function(l){ return l.category === cat.id; });
+
+    var visible = links.filter(function(l){
+      if (!linkMatches(l, cat.label, q)) return false;
+      if (state.flaggedOnly && (l.deprecated || stalenessOf(l) === "none")) return false;
+      return true;
+    });
+
+    links.forEach(function(l){ if (!l.deprecated && stalenessOf(l) !== "none") flaggedTotal++; });
+
+    if (visible.length === 0) return;
+
+    var section = el("section", "category");
+    section.dataset.catId = cat.id;
+    var collapsedState = !!state.collapsed[cat.id];
+    section.dataset.collapsed = String(collapsedState && !q);
+
+    var toggle = el("button", "category-toggle");
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", String(!(collapsedState && !q)));
+    var toggleLeft = el("span", "category-toggle-left");
+    var chev = icon("chevron-down"); chev.classList.add("chev");
+    toggleLeft.appendChild(chev);
+    toggleLeft.appendChild(el("span", "category-title", cat.label));
+    toggle.appendChild(toggleLeft);
+    toggle.appendChild(el("span", "category-count", String(visible.length)));
+    toggle.addEventListener("click", function(){
+      var nowCollapsed = section.dataset.collapsed !== "true";
+      section.dataset.collapsed = String(nowCollapsed);
+      toggle.setAttribute("aria-expanded", String(!nowCollapsed));
+      state.collapsed[cat.id] = nowCollapsed;
+      saveJSON("upinfradesk:collapsed", state.collapsed);
+    });
+    section.appendChild(toggle);
+
+    var body = el("div", "category-body");
+
+    if (cat.view === "table"){
+      body.appendChild(renderPolicyTable(visible));
+    } else {
+      var grid = el("div", "card-grid");
+      visible.forEach(function(link){ grid.appendChild(buildCard(link)); });
+      body.appendChild(grid);
+    }
+    section.appendChild(body);
+    root.appendChild(section);
+  });
+
+  document.getElementById("flagged-count").textContent = String(flaggedTotal);
+
+  var status = document.getElementById("search-status");
+  if (q){
+    var total = root.querySelectorAll(".card, .policy-table tbody tr").length;
+    status.textContent = total + (total === 1 ? " result" : " results") + " for “" + q + "”";
+  } else {
+    status.textContent = "";
+  }
+
+  if (root.children.length === 0){
+    var empty = el("div", "state-block");
+    empty.appendChild(el("h2", null, q ? "No matches" : "Nothing to show"));
+    empty.appendChild(el("p", null, q
+      ? "Try a different term — search also matches tags and the data fields inside each resource."
+      : "Turn off “flagged only” to see the full index."));
+    root.appendChild(empty);
+  }
+}
+
+function badge(iconName, label, cls){
+  var span = el("span", "badge " + cls);
+  span.appendChild(icon(iconName));
+  span.appendChild(el("span", null, label));
+  return span;
+}
+
+function buildCard(link){
+  var tpl = document.getElementById("tpl-card");
+  var node = tpl.content.firstElementChild.cloneNode(true);
+  node.dataset.id = link.id;
+
+  var isStale = !link.deprecated && stalenessOf(link);
+
+  var a = node.querySelector(".card-link");
+  a.href = link.url;
+  a.setAttribute("aria-describedby", "detail-panel");
+  node.querySelector(".card-title").textContent = link.title;
+  node.querySelector(".card-note").textContent = link.note || "";
+
+  if (link.deprecated){
+    node.classList.add("card-deprecated");
+    var note = node.querySelector(".card-deprecated-note");
+    note.hidden = false;
+    note.textContent = link.replacedBy
+      ? "Deprecated — replaced. See related links in detail."
+      : "Deprecated — no longer current.";
+  }
+
+  var badges = node.querySelector(".badges");
+  if (link.authRequired) badges.appendChild(badge("lock", "Login required", "badge-lock"));
+  if (link.mobileFriendly === false) badges.appendChild(badge("desktop", "Desktop only", "badge-desktop"));
+  if (!link.deprecated && isStale === "verify") badges.appendChild(badge("verify", "Verify", "badge-verify"));
+  if (!link.deprecated && isStale === "stale") badges.appendChild(badge("stale", "Stale", "badge-stale"));
+
+  node.querySelector(".copy-btn").addEventListener("click", function(e){
+    e.preventDefault();
+    copyToClipboard(link.url, this);
+  });
+
+  var pinBtn = node.querySelector(".pin-btn");
+  var isPinned = link.pinned || state.pins.indexOf(link.id) !== -1;
+  pinBtn.setAttribute("aria-pressed", String(isPinned));
+  if (isPinned) pinBtn.classList.add("is-active");
+  pinBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    togglePin(link.id);
+    var nowPinned = state.pins.indexOf(link.id) !== -1;
+    this.setAttribute("aria-pressed", String(nowPinned));
+    this.classList.toggle("is-active", nowPinned);
+  });
+
+  var chevBtn = node.querySelector(".chevron-btn");
+  var isTouch = !(window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  chevBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    if (isTouch){
+      toggleInlineDetail(node, link);
+    } else {
+      toggleDetailForCard(node);
+    }
+  });
+
+  if (!isTouch){
+    node.addEventListener("mouseenter", function(){
+      clearTimeout(state.closeTimer);
+      state.hoverTimer = setTimeout(function(){ openFloatingPanel(node, link); }, 300);
+    });
+    node.addEventListener("mouseleave", function(){
+      clearTimeout(state.hoverTimer);
+      state.closeTimer = setTimeout(function(){
+        var panel = document.getElementById("detail-panel");
+        if (!panel.matches(":hover")) closeFloatingPanel();
+      }, 150);
+    });
+  }
+
+  return node;
+}
+
+function copyToClipboard(text, btn){
+  var done = function(){
+    var original = btn.getAttribute("aria-label");
+    btn.setAttribute("aria-label", "Copied");
+    setTimeout(function(){ btn.setAttribute("aria-label", original); }, 1200);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){});
+  } else {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch(e){}
+    document.body.removeChild(ta);
+    done();
+  }
+}
+
+/* ---------------- Detail content (F3a) ---------------- */
+
+function buildDetailBlock(labelText, extraClass){
+  var block = el("div", "detail-block");
+  if (labelText){
+    var label = el("div", "detail-label" + (extraClass ? " " + extraClass : ""), labelText);
+    block.appendChild(label);
+  }
+  return block;
+}
+
+function populateDetail(container, link){
+  var d = link.detail || {};
+  container.textContent = "";
+
+  var head = el("div", "detail-head");
+  head.appendChild(el("div", "detail-title", link.title));
+  head.appendChild(el("div", "detail-owner", d.owner ? "Run by " + d.owner : ""));
+  container.appendChild(head);
+
+  if (d.whatItGives){
+    var b1 = buildDetailBlock(null);
+    b1.appendChild(el("div", "detail-text", d.whatItGives));
+    container.appendChild(b1);
+  }
+  if (d.dataFields && d.dataFields.length){
+    var b2 = buildDetailBlock("Contains");
+    b2.appendChild(el("div", "detail-tags", d.dataFields.join(" · ")));
+    container.appendChild(b2);
+  }
+  if (d.filters && d.filters.length){
+    var b3 = buildDetailBlock("Filter by");
+    b3.appendChild(el("div", "detail-tags", d.filters.join(" · ")));
+    container.appendChild(b3);
+  }
+  if (d.typicalUse){
+    var b4 = buildDetailBlock("Use when");
+    b4.appendChild(el("div", "detail-text", d.typicalUse));
+    container.appendChild(b4);
+  }
+  if (d.quirks && d.quirks.length){
+    var b5 = buildDetailBlock("Watch out", "detail-warn-head");
+    var ul = el("ul", "detail-quirks");
+    d.quirks.forEach(function(q){ ul.appendChild(el("li", null, q)); });
+    b5.appendChild(ul);
+    container.appendChild(b5);
+  }
+  if (d.relatedIds && d.relatedIds.length){
+    var b6 = buildDetailBlock("Related");
+    var rel = el("div", "detail-related");
+    d.relatedIds.forEach(function(rid){
+      var rl = allLinksFlat().filter(function(l){ return l.id === rid; })[0];
+      if (!rl) return;
+      var btn = el("button", null, rl.title);
+      btn.type = "button";
+      btn.addEventListener("click", function(){ window.open(rl.url, "_blank", "noopener,noreferrer"); });
+      rel.appendChild(btn);
+    });
+    b6.appendChild(rel);
+    container.appendChild(b6);
+  }
+
+  var meta = el("div", "detail-block detail-meta");
+  meta.appendChild(el("span", "detail-login", link.authRequired ? "Login: yes" : "Login: no"));
+  meta.appendChild(el("span", "detail-verified", "Verified " + formatDate(link.lastVerified)));
+  container.appendChild(meta);
+}
+
+/* Floating panel (desktop hover / keyboard) */
+
+function openFloatingPanel(cardEl, link){
+  var panel = document.getElementById("detail-panel");
+  populateDetail(panel, link);
+  panel.hidden = false;
+  state.openDetailId = link.id;
+  document.querySelectorAll(".card.is-hovered,.card.is-open").forEach(function(c){ c.classList.remove("is-hovered","is-open"); });
+  cardEl.classList.add("is-open");
+
+  var rect = cardEl.getBoundingClientRect();
+  var panelWidth = 320, margin = 8;
+  var left = rect.right + margin;
+  if (left + panelWidth + margin > window.innerWidth){
+    left = rect.left - panelWidth - margin;
+    if (left < margin) left = Math.max(margin, (window.innerWidth - panelWidth) / 2);
+  }
+  var top = rect.top;
+  var maxTop = window.innerHeight - Math.min(520, window.innerHeight * 0.8) - margin;
+  if (top > maxTop) top = Math.max(margin, maxTop);
+  panel.style.left = left + "px";
+  panel.style.top = top + "px";
+
+  panel.onmouseenter = function(){ clearTimeout(state.closeTimer); };
+  panel.onmouseleave = function(){ state.closeTimer = setTimeout(closeFloatingPanel, 150); };
+}
+
+function closeFloatingPanel(){
+  var panel = document.getElementById("detail-panel");
+  panel.hidden = true;
+  state.openDetailId = null;
+  document.querySelectorAll(".card.is-hovered,.card.is-open").forEach(function(c){ c.classList.remove("is-hovered","is-open"); });
+}
+
+function toggleDetailForCard(cardEl){
+  var id = cardEl.dataset.id;
+  if (state.openDetailId === id){ closeFloatingPanel(); return; }
+  var link = allLinksFlat().filter(function(l){ return l.id === id; })[0];
+  if (link) openFloatingPanel(cardEl, link);
+}
+
+/* Inline expand (mobile / touch) */
+
+function toggleInlineDetail(cardEl, link){
+  var box = cardEl.querySelector(".card-inline-detail");
+  var btn = cardEl.querySelector(".chevron-btn");
+  var open = box.classList.contains("is-open");
+  if (open){
+    box.classList.remove("is-open");
+    btn.setAttribute("aria-expanded", "false");
+  } else {
+    populateDetail(box, link);
+    box.classList.add("is-open");
+    btn.setAttribute("aria-expanded", "true");
+  }
+}
+
+/* ---------------- Policy table (F10) ---------------- */
+
+function amendmentOfId(l){ return l.amendmentOf || (l.detail && l.detail.amendmentOf); }
+
+function renderPolicyTable(links){
+  function childrenOf(id){ return links.filter(function(l){ return amendmentOfId(l) === id; }); }
+  var parents = links.filter(function(l){ return !amendmentOfId(l); });
+
+  var key = state.policySort.key, dir = state.policySort.dir;
+  function val(l, k){
+    if (k === "title") return l.title || "";
+    if (k === "docType") return l.docType || "";
+    if (k === "issuingAuthority") return l.issuingAuthority || "";
+    if (k === "publishedDate") return l.publishedDate || "";
+    if (k === "lastAmendedDate") return l.lastAmendedDate || "";
+    return "";
+  }
+  function cmp(a, b){
+    var va = val(a, key), vb = val(b, key);
+    if (!va && !vb) return 0;
+    if (!va) return 1;
+    if (!vb) return -1;
+    if (va < vb) return dir === "asc" ? -1 : 1;
+    if (va > vb) return dir === "asc" ? 1 : -1;
+    return 0;
+  }
+  parents = parents.slice().sort(cmp);
+
+  var wrap = el("div", "policy-wrap");
+  var table = el("table", "policy-table");
+
+  var cols = [
+    ["title", "Document"], ["docType", "Type"], ["issuingAuthority", "Authority"],
+    ["publishedDate", "Published"], ["lastAmendedDate", "Last Amended"], [null, "Open"]
+  ];
+  var thead = el("thead");
+  var trHead = el("tr");
+  cols.forEach(function(c){
+    var th = el("th");
+    if (!c[0]){
+      th.appendChild(el("span", "visually-hidden", c[1]));
+      trHead.appendChild(th);
+      return;
+    }
+    var sortDir = key === c[0] ? dir : null;
+    th.setAttribute("aria-sort", sortDir === "asc" ? "ascending" : sortDir === "desc" ? "descending" : "none");
+    var btn = el("button", null, c[1]);
+    btn.type = "button";
+    btn.appendChild(icon(sortDir === "asc" ? "sort-asc" : sortDir === "desc" ? "sort-desc" : "sort-none"));
+    btn.addEventListener("click", function(){
+      if (state.policySort.key === c[0]) state.policySort.dir = state.policySort.dir === "asc" ? "desc" : "asc";
+      else state.policySort = { key: c[0], dir: c[0] === "lastAmendedDate" ? "desc" : "asc" };
+      renderCategories();
+    });
+    th.appendChild(btn);
+    trHead.appendChild(th);
+  });
+  thead.appendChild(trHead);
+  table.appendChild(thead);
+
+  var tbody = el("tbody");
+  parents.forEach(function(p){
+    tbody.appendChild(policyRow(p, false));
+    childrenOf(p.id).slice().sort(cmp).forEach(function(child){
+      tbody.appendChild(policyRow(child, true));
+    });
+  });
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+  return wrap;
+}
+
+function policyRow(link, isChild){
+  var tr = el("tr");
+  tr.dataset.id = link.id;
+
+  var tdDoc = el("td");
+  tdDoc.dataset.label = "Document";
+  tdDoc.className = "policy-doc-cell-wrap";
+  var wrap = el("div", "policy-doc-cell");
+  if (isChild) wrap.appendChild(el("span", "policy-indent"));
+  wrap.appendChild(el("span", "policy-doc-title" + (isChild ? " is-amendment" : ""), link.title));
+  tdDoc.appendChild(wrap);
+  tr.appendChild(tdDoc);
+
+  var tdType = el("td", null, link.docType || "—"); tdType.dataset.label = "Type"; tr.appendChild(tdType);
+  var tdAuth = el("td", null, link.issuingAuthority || "—"); tdAuth.dataset.label = "Authority"; tr.appendChild(tdAuth);
+
+  var tdPub = el("td", "policy-date" + (link.publishedDate ? "" : " is-empty"), link.publishedDate ? formatDate(link.publishedDate) : "unverified");
+  tdPub.dataset.label = "Published"; tr.appendChild(tdPub);
+
+  var tdAmend = el("td", "policy-date" + (link.lastAmendedDate ? "" : " is-empty"), link.lastAmendedDate ? formatDate(link.lastAmendedDate) : "—");
+  tdAmend.dataset.label = "Last Amended"; tr.appendChild(tdAmend);
+
+  var tdLink = el("td"); tdLink.dataset.label = "Open";
+  var a = el("a", "policy-doc-link" + (link.directDocument === false ? " indirect" : ""));
+  a.href = link.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+  a.setAttribute("aria-label", (link.directDocument === false ? "Open landing page for " : "Open document: ") + link.title);
+  a.appendChild(icon("external"));
+  tdLink.appendChild(a);
+  tr.appendChild(tdLink);
+
+  tr.addEventListener("mouseenter", function(){
+    clearTimeout(state.closeTimer);
+    state.hoverTimer = setTimeout(function(){ openFloatingPanel(tr, link); tr.classList.add("is-open"); }, 300);
+  });
+  tr.addEventListener("mouseleave", function(){
+    clearTimeout(state.hoverTimer);
+    state.closeTimer = setTimeout(function(){
+      var panel = document.getElementById("detail-panel");
+      if (!panel.matches(":hover")){ closeFloatingPanel(); tr.classList.remove("is-open"); }
+    }, 150);
+  });
+
+  return tr;
+}
+
+/* ---------------- Instructions view (F8) ---------------- */
+
+function instrSection(heading, bodyBuilder){
+  var s = el("div", "instr-section");
+  s.appendChild(el("h2", null, heading));
+  bodyBuilder(s);
+  return s;
+}
+function instrP(parent, text){ parent.appendChild(el("p", null, text)); }
+function instrCode(text){ return el("code", null, text); }
+function pWithCode(parent, parts){
+  var p = el("p");
+  parts.forEach(function(part){
+    if (typeof part === "string") p.appendChild(document.createTextNode(part));
+    else p.appendChild(part);
+  });
+  parent.appendChild(p);
+}
+
+function openInstructions(){
+  document.getElementById("index-view").hidden = true;
+  var view = document.getElementById("instructions-view");
+  view.hidden = false;
+  view.textContent = "";
+  view.appendChild(buildInstructions());
+  window.scrollTo(0, 0);
+}
+function closeInstructions(){
+  document.getElementById("instructions-view").hidden = true;
+  document.getElementById("index-view").hidden = false;
+}
+
+function buildInstructions(){
+  var frag = document.createDocumentFragment();
+
+  var back = el("button", "instr-back");
+  back.type = "button";
+  back.appendChild(icon("back"));
+  back.appendChild(document.createTextNode(" Back to index"));
+  back.addEventListener("click", closeInstructions);
+  frag.appendChild(back);
+
+  frag.appendChild(el("h1", null, "Instructions"));
+
+  frag.appendChild(instrSection("1. What this is", function(s){
+    instrP(s, "UPInfradesk is an independent index of public Uttar Pradesh infrastructure and investment-facilitation resources — GIS portals, investor systems, policy documents, and central-agency links. It is not an official government system, and it stores no passwords or credentials of any kind.");
+  }));
+
+  frag.appendChild(instrSection("2. Installing on your phone", function(s){
+    instrP(s, "iOS: open this page in Safari (Chrome on iOS cannot install PWAs) → Share → Add to Home Screen.");
+    instrP(s, "Android: open this page in Chrome → Menu → Install app.");
+  }));
+
+  frag.appendChild(instrSection("3. Finding a link", function(s){
+    instrP(s, "Use search — it matches titles, tags, notes, and, importantly, the data fields listed inside each resource’s detail panel. Typing “circle rate” or “spare capacity” will surface the right portal even if you don’t know its name. You can also browse by category, or check the Pinned strip at the top.");
+  }));
+
+  frag.appendChild(instrSection("4. Reading the detail panel", function(s){
+    pWithCode(s, ["On desktop, hover a card for a moment to open its detail panel. On mobile, tap the chevron. On keyboard, focus a card and press ", instrCode("i"), " or ", instrCode("?"), "; ", instrCode("Escape"), " closes it. The panel explains what the resource actually contains, when to reach for it, and what to watch out for — read this before you tap through."]);
+  }));
+
+  frag.appendChild(instrSection("5. Reading the badges", function(s){
+    var ul = el("ul", "instr-badge-list");
+    var items = [["lock","Login required"],["desktop","Desktop-only — unusable or unreliable on a phone"],["verify","Verify — due for a recheck"],["stale","Stale — significantly overdue; treat with caution"]];
+    items.forEach(function(it){
+      var li = el("li");
+      li.appendChild(icon(it[0]));
+      li.appendChild(document.createTextNode(it[1]));
+      ul.appendChild(li);
+    });
+    s.appendChild(ul);
+  }));
+
+  frag.appendChild(instrSection("6. Using the Policy table", function(s){
+    instrP(s, "Click any column header to sort. Amendments are nested under their parent policy. The document icon opens the file directly for most rows; a distinct icon marks rows that land on a landing page instead, meaning one extra click is coming.");
+  }));
+
+  frag.appendChild(instrSection("7. Pinning", function(s){
+    instrP(s, "Tap the pin icon on any card to add it to the Pinned strip. Pins are stored only on this device, in this browser — they are not synced anywhere, and are lost if browser data is cleared.");
+  }));
+
+  frag.appendChild(instrSection("8. When a link is broken", function(s){
+    pWithCode(s, ["Check the badge first. If it’s flagged, try the parent domain, or that portal’s own search. If you find a working replacement, the fix is a one-line edit to ", instrCode("links.json"), " and a commit."]);
+  }));
+
+  frag.appendChild(instrSection("9. Monthly maintenance", function(s){
+    pWithCode(s, ["Run ", instrCode("node tools/check-links.mjs"), " locally. Open every amber/red link and confirm the content is still current, not just that the URL resolves — no script can verify that. Update ", instrCode("lastVerified"), ", mark superseded entries ", instrCode("deprecated"), ", bump ", instrCode("lastReviewed"), ", and commit."]);
+  }));
+
+  frag.appendChild(instrSection("10. Adding a link", function(s){
+    pWithCode(s, ["Add an entry to the ", instrCode("links"), " array in ", instrCode("links.json"), " with at minimum: ", instrCode("id"), ", ", instrCode("title"), ", ", instrCode("url"), ", ", instrCode("category"), ", ", instrCode("tags"), ", ", instrCode("note"), ", ", instrCode("detail.owner"), ", ", instrCode("detail.whatItGives"), ", ", instrCode("authRequired"), ", ", instrCode("mobileFriendly"), ", ", instrCode("lastVerified"), ". Populate ", instrCode("detail.dataFields"), " by actually opening the resource once — that field is what stops exploratory clicking, and it is worth the extra two minutes. Never host a copy of a document; link to the source only, and never let anything internal into this public repository."]);
+  }));
+
+  frag.appendChild(instrSection("11. Offline behaviour", function(s){
+    instrP(s, "The index itself works offline once you’ve opened it while connected. The destinations it links to do not — every one of them needs a live connection.");
+  }));
+
+  frag.appendChild(instrSection("12. Troubleshooting", function(s){
+    pWithCode(s, ["Stale-looking icon after an update: force-quit and reopen the app; if that doesn’t clear it, remove and re-add it to your home screen."]);
+    pWithCode(s, ["Empty search results: check whether “flagged only” is switched on."]);
+    pWithCode(s, ["Blank page: most likely a syntax error in ", instrCode("links.json"), " — the app should show an error state with the fetch status instead; if you see a truly blank page, that’s a bug worth reporting."]);
+  }));
+
+  frag.appendChild(instrSection("13. Passwords", function(s){
+    pWithCode(s, ["This tool stores no credentials, by design — anything a page can store, any script on that page can read, and ", instrCode("localStorage"), " is plain text. Use your browser’s or OS’s password manager for the portals themselves; it is already encrypted at the OS level and already handles these logins."]);
+  }));
+
+  return frag;
+}
+
+if (document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,792 @@
+{
+  "schemaVersion": 2,
+  "lastReviewed": "2026-08-23",
+  "defaultReviewIntervalDays": 90,
+  "categories": [
+    { "id": "land-gis",  "label": "Land & GIS",       "order": 1 },
+    { "id": "investor",  "label": "Investor Systems",  "order": 2 },
+    { "id": "policy",    "label": "Policies",          "order": 3, "view": "table" },
+    { "id": "central",   "label": "Central Agencies",  "order": 4 },
+    { "id": "reference", "label": "Reference & Rates", "order": 5 },
+    { "id": "investup",  "label": "Invest UP",         "order": 6 }
+  ],
+  "links": [
+    {
+      "id": "upsida-propertyhub",
+      "title": "UPSIDA PropertyHub — Available Plots",
+      "url": "https://eservices.onlineupsida.com/PropertyHub/Index.aspx",
+      "category": "land-gis",
+      "tags": ["plot", "land bank", "rates", "allotment", "upsida", "available"],
+      "note": "Plot-level land bank with indicative rates. No login.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "Individual plot records across UPSIDA industrial areas — the only public source with plot-level pricing.",
+        "dataFields": [
+          "District", "Industrial Area", "Estimated price per sqm",
+          "Plot number", "Available plot size (sqm)",
+          "Total estimated cost", "GIS deep-link", "Book-now (routes to Nivesh Mitra)"
+        ],
+        "filters": ["Proposed sector", "District", "Price band", "Plot size band"],
+        "typicalUse": "First stop when matching a project requirement to candidate parcels.",
+        "quirks": [
+          "Paginated ASP.NET grid — no bulk export",
+          "GIS link opens OneMapUP with the plot pre-selected via UNIQUEPLOTID",
+          "Rates are indicative, not the allotment price",
+          "Desktop only in practice — the grid is unusable on a phone"
+        ],
+        "relatedIds": ["onemapup-upsida"]
+      },
+      "authRequired": false,
+      "mobileFriendly": false,
+      "lastVerified": "2026-08-23",
+      "pinned": true
+    },
+    {
+      "id": "onemapup-upsida",
+      "title": "OneMapUP — UPSIDA GIS Layer",
+      "url": "https://onemapup.nic.in/upsida/master.aspx",
+      "category": "land-gis",
+      "tags": ["gis", "map", "land bank", "spatial", "upsida"],
+      "note": "State GIS viewer with the UPSIDA industrial land layer.",
+      "detail": {
+        "owner": "UPSIDA / NIC UP",
+        "whatItGives": "Map-based view of UPSIDA plots and industrial area boundaries, deep-linkable from PropertyHub via plot ID.",
+        "dataFields": ["Plot boundary", "Industrial area boundary", "District layer", "Land use layer"],
+        "typicalUse": "Visual confirmation of a plot's location and surroundings before a site visit.",
+        "quirks": ["Heavy map layer — slow on mobile data", "Layer toggles are not obvious on first use"],
+        "relatedIds": ["upsida-propertyhub"]
+      },
+      "authRequired": false,
+      "mobileFriendly": false,
+      "lastVerified": "2026-05-01",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "india-industrial-land-bank",
+      "title": "India Industrial Land Bank (DPIIT)",
+      "url": "https://indiaindustriallandbank.gov.in/",
+      "category": "land-gis",
+      "tags": ["land bank", "national", "dpiit", "gis", "clusters", "iilb"],
+      "note": "National GIS repository of industrial parks and available land across all states.",
+      "detail": {
+        "owner": "DPIIT, Ministry of Commerce & Industry, Govt. of India (with Invest India, NCoG, BISAG-N)",
+        "whatItGives": "Cross-state view of ~4,500+ industrial parks, GIS mapping of clusters, and existing infrastructure — useful for benchmarking UP land against other states.",
+        "typicalUse": "Comparing UP's offer against other states for a multi-state site-selection process.",
+        "quirks": [
+          "Formerly branded as part of the 'Industrial Information System' — now consolidated as India Industrial Land Bank (IILB); the NCOG-hosted iis.ncog.gov.in system is closely related, possibly overlapping data",
+          "Requires registration/login for deeper drill-down on some views",
+          "An automated check got a 403 — consistent with bot-blocking on a government WAF, not necessarily a dead link; confirm manually in a browser"
+        ],
+        "relatedIds": ["industrial-information-system-ncog"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "industrial-information-system-ncog",
+      "title": "Industrial Information System (NCOG)",
+      "url": "https://iis.ncog.gov.in/",
+      "category": "land-gis",
+      "tags": ["gis", "national", "ncog", "land bank", "clusters"],
+      "note": "NCOG's GIS-based industrial land and infrastructure information system.",
+      "detail": {
+        "owner": "National Centre of Geo-Informatics (NCOG), MeitY",
+        "whatItGives": "GIS layers for industrial clusters, external/internal infrastructure, and links out to state-level GIS portals and land banks.",
+        "typicalUse": "Infrastructure-layer detail (roads, utilities) around a candidate cluster, beyond what the plot-level portals show.",
+        "quirks": ["Closely related to India Industrial Land Bank — the two may be converging into one system; check both if one seems incomplete"],
+        "relatedIds": ["india-industrial-land-bank"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "yeida",
+      "title": "YEIDA — Yamuna Expressway Industrial Development Authority",
+      "url": "https://www.yamunaexpresswayauthority.com/",
+      "category": "land-gis",
+      "tags": ["yeida", "yamuna expressway", "authority", "noida", "land"],
+      "note": "Official YEIDA site — notices, schemes, and land allotment updates for the Yamuna Expressway belt.",
+      "detail": {
+        "owner": "YEIDA (est. 2001, UP Industrial Area Development Act 1976)",
+        "whatItGives": "Authority notices, residential/industrial scheme announcements, and administrative updates for districts along the Yamuna Expressway (Gautam Buddh Nagar, Bulandshahr, Aligarh, Hathras, Mathura, Agra).",
+        "typicalUse": "Checking current YEIDA scheme launches or notices before referring an investor there.",
+        "quirks": [
+          "Several unofficial broker/aggregator sites use similar names (e.g. yamunaexpressway.co) — this is the authority's own domain, not a broker site; double-check the URL bar",
+          "An automated check got a 405 (method not allowed) — the site likely just rejects the check script's request type; confirm manually in a browser"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "gnida",
+      "title": "GNIDA — Greater Noida Industrial Development Authority",
+      "url": "https://gnida.up.gov.in/",
+      "category": "land-gis",
+      "tags": ["gnida", "greater noida", "authority", "land"],
+      "note": "Official GNIDA site — notices, schemes, and services for Greater Noida's industrial areas.",
+      "detail": {
+        "owner": "GNIDA, Govt. of UP",
+        "whatItGives": "Authority notices, scheme launches, and administrative services for Greater Noida industrial and institutional land.",
+        "typicalUse": "Checking current GNIDA allotment schemes or notices.",
+        "quirks": [
+          "A second site, greaternoidaauthority.in, also brands itself as the official GNIDA site — the .up.gov.in domain here is the more authoritative government address",
+          "An automated check hit a redirect to an internal error page (frmHttpErrorPage.aspx) — consistent with this NIC-hosted ASP.NET site blocking non-browser requests rather than the site being down; confirm manually in a browser before treating as broken"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "noida-authority",
+      "title": "Noida Authority",
+      "url": "https://noidaauthorityonline.in/",
+      "category": "land-gis",
+      "tags": ["noida", "authority", "land", "industrial"],
+      "note": "Noida Authority's official portal — notices, schemes, and citizen/industrial services.",
+      "detail": {
+        "owner": "New Okhla Industrial Development Authority (Noida)",
+        "whatItGives": "Authority notices, plot schemes, and services for Noida's industrial and institutional land.",
+        "typicalUse": "Checking current Noida industrial-plot scheme launches or notices.",
+        "quirks": [
+          "Domain is not a .gov.in/.up.gov.in address — confidence on this being the sole official URL is medium; verify against Noida Authority's official social channels (@noida_authority) if in doubt",
+          "An automated check returned 404 on this exact URL — a sibling path (noidaauthorityonline.in/en) was also seen in search results; if this 404s for you too, try that path or search 'Noida Authority official website' fresh before relying on this entry"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "upeida",
+      "title": "UPEIDA — UP Expressways Industrial Development Authority",
+      "url": "https://upeida.up.gov.in/",
+      "category": "land-gis",
+      "tags": ["upeida", "expressway", "industrial corridor", "bundelkhand", "purvanchal", "ganga expressway"],
+      "note": "Official UPEIDA site — industrial corridor land along UP's expressways (Purvanchal, Bundelkhand, Ganga).",
+      "detail": {
+        "owner": "UPEIDA, Govt. of UP (UP Industrial Area Development Act 1976)",
+        "whatItGives": "Industrial land parcels and scheme notices along the Purvanchal, Bundelkhand, Agra-Lucknow and Ganga Expressway corridors.",
+        "typicalUse": "Site selection for projects targeting the eastern/southern UP expressway corridors rather than the NCR belt.",
+        "quirks": []
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "invest-up-land-bank",
+      "title": "Invest UP — Land Bank Page",
+      "url": "https://invest.up.gov.in/land-bank/",
+      "category": "land-gis",
+      "tags": ["invest up", "land bank", "overview", "industrial areas"],
+      "note": "Invest UP's own summary/entry point into the state's industrial land bank.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "A state-level overview and links into the IDA-wise land bank details (UPSIDA, YEIDA, GNIDA, etc.) — a good starting orientation page before going to a specific authority's own system.",
+        "typicalUse": "Framing the state's overall land availability for an investor pitch before drilling into a specific authority.",
+        "relatedIds": ["upsida-propertyhub", "india-industrial-land-bank"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+
+    {
+      "id": "nivesh-mitra",
+      "title": "Nivesh Mitra 3.0 — Single Window Portal",
+      "url": "https://niveshmitra.up.gov.in/",
+      "category": "investor",
+      "tags": ["single window", "approvals", "clearances", "application", "login"],
+      "note": "UP's single-window system for investor approvals and clearances.",
+      "detail": {
+        "owner": "Department of Infrastructure & Industrial Development (IIDD), Govt. of UP",
+        "whatItGives": "Application tracking and department-wise clearance status for registered investors/units.",
+        "typicalUse": "Checking or progressing a specific unit's clearance status.",
+        "quirks": ["Requires registered login", "Session times out quickly on shared connections"],
+        "relatedIds": ["nivesh-mitra-know-approvals"]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-07-10",
+      "pinned": true
+    },
+    {
+      "id": "nivesh-mitra-know-approvals",
+      "title": "Nivesh Mitra — Know Your Approvals",
+      "url": "https://niveshmitra.up.nic.in/Wizard.aspx",
+      "category": "investor",
+      "tags": ["approvals", "checklist", "wizard", "clearances", "know your approvals"],
+      "note": "Wizard tool that lists exactly which approvals a given business/industry needs.",
+      "detail": {
+        "owner": "Department of Infrastructure & Industrial Development (IIDD), Govt. of UP",
+        "whatItGives": "A guided checklist of required departmental clearances based on sector, scale, and location inputs — answers 'what do I even need to apply for' before touching Nivesh Mitra proper.",
+        "typicalUse": "First question from a new investor: 'what approvals will I need?' — run this before opening a full application.",
+        "quirks": ["Still hosted on the legacy niveshmitra.up.nic.in domain even though the main portal has moved to niveshmitra.up.gov.in — this may migrate; re-verify if it 404s"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "nivesh-sarathi",
+      "title": "Nivesh Sarathi — Investor CRM & Grievance Portal",
+      "url": "https://niveshsarathi.up.gov.in/",
+      "category": "investor",
+      "tags": ["grievance", "crm", "investment intent", "land facilitation", "tracking"],
+      "note": "Invest UP's CRM for investment intents, land facilitation requests, and grievance redressal.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "One place for investors to log investment intent, request land facilitation, raise a query against any department, and track resolution — distinct from Nivesh Mitra, which is for formal statutory clearances.",
+        "typicalUse": "Escalating a stuck investor query, or logging a new investment intent/land requirement for facilitation.",
+        "quirks": ["Launched Nov 2022 — newer and less well-known than Nivesh Mitra; don't confuse the two by name"]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "upsida-obpas",
+      "title": "UPSIDA OBPAS — Online Building Plan Approval System",
+      "url": "https://upsida.obpas.up.gov.in/",
+      "category": "investor",
+      "tags": ["building plan", "approval", "obpas", "construction", "architect"],
+      "note": "Online submission and approval of building plans within UPSIDA industrial areas.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "End-to-end online building-plan submission, scrutiny, and approval workflow for allottees, architects, and UPSIDA officers.",
+        "typicalUse": "Guiding an allottee through building-plan approval, or checking where a submitted plan stands.",
+        "quirks": ["Separate logins/roles for allottee, architect, and officer — point the right party to the right role"]
+      },
+      "authRequired": true,
+      "mobileFriendly": false,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "upsida-eauction",
+      "title": "UPSIDA — E-Auction Notices",
+      "url": "https://onlineupsida.com/eauction.aspx",
+      "category": "investor",
+      "tags": ["e-auction", "plots", "bidding", "notice", "upsida"],
+      "note": "Live and upcoming plot e-auction notices, organised by region.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "Region-wise (Agra, Aligarh, Ayodhya, Bareilly, Ghaziabad, and more) listing of plots currently or soon up for e-auction, with notice PDFs.",
+        "typicalUse": "Time-sensitive — checking whether a specific district has an active auction an investor could bid in.",
+        "quirks": []
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 30
+    },
+
+    {
+      "id": "up-iiep-2022",
+      "title": "UP Industrial Investment & Employment Promotion Policy 2022",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2023/02/Uttar_Pradesh_Industrial_Investment_Employment_Promotion_Policy_2022-en.pdf",
+      "category": "policy",
+      "tags": ["policy", "incentive", "subsidy", "IIEP", "2022", "capital subsidy", "SGST reimbursement"],
+      "note": "Flagship state industrial incentive policy — capital subsidy, SGST reimbursement, or PLI top-up.",
+      "docType": "Policy",
+      "issuingAuthority": "IIDD / Invest UP (nodal agency)",
+      "publishedDate": "2022-11-04",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "IIDD, Govt. of UP — Invest UP is the nodal implementation agency",
+        "whatItGives": "Full incentive structure: a one-time choice between capital subsidy, net SGST reimbursement, or a PLI top-up, plus stamp duty exemption and sector-specific provisions, across Large/Mega/Super Mega/Ultra Mega investment slabs.",
+        "typicalUse": "Quoting exact incentive slabs and eligibility to an investor by sector and investment size.",
+        "quirks": [
+          "Cabinet approval reported 3 Nov 2022; the published document itself is dated 4 Nov 2022 — cite the document date",
+          "invest.up.gov.in has intermittently presented an invalid/self-signed TLS certificate in automated checks — verify manually in-browser if a script flags it"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "up-mmlp-2024",
+      "title": "UP Multi-Modal Logistics Park Policy 2024",
+      "url": "https://invest.up.gov.in/uttar-pradesh-multi-modal-logistics-park-policy-2024/",
+      "category": "policy",
+      "tags": ["policy", "logistics", "mmlp", "warehousing", "2024"],
+      "note": "Incentive framework for large private multi-modal logistics park investments.",
+      "docType": "Policy",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": "2024-12-18",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "HTML",
+      "directDocument": false,
+      "detail": {
+        "owner": "IIDD, Govt. of UP",
+        "whatItGives": "Incentives for MMLP projects with minimum ₹1,000 crore investment: 30% upfront land-cost subsidy on IDA-allocated land, 100% stamp duty exemption on leased land, and related provisions.",
+        "typicalUse": "Pitching logistics-park incentives to a large investor (₹1,000cr+ threshold).",
+        "quirks": ["Direct policy PDF not confirmed during this research pass — this links to the official Invest UP landing page, which links onward to the document; verify and update to a direct PDF URL when confirmed", "Cabinet approval and GO both dated December 2024 — landing page carries the fuller detail"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-unified-building-regs-2026",
+      "title": "UP Unified Building Regulations for Industrial Development Authorities, 2026 (Draft)",
+      "url": "https://niveshmitra.up.nic.in/Documents/DraftPolicies/Unified_Building_Regulations_for_Industrial_Development_Authorities.pdf",
+      "category": "policy",
+      "tags": ["building regulations", "unified", "draft", "2026", "far", "consultation"],
+      "note": "Draft regulation to standardise construction norms across all UP IDAs — still in public consultation.",
+      "docType": "Regulation",
+      "issuingAuthority": "Govt. of UP (proposed — covers Noida, GNIDA, YEIDA, UPSIDA, UPEIDA, GIDA, BIDA)",
+      "publishedDate": null,
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP (draft stage)",
+        "whatItGives": "Proposed unified FAR/construction norms intended to replace authority-by-authority variation across Noida, Greater Noida, YEIDA, UPSIDA, UPEIDA, GIDA (Gorakhpur) and BIDA (Bundelkhand).",
+        "typicalUse": "Understanding where building norms are headed — NOT yet the operative rule; the 2018 UPSIDA regulations (and its 2024 update) still govern today.",
+        "quirks": [
+          "STILL A DRAFT as of this research pass — released for public consultation; not yet notified/adopted. Do not cite as final without checking current status first",
+          "Confirms BIDA (Bundelkhand) and GIDA (Gorakhpur) exist as separate IDAs beyond UPSIDA/YEIDA/GNIDA/Noida/UPEIDA — worth adding their own portals in a future update"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 30
+    },
+    {
+      "id": "upsida-land-building-regs-2018",
+      "title": "UPSIDA Land Development & Building Regulations, 2018",
+      "url": "https://upsida.obpas.up.gov.in/x_images/UPSIDA-Land-Building-Regulations-2018v1.pdf",
+      "category": "policy",
+      "tags": ["regulation", "building", "land development", "upsida", "2018", "far"],
+      "note": "Base construction/land-development rulebook for UPSIDA industrial areas.",
+      "docType": "Regulation",
+      "issuingAuthority": "UPSIDA",
+      "publishedDate": "2018-01-01",
+      "lastAmendedDate": "2024-10-10",
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "FAR, setbacks, coverage, and building-approval norms for construction on UPSIDA-allotted plots.",
+        "typicalUse": "Confirming buildable FAR/coverage on a specific plot before an investor commits.",
+        "quirks": [
+          "publishedDate is the regulation year, not a specific gazette date — an exact notification date was not confirmed during this pass; verify before citing precisely",
+          "A substantially revised 2024 edition exists (see related amendment entry) — the 2018 base document may be significantly superseded, not just lightly amended; confirm current operative version with UPSIDA before relying on specific clause numbers"
+        ],
+        "relatedIds": ["upsida-land-building-regs-2024"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "upsida-land-building-regs-2024",
+      "title": "UPSIDA Land Development & Building Regulations — 2024 Update",
+      "url": "https://upsida.in/assets/pdf/bldg%20regulation%202024%20oct%2010.pdf",
+      "category": "policy",
+      "tags": ["regulation", "building", "land development", "upsida", "2024", "amendment"],
+      "note": "2024 revision of the UPSIDA building/land-development regulations.",
+      "docType": "Amendment",
+      "issuingAuthority": "UPSIDA",
+      "publishedDate": "2024-10-10",
+      "lastAmendedDate": null,
+      "amendmentOf": "upsida-land-building-regs-2018",
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "Updated construction/FAR norms superseding parts of the 2018 regulation — exact scope of changes not itemised during this research pass.",
+        "typicalUse": "Always check this before the 2018 base document for any plot-level construction question.",
+        "quirks": [
+          "Hosted on upsida.in — a third UPSIDA-related domain alongside onlineupsida.com and upsida.obpas.up.gov.in; UPSIDA's domain sprawl is a recurring issue, confirm which is live if a link breaks",
+          "Title suggests a full revision rather than a narrow amendment — read it as the current governing document, with 2018 as historical baseline"
+        ]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-private-business-park-2025",
+      "title": "UP Private Business Park Development Scheme 2025",
+      "url": "https://invest.up.gov.in/wp-content/uploads/2026/04/Govt_Business-Park-Policy_Feb2026-Eng_20426.pdf",
+      "category": "policy",
+      "tags": ["business park", "it", "knowledge services", "reit", "2025", "scheme"],
+      "note": "Scheme enabling private developers/REITs to build commercial 'business park' campuses.",
+      "docType": "Guideline",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": "2026-02-01",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "Govt. of UP",
+        "whatItGives": "Framework letting private developers, REITs, and global enterprises co-develop commercial/IT business-park campuses in UP.",
+        "typicalUse": "Pitching to a developer or REIT interested in building (not just occupying) commercial space in UP.",
+        "quirks": ["File path says 'Feb2026' though uploaded April 2026 — publishedDate here uses the document's own Feb 2026 label; confirm against the actual GO date on next review"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+    {
+      "id": "up-plug-and-play-sheds",
+      "title": "Plug-and-Play Industrial Shed Policy (DBFOT Model)",
+      "url": "https://invest.up.gov.in/plug-and-play-industrial-shed-policy/",
+      "category": "policy",
+      "tags": ["plug and play", "sheds", "msme", "dbfot", "ready-built"],
+      "note": "Ready-built rentable industrial sheds for MSMEs, via a DBFOT PPP model.",
+      "docType": "Guideline",
+      "issuingAuthority": "IIDD / Invest UP",
+      "publishedDate": null,
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "HTML",
+      "directDocument": false,
+      "detail": {
+        "owner": "Govt. of UP",
+        "whatItGives": "Lets MSMEs rent-and-operate ready-built sheds with utilities already in place, instead of buying land and building — land stays with the IDA throughout the concession.",
+        "typicalUse": "Steering a smaller/MSME investor away from a full land purchase toward a faster, lower-capex shed rental.",
+        "quirks": ["Direct policy PDF not confirmed during this research pass — landing page only; source the actual GO/policy document on next review"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 90
+    },
+
+    {
+      "id": "pm-gati-shakti",
+      "title": "PM Gati Shakti — National Master Plan",
+      "url": "https://pmgatishakti.gov.in/pmgatishakti/login",
+      "category": "central",
+      "tags": ["gati shakti", "infrastructure", "master plan", "national", "gis"],
+      "note": "National multi-modal infrastructure GIS platform spanning all central ministries.",
+      "detail": {
+        "owner": "DPIIT, Ministry of Commerce & Industry, Govt. of India",
+        "whatItGives": "Layered GIS view of existing and planned infrastructure (road, rail, ports, power, etc.) across India, used for infrastructure gap analysis around a candidate site.",
+        "typicalUse": "Checking planned connectivity infrastructure near a site, beyond what's already built.",
+        "quirks": ["The bare pmgatishakti.gov.in root 404s in automated checks — this /pmgatishakti/login path is the real entry point", "Full layer access requires a login/registration tied to a ministry or state department"]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "dpiit",
+      "title": "DPIIT — Department for Promotion of Industry and Internal Trade",
+      "url": "https://dpiit.gov.in/",
+      "category": "central",
+      "tags": ["dpiit", "central", "industrial policy", "startup india", "ease of doing business"],
+      "note": "Central department behind national industrial policy, EoDB rankings, and land bank tools.",
+      "detail": {
+        "owner": "Ministry of Commerce & Industry, Govt. of India",
+        "whatItGives": "National industrial policy documents, state EoDB ranking methodology, and links to DPIIT-run tools like India Industrial Land Bank.",
+        "typicalUse": "Referencing national policy or EoDB ranking context in a state pitch.",
+        "relatedIds": ["india-industrial-land-bank", "pm-gati-shakti"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "morth",
+      "title": "MoRTH — Ministry of Road Transport & Highways",
+      "url": "https://morth.gov.in/",
+      "category": "central",
+      "tags": ["morth", "highways", "road", "central ministry"],
+      "note": "National road/highway policy and project information.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "National highway policy, standards, and project-level information relevant to connectivity around industrial sites.",
+        "typicalUse": "Checking national highway policy or a specific NH project status."
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "nhai",
+      "title": "NHAI — National Highways Authority of India",
+      "url": "https://nhai.gov.in/",
+      "category": "central",
+      "tags": ["nhai", "highways", "expressway", "project status"],
+      "note": "Highway project execution — status of specific NH/expressway stretches.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "Project-level status for national highways and expressways, including stretches feeding UP's industrial corridors.",
+        "typicalUse": "Verifying the completion status of a highway segment relevant to a site's connectivity."
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "nicdc",
+      "title": "NICDC — National Industrial Corridor Development Corporation",
+      "url": "https://www.nicdc.in/",
+      "category": "central",
+      "tags": ["nicdc", "industrial corridor", "smart city", "central"],
+      "note": "Implements India's industrial corridor programme, including nodes touching UP.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "Master-planned industrial corridor/smart-city node information, including any UP-touching corridor nodes.",
+        "typicalUse": "Referencing national industrial-corridor context alongside UPEIDA's expressway corridors.",
+        "relatedIds": ["upeida"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "dfccil",
+      "title": "DFCCIL — Dedicated Freight Corridor Corporation of India",
+      "url": "https://dfccil.com/",
+      "category": "central",
+      "tags": ["dfccil", "freight corridor", "rail", "logistics"],
+      "note": "Rail freight corridor project status — relevant to logistics/MMLP site selection.",
+      "detail": {
+        "owner": "Ministry of Railways, Govt. of India",
+        "whatItGives": "Status of the Eastern and Western Dedicated Freight Corridors, including UP-touching sections relevant to logistics park siting.",
+        "typicalUse": "Checking freight-corridor connectivity for a logistics or MMLP-policy pitch.",
+        "relatedIds": ["up-mmlp-2024"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "mohua",
+      "title": "MoHUA — Ministry of Housing & Urban Affairs",
+      "url": "https://mohua.gov.in/",
+      "category": "central",
+      "tags": ["mohua", "urban affairs", "housing", "central ministry"],
+      "note": "National urban development policy and scheme information.",
+      "detail": {
+        "owner": "Govt. of India",
+        "whatItGives": "National urban planning, housing, and municipal-infrastructure policy relevant to urban industrial siting.",
+        "typicalUse": "Referencing national urban-policy schemes alongside a state industrial pitch."
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "cgwa",
+      "title": "CGWA — Central Ground Water Authority (NOC)",
+      "url": "https://cgwa.mowr.gov.in/",
+      "category": "central",
+      "tags": ["cgwa", "groundwater", "noc", "water", "clearance"],
+      "note": "NOC authority for groundwater extraction — needed for many industrial units.",
+      "detail": {
+        "owner": "Ministry of Jal Shakti, Govt. of India",
+        "whatItGives": "The No Objection Certificate process for groundwater/tube-well extraction that industrial units routinely need alongside state clearances.",
+        "typicalUse": "Pointing an investor to the groundwater NOC process when their project needs a borewell/tube well.",
+        "quirks": ["Domain confidence is medium — CGWA sits under the renamed Ministry of Jal Shakli/Dept. of Water Resources and may have migrated its portal; verify this URL still resolves to the current NOC system on next review"]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "seiaa-up",
+      "title": "SEIAA UP — Environmental Clearance (via PARIVESH)",
+      "url": "https://parivesh.nic.in/",
+      "category": "central",
+      "tags": ["seiaa", "environment clearance", "parivesh", "eia"],
+      "note": "UP's State Environment Impact Assessment Authority has no standalone portal — apply via the national PARIVESH system.",
+      "detail": {
+        "owner": "SEIAA Uttar Pradesh (Secretariat: Directorate of Environment, Govt. of UP) — processed via national MoEFCC system",
+        "whatItGives": "Environmental clearance application, tracking, and committee-agenda documents for projects requiring EIA in UP.",
+        "typicalUse": "Any project needing environmental clearance — this is the actual filing system, not the secretariat's office contact.",
+        "quirks": ["SEIAA UP itself has no dedicated public website — all case processing runs through the national PARIVESH portal; don't waste time searching for a UP-specific SEIAA site"]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "uppcb",
+      "title": "UPPCB — UP Pollution Control Board",
+      "url": "https://uppcb.up.gov.in/",
+      "category": "central",
+      "tags": ["uppcb", "pollution", "consent", "environment", "noc"],
+      "note": "State pollution-control consent (CTE/CTO) and monitoring.",
+      "detail": {
+        "owner": "Govt. of UP",
+        "whatItGives": "Consent to Establish (CTE) and Consent to Operate (CTO) application processes, plus pollution monitoring data.",
+        "typicalUse": "Pointing an investor to CTE/CTO application requirements.",
+        "quirks": [
+          "Multiple lookalike/legacy domains exist for UPPCB (uppcb.com, uppcbims.co.in, uppcb-org.com) — this .up.gov.in address is the government-confirmed one; verify before trusting an alternate domain",
+          "An automated check hit a redirect to an internal error page (frmHttpErrorPage.aspx), the same pattern seen on GNIDA — likely anti-automation behavior on NIC-hosted UP sites rather than actual downtime; confirm manually in a browser"
+        ]
+      },
+      "authRequired": true,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+
+    {
+      "id": "upsida-present-rates",
+      "title": "UPSIDA — Present Rates",
+      "url": "https://onlineupsida.com/present-rates.aspx",
+      "category": "reference",
+      "tags": ["rates", "pricing", "upsida", "present rates", "sqm"],
+      "note": "Current per-sqm allotment rates across UPSIDA industrial areas.",
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "The authoritative current rate table by industrial area — distinct from PropertyHub's per-plot indicative pricing.",
+        "typicalUse": "Quoting the official current rate for an industrial area, not just an indicative plot price.",
+        "quirks": ["A staging-domain copy of this page (stagingupsida.com) surfaces in search results — always use the onlineupsida.com production URL, never the staging one"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    },
+    {
+      "id": "igrsup",
+      "title": "IGRSUP — Circle Rates (Stamp & Registration)",
+      "url": "https://igrsup.gov.in/",
+      "category": "reference",
+      "tags": ["circle rate", "stamp duty", "registration", "valuation", "igrsup"],
+      "note": "Official circle-rate lookup for stamp duty/valuation across UP.",
+      "detail": {
+        "owner": "Stamp & Registration Department, Govt. of UP",
+        "whatItGives": "District/tehsil/locality-level circle rates used for stamp duty and property valuation — the field a plain-text search for 'circle rate' should surface.",
+        "typicalUse": "Estimating stamp duty or minimum registration value for a land transaction.",
+        "dataFields": ["District", "Tehsil", "Locality/Mohalla", "Land-use category", "Circle rate per unit area"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "upsida-operating-manual",
+      "title": "UPSIDA Operating Manual",
+      "url": "https://onlineupsida.com/pdf/Operating-Manaul-2023.pdf",
+      "category": "reference",
+      "tags": ["manual", "operating manual", "upsida", "sop", "procedure"],
+      "note": "UPSIDA's internal operating procedures, publicly posted.",
+      "docType": "Guideline",
+      "issuingAuthority": "UPSIDA",
+      "publishedDate": "2023-01-01",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "PDF",
+      "directDocument": true,
+      "detail": {
+        "owner": "UPSIDA",
+        "whatItGives": "The procedural rulebook UPSIDA staff themselves operate under — allotment process, transfer rules, penalty clauses.",
+        "typicalUse": "Settling a procedural dispute or question by citing UPSIDA's own manual rather than informal practice.",
+        "quirks": ["publishedDate is inferred from the filename ('2023') only — an exact publication date was not independently confirmed; verify before citing precisely"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 180
+    },
+    {
+      "id": "up-revenue-code-2006",
+      "title": "Uttar Pradesh Revenue Code, 2006",
+      "url": "https://www.indiacode.nic.in/handle/123456789/17001",
+      "category": "reference",
+      "tags": ["revenue code", "land law", "act", "2006", "india code"],
+      "note": "The consolidated state revenue/land law — 39 prior laws merged into one code.",
+      "docType": "Rules",
+      "issuingAuthority": "Govt. of UP (U.P. Act No. 8 of 2012)",
+      "publishedDate": "2006-01-01",
+      "lastAmendedDate": null,
+      "amendmentOf": null,
+      "fileFormat": "HTML/PDF",
+      "directDocument": false,
+      "detail": {
+        "owner": "Govt. of UP — hosted on the central India Code repository",
+        "whatItGives": "The full statutory text governing land classification, revenue records, mutation, and related land-law questions across UP.",
+        "typicalUse": "Citing statutory basis for a land-classification or revenue-record question.",
+        "quirks": ["Formally enacted 2006, received the operative U.P. Act No. 8 designation in 2012 — the India Code entry is the authoritative consolidated text; other PDF copies circulate but this is the citable source"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 365
+    },
+
+    {
+      "id": "invest-up-home",
+      "title": "Invest UP — Official Site",
+      "url": "https://invest.up.gov.in/",
+      "category": "investup",
+      "tags": ["invest up", "home", "news", "sectors"],
+      "note": "Main Invest UP site — sector pages, news, and policy index.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "Sector overviews, news and events, and links into the broader policy index.",
+        "typicalUse": "Starting point for external-facing sector information to share with an investor.",
+        "relatedIds": ["invest-up-policy-index", "udyami-mitra"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23"
+    },
+    {
+      "id": "invest-up-policy-index",
+      "title": "Invest UP — Policies & Government Orders Index",
+      "url": "https://invest.up.gov.in/policies/",
+      "category": "investup",
+      "tags": ["policy index", "government orders", "go", "all policies"],
+      "note": "The master list of every current UP industrial policy and GO — start here if a specific policy isn't yet in this index.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "A live, continuously-updated index of all state industrial policies and government orders — the fallback source when a specific policy entry here is missing or outdated.",
+        "typicalUse": "Checking whether a newer policy or amendment exists that this index hasn't caught up to yet.",
+        "quirks": ["This is a live index page, not a single dated document — that's why it lives here in Invest UP rather than in the sortable Policies table, which expects per-document dates"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 30
+    },
+    {
+      "id": "udyami-mitra",
+      "title": "Invest UP — Udyami Mitra",
+      "url": "https://invest.up.gov.in/udyami-mitra/",
+      "category": "investup",
+      "tags": ["udyami mitra", "investment facilitation officer", "district facilitator"],
+      "note": "District-level investor facilitation officers — who to contact on the ground.",
+      "detail": {
+        "owner": "Invest UP",
+        "whatItGives": "The Udyami Mitra scheme roster — professionally qualified facilitators assigned per district/region to bridge investors and government departments.",
+        "typicalUse": "Finding the named facilitation contact for a specific district when an investor needs boots-on-the-ground help.",
+        "quirks": ["Scheme launched 2023 as 'Mukhya Mantri Udyami Mitra' — roster/contacts may turn over; treat named contacts as more perishable than the rest of this index"]
+      },
+      "authRequired": false,
+      "mobileFriendly": true,
+      "lastVerified": "2026-08-23",
+      "reviewIntervalDays": 60
+    }
+  ]
+}

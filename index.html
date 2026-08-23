@@ -178,6 +178,8 @@ ul{list-style:none;padding:0}
 .icon-btn svg{width:20px;height:20px}
 .icon-btn.flagged{color:var(--red);font-weight:600;font-size:.875rem}
 .icon-btn.flagged.is-active{background:var(--red-bg);color:var(--red)}
+/* display:flex above would otherwise beat the hidden attribute */
+.icon-btn[hidden]{display:none}
 
 /* ---------- Offline bar ---------- */
 #offline-bar{
@@ -921,7 +923,24 @@ function renderCategories(){
     root.appendChild(section);
   });
 
+  // The flag control is an alert, so it only exists when something is actually
+  // flagged. A red warning sitting at "0" reads as an error on a healthy page.
+  var flaggedBtn = document.getElementById("flagged-toggle");
   document.getElementById("flagged-count").textContent = String(flaggedTotal);
+  flaggedBtn.hidden = flaggedTotal === 0;
+  flaggedBtn.setAttribute(
+    "aria-label",
+    flaggedTotal === 1 ? "1 link needs checking" : flaggedTotal + " links need checking"
+  );
+  if (flaggedTotal === 0 && state.flaggedOnly){
+    // Nothing left to show under the filter — drop back to the full index
+    // rather than leaving an empty page behind a now-invisible control.
+    state.flaggedOnly = false;
+    flaggedBtn.setAttribute("aria-pressed", "false");
+    flaggedBtn.classList.remove("is-active");
+    renderCategories();
+    return;
+  }
 
   var status = document.getElementById("search-status");
   if (q){

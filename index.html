@@ -29,8 +29,11 @@
   --header-h:60px;
   color-scheme: light dark;
 }
+/* Dark palette. Applied when the OS asks for dark (unless an explicit light
+   choice overrides it), and again when a host stamps data-theme="dark" on the
+   root, so an explicit toggle wins in either direction. */
 @media (prefers-color-scheme: dark){
-  :root{
+  :root:not([data-theme="light"]){
     --bg:#151412; --surface:#1D1B18; --surface-2:#252220; --border:#37342E; --border-strong:#4A473F;
     --ink:#F3F0E9; --ink-soft:#BAB5A8; --ink-faint:#8A8578;
     --accent:#E2916A; --accent-strong:#EFAA88; --accent-on:#20130A; --accent-soft:#3A281E;
@@ -41,6 +44,17 @@
     --shadow-float:0 16px 40px -12px rgba(0,0,0,.65), 0 4px 12px -2px rgba(0,0,0,.5);
     --shadow-card:0 1px 2px rgba(0,0,0,.3);
   }
+}
+:root[data-theme="dark"]{
+  --bg:#151412; --surface:#1D1B18; --surface-2:#252220; --border:#37342E; --border-strong:#4A473F;
+  --ink:#F3F0E9; --ink-soft:#BAB5A8; --ink-faint:#8A8578;
+  --accent:#E2916A; --accent-strong:#EFAA88; --accent-on:#20130A; --accent-soft:#3A281E;
+  --amber:#E8C15E; --amber-bg:#382C10; --amber-border:#5C4A1C;
+  --red:#EE998E; --red-bg:#3A1D19; --red-border:#5E332B;
+  --green:#8FC498; --green-bg:#1D2E1F;
+  --focus:#E2916A;
+  --shadow-float:0 16px 40px -12px rgba(0,0,0,.65), 0 4px 12px -2px rgba(0,0,0,.5);
+  --shadow-card:0 1px 2px rgba(0,0,0,.3);
 }
 
 /* ---------- Reset ---------- */
@@ -596,7 +610,11 @@ function allLinksFlat(){
 /* ---------------- Search matching (F1) ---------------- */
 
 function normalizeStr(s){
-  return (s || "").toString().normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  // U+0300-U+036F is the combining diacritical marks block. Written as escapes,
+  // not literal characters: if this file is ever served or saved under a
+  // non-UTF-8 charset, literal combining marks decode into an invalid range and
+  // the SyntaxError takes down the whole script — a blank page with no output.
+  return (s || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 function linkMatches(link, catLabel, q){

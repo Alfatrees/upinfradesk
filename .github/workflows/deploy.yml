@@ -27,59 +27,12 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Validate links.json
-        # A malformed links.json is the one failure that leaves the live site
-        # showing an error state instead of the index, so it blocks the deploy
-        # rather than shipping and failing in the browser.
-        run: |
-          node --input-type=module -e '
-            import { readFile } from "node:fs/promises";
-            const raw = await readFile("links.json", "utf8");
-            let data;
-            try {
-              data = JSON.parse(raw);
-            } catch (err) {
-              console.error("links.json is not valid JSON:", err.message);
-              process.exit(1);
-            }
-
-            const categories = new Set((data.categories ?? []).map((c) => c.id));
-            const ids = new Set();
-            const problems = [];
-
-            for (const link of data.links ?? []) {
-              for (const field of ["id", "title", "url", "category", "note"]) {
-                if (!link[field]) problems.push(`${link.id ?? "(no id)"}: missing ${field}`);
-              }
-              if (ids.has(link.id)) problems.push(`${link.id}: duplicate id`);
-              ids.add(link.id);
-              if (!categories.has(link.category)) {
-                problems.push(`${link.id}: unknown category "${link.category}"`);
-              }
-              if (link.url && !/^https:\/\//.test(link.url)) {
-                problems.push(`${link.id}: url is not absolute HTTPS`);
-              }
-              if (!link.detail?.whatItGives) {
-                problems.push(`${link.id}: missing detail.whatItGives`);
-              }
-            }
-
-            for (const link of data.links ?? []) {
-              for (const rel of link.detail?.relatedIds ?? []) {
-                if (!ids.has(rel)) problems.push(`${link.id}: relatedIds -> unknown "${rel}"`);
-              }
-              if (link.amendmentOf && !ids.has(link.amendmentOf)) {
-                problems.push(`${link.id}: amendmentOf -> unknown "${link.amendmentOf}"`);
-              }
-            }
-
-            if (problems.length) {
-              console.error("links.json failed validation:");
-              for (const p of problems) console.error("  - " + p);
-              process.exit(1);
-            }
-            console.log(`links.json OK - ${data.links.length} links across ${categories.size} categories`);
-          '
+      - name: Validate content
+        # Broken or internally inconsistent content is the one change that
+        # leaves the live site showing an error state instead of the index, so
+        # it fails here rather than in someone's browser. Same script runs
+        # locally: node tools/validate-content.mjs
+        run: node tools/validate-content.mjs
 
       - name: Warn if cached files changed without a cache bump
         # Not fatal, but the most common PWA failure is shipping new content
@@ -96,10 +49,33 @@ jobs:
         # Only the files the site actually serves. Tooling, the README and CI
         # config stay out of the deployed output.
         run: |
-          mkdir -p dist/icons
+          mkdir -p dist/icons dist/data
           cp index.html links.json manifest.webmanifest sw.js dist/
           cp icons/* dist/icons/
+          cp data/*.json dist/data/
           ls -R dist
+
+      - name: Confirm every referenced content file was staged
+        # The staging step is a hand-written copy list, so a new content file
+        # can be added and silently left out of the deploy. Check the staged
+        # tree against what links.json actually references.
+        run: |
+          node --input-type=module -e '
+            import { readFile, access } from "node:fs/promises";
+            const index = JSON.parse(await readFile("dist/links.json", "utf8"));
+            const refs = index.categories.map((c) => c.file);
+            if (index.contacts?.file) refs.push(index.contacts.file);
+            let missing = [];
+            for (const r of refs) {
+              try { await access("dist/" + r); } catch { missing.push(r); }
+            }
+            if (missing.length) {
+              console.error("Referenced but not staged for deploy:");
+              for (const m of missing) console.error("  - " + m);
+              process.exit(1);
+            }
+            console.log(`All ${refs.length} referenced content files staged.`);
+          '
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3

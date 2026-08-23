@@ -415,7 +415,7 @@
     {
       "id": "upsida-land-building-regs-2018",
       "title": "UPSIDA Land Development & Building Regulations, 2018",
-      "url": "https://upsida.obpas.up.gov.in/x_images/UPSIDA-Land-Building-Regulations-2018v1.pdf",
+      "url": "https://eservices.onlineupsida.com/doc/UPSIDALandBuildingRegulations2018updated.pdf",
       "category": "policy",
       "tags": ["regulation", "building", "land development", "upsida", "2018", "far"],
       "note": "Base construction/land-development rulebook for UPSIDA industrial areas.",
@@ -432,7 +432,9 @@
         "typicalUse": "Confirming buildable FAR/coverage on a specific plot before an investor commits.",
         "quirks": [
           "publishedDate left blank deliberately — only the regulation year (2018) is confirmed, not a specific gazette/notification date; do not infer one, source it from the document if it's needed",
-          "A substantially revised 2024 edition exists (see related amendment entry) — the 2018 base document may be significantly superseded, not just lightly amended; confirm current operative version with UPSIDA before relying on specific clause numbers"
+          "A substantially revised 2024 edition exists (see related amendment entry) — the 2018 base document may be significantly superseded, not just lightly amended; confirm current operative version with UPSIDA before relying on specific clause numbers",
+          "Served from eservices.onlineupsida.com, which is reliable. The same document also sits on upsida.obpas.up.gov.in, but that host times out intermittently — if someone sends you an OBPAS link for this and it hangs, use this copy instead",
+          "A copy also circulates on stagingupsida.com — a staging domain, not production; do not cite it"
         ],
         "relatedIds": ["upsida-land-building-regs-2024"]
       },

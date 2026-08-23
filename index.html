@@ -18,12 +18,11 @@
   --accent:#8C4321; --accent-strong:#6E3419; --accent-on:#FFFFFF; --accent-soft:#F3E2D8;
   --amber:#8A5D08; --amber-bg:#FBEECE; --amber-border:#E9C874;
   --red:#A32A20; --red-bg:#FAE2DF; --red-border:#E7A79C;
-  --green:#2F6B3A; --green-bg:#E4F0E3;
   --focus:#8C4321;
   --shadow-float:0 16px 40px -12px rgba(24,23,20,.22), 0 4px 12px -2px rgba(24,23,20,.10);
   --shadow-card:0 1px 2px rgba(24,23,20,.06);
   --radius-sm:8px; --radius-md:12px; --radius-lg:16px;
-  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-7:48px;
   --font-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --font-mono:ui-monospace,"Cascadia Mono","Segoe UI Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
   --header-h:60px;
@@ -39,7 +38,6 @@
     --accent:#E2916A; --accent-strong:#EFAA88; --accent-on:#20130A; --accent-soft:#3A281E;
     --amber:#E8C15E; --amber-bg:#382C10; --amber-border:#5C4A1C;
     --red:#EE998E; --red-bg:#3A1D19; --red-border:#5E332B;
-    --green:#8FC498; --green-bg:#1D2E1F;
     --focus:#E2916A;
     --shadow-float:0 16px 40px -12px rgba(0,0,0,.65), 0 4px 12px -2px rgba(0,0,0,.5);
     --shadow-card:0 1px 2px rgba(0,0,0,.3);
@@ -51,7 +49,6 @@
   --accent:#E2916A; --accent-strong:#EFAA88; --accent-on:#20130A; --accent-soft:#3A281E;
   --amber:#E8C15E; --amber-bg:#382C10; --amber-border:#5C4A1C;
   --red:#EE998E; --red-bg:#3A1D19; --red-border:#5E332B;
-  --green:#8FC498; --green-bg:#1D2E1F;
   --focus:#E2916A;
   --shadow-float:0 16px 40px -12px rgba(0,0,0,.65), 0 4px 12px -2px rgba(0,0,0,.5);
   --shadow-card:0 1px 2px rgba(0,0,0,.3);
@@ -177,7 +174,7 @@ ul{list-style:none;padding:0}
   box-shadow:var(--shadow-card);transition:border-color .15s,transform .1s;
 }
 .card:hover{border-color:var(--border-strong)}
-.card.is-hovered,.card.is-open{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.card.is-open{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .card-link{
   display:block;padding:var(--sp-4);padding-bottom:var(--sp-2);text-decoration:none;min-height:48px;border-radius:var(--radius-md) var(--radius-md) 0 0;
 }
@@ -265,7 +262,6 @@ ul{list-style:none;padding:0}
 .policy-doc-link:hover{background:var(--surface-2);color:var(--accent)}
 .policy-doc-link.indirect{color:var(--amber)}
 .policy-doc-link svg{width:16px;height:16px}
-.policy-detail-row td{padding:0;border-bottom:1px solid var(--border)}
 
 /* stacked cards on narrow screens */
 @media (max-width:600px){
@@ -436,7 +432,11 @@ var state = {
   policySort: { key: "lastAmendedDate", dir: "desc" },
   openDetailId: null,
   hoverTimer: null,
-  closeTimer: null
+  closeTimer: null,
+  openEl: null,
+  pointerX: 0,
+  pointerY: 0,
+  linkIndex: null
 };
 
 function loadJSON(key, fallback){
@@ -462,6 +462,12 @@ function init(){
   updateOfflineBar();
 }
 
+function setData(json){
+  state.data = json;
+  state.linkIndex = null; // rebuilt lazily; must not survive a data swap
+  renderAll();
+}
+
 function fetchData(){
   // Single-file review builds embed the content directly so the page works with
   // no server alongside it. The deployed site has no such tag and always fetches
@@ -469,8 +475,7 @@ function fetchData(){
   var embedded = document.getElementById("embedded-links-data");
   if (embedded){
     try {
-      state.data = JSON.parse(embedded.textContent);
-      renderAll();
+      setData(JSON.parse(embedded.textContent));
       return;
     } catch(e){
       renderLoadError(new Error("Embedded link data is not valid JSON: " + e.message));
@@ -487,8 +492,7 @@ function fetchData(){
       var json;
       try { json = JSON.parse(text); }
       catch(e){ throw new Error("links.json is not valid JSON: " + e.message); }
-      state.data = json;
-      renderAll();
+      setData(json);
     })
     .catch(function(err){
       renderLoadError(err);
@@ -605,6 +609,14 @@ function stalenessOf(link){
 
 function allLinksFlat(){
   return state.data.links || [];
+}
+
+function linkById(id){
+  if (!state.linkIndex){
+    state.linkIndex = {};
+    allLinksFlat().forEach(function(l){ state.linkIndex[l.id] = l; });
+  }
+  return state.linkIndex[id];
 }
 
 /* ---------------- Search matching (F1) ---------------- */
@@ -796,29 +808,16 @@ function buildCard(link){
   });
 
   var chevBtn = node.querySelector(".chevron-btn");
-  var isTouch = !(window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches);
   chevBtn.addEventListener("click", function(e){
     e.preventDefault();
-    if (isTouch){
-      toggleInlineDetail(node, link);
-    } else {
+    if (hasFinePointer()){
       toggleDetailForCard(node);
+    } else {
+      toggleInlineDetail(node, link);
     }
   });
 
-  if (!isTouch){
-    node.addEventListener("mouseenter", function(){
-      clearTimeout(state.closeTimer);
-      state.hoverTimer = setTimeout(function(){ openFloatingPanel(node, link); }, 300);
-    });
-    node.addEventListener("mouseleave", function(){
-      clearTimeout(state.hoverTimer);
-      state.closeTimer = setTimeout(function(){
-        var panel = document.getElementById("detail-panel");
-        if (!panel.matches(":hover")) closeFloatingPanel();
-      }, 150);
-    });
-  }
+  attachHoverDetail(node, link);
 
   return node;
 }
@@ -892,7 +891,7 @@ function populateDetail(container, link){
     var b6 = buildDetailBlock("Related");
     var rel = el("div", "detail-related");
     d.relatedIds.forEach(function(rid){
-      var rl = allLinksFlat().filter(function(l){ return l.id === rid; })[0];
+      var rl = linkById(rid);
       if (!rl) return;
       var btn = el("button", null, rl.title);
       btn.type = "button";
@@ -909,44 +908,107 @@ function populateDetail(container, link){
   container.appendChild(meta);
 }
 
-/* Floating panel (desktop hover / keyboard) */
+/* Floating panel (desktop hover / keyboard)
+   One code path serves both link cards and policy table rows. Cards are narrow
+   enough to sit the panel beside them; a full-width table row leaves no room
+   either side, so the panel falls back to anchoring near the pointer. */
 
-function openFloatingPanel(cardEl, link){
+function hasFinePointer(){
+  return !!(window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+}
+
+function scheduleClose(){
+  clearTimeout(state.closeTimer);
+  state.closeTimer = setTimeout(function(){
+    var panel = document.getElementById("detail-panel");
+    if (!panel.matches(":hover")) closeFloatingPanel();
+  }, 150);
+}
+
+function attachHoverDetail(target, link){
+  if (!hasFinePointer()) return;
+  target.addEventListener("mouseenter", function(e){
+    clearTimeout(state.closeTimer);
+    state.pointerX = e.clientX;
+    state.pointerY = e.clientY;
+    clearTimeout(state.hoverTimer);
+    state.hoverTimer = setTimeout(function(){ openFloatingPanel(target, link); }, 300);
+  });
+  target.addEventListener("mousemove", function(e){
+    // Track the cursor only until the panel opens, so the panel does not chase
+    // the pointer once it is on screen.
+    if (state.openDetailId !== link.id){
+      state.pointerX = e.clientX;
+      state.pointerY = e.clientY;
+    }
+  });
+  target.addEventListener("mouseleave", function(){
+    clearTimeout(state.hoverTimer);
+    scheduleClose();
+  });
+}
+
+function openFloatingPanel(anchorEl, link){
   var panel = document.getElementById("detail-panel");
   populateDetail(panel, link);
   panel.hidden = false;
-  state.openDetailId = link.id;
-  document.querySelectorAll(".card.is-hovered,.card.is-open").forEach(function(c){ c.classList.remove("is-hovered","is-open"); });
-  cardEl.classList.add("is-open");
 
-  var rect = cardEl.getBoundingClientRect();
-  var panelWidth = 320, margin = 8;
-  var left = rect.right + margin;
-  if (left + panelWidth + margin > window.innerWidth){
-    left = rect.left - panelWidth - margin;
-    if (left < margin) left = Math.max(margin, (window.innerWidth - panelWidth) / 2);
+  // Clear the previous highlight by reference — the highlighted element may be
+  // a table row, not a card, so a ".card" selector sweep would strand it lit.
+  if (state.openEl && state.openEl !== anchorEl) state.openEl.classList.remove("is-open");
+  state.openEl = anchorEl;
+  state.openDetailId = link.id;
+  anchorEl.classList.add("is-open");
+
+  var margin = 8;
+  var rect = anchorEl.getBoundingClientRect();
+  var panelW = panel.offsetWidth || 320;
+  var panelH = panel.offsetHeight || 320;
+  var vw = document.documentElement.clientWidth;
+  var vh = document.documentElement.clientHeight;
+
+  var left;
+  var fitsRight = rect.right + margin + panelW + margin <= vw;
+  var fitsLeft = rect.left - margin - panelW >= margin;
+
+  if (fitsRight){
+    left = rect.right + margin;
+  } else if (fitsLeft){
+    left = rect.left - panelW - margin;
+  } else {
+    // No room beside the anchor (wide policy rows). Sit beside the cursor
+    // instead, so the panel never lands under the pointer itself.
+    left = state.pointerX + 20;
+    if (left + panelW + margin > vw) left = state.pointerX - panelW - 20;
   }
-  var top = rect.top;
-  var maxTop = window.innerHeight - Math.min(520, window.innerHeight * 0.8) - margin;
-  if (top > maxTop) top = Math.max(margin, maxTop);
+  left = Math.max(margin, Math.min(left, vw - panelW - margin));
+
+  var top = fitsRight || fitsLeft ? rect.top : state.pointerY + 16;
+  top = Math.max(margin, Math.min(top, vh - panelH - margin));
+
   panel.style.left = left + "px";
   panel.style.top = top + "px";
 
   panel.onmouseenter = function(){ clearTimeout(state.closeTimer); };
-  panel.onmouseleave = function(){ state.closeTimer = setTimeout(closeFloatingPanel, 150); };
+  panel.onmouseleave = scheduleClose;
 }
 
 function closeFloatingPanel(){
+  clearTimeout(state.hoverTimer);
+  clearTimeout(state.closeTimer);
   var panel = document.getElementById("detail-panel");
   panel.hidden = true;
   state.openDetailId = null;
-  document.querySelectorAll(".card.is-hovered,.card.is-open").forEach(function(c){ c.classList.remove("is-hovered","is-open"); });
+  if (state.openEl){
+    state.openEl.classList.remove("is-open");
+    state.openEl = null;
+  }
 }
 
 function toggleDetailForCard(cardEl){
   var id = cardEl.dataset.id;
   if (state.openDetailId === id){ closeFloatingPanel(); return; }
-  var link = allLinksFlat().filter(function(l){ return l.id === id; })[0];
+  var link = linkById(id);
   if (link) openFloatingPanel(cardEl, link);
 }
 
@@ -1068,17 +1130,7 @@ function policyRow(link, isChild){
   tdLink.appendChild(a);
   tr.appendChild(tdLink);
 
-  tr.addEventListener("mouseenter", function(){
-    clearTimeout(state.closeTimer);
-    state.hoverTimer = setTimeout(function(){ openFloatingPanel(tr, link); tr.classList.add("is-open"); }, 300);
-  });
-  tr.addEventListener("mouseleave", function(){
-    clearTimeout(state.hoverTimer);
-    state.closeTimer = setTimeout(function(){
-      var panel = document.getElementById("detail-panel");
-      if (!panel.matches(":hover")){ closeFloatingPanel(); tr.classList.remove("is-open"); }
-    }, 150);
-  });
+  attachHoverDetail(tr, link);
 
   return tr;
 }

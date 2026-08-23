@@ -26,6 +26,7 @@
   --font-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --font-mono:ui-monospace,"Cascadia Mono","Segoe UI Mono","SFMono-Regular",Consolas,"Liberation Mono",monospace;
   --header-h:60px;
+  --sidebar-w:264px;
   color-scheme: light dark;
 }
 /* Dark palette. Applied when the OS asks for dark (unless an explicit light
@@ -76,12 +77,80 @@ ul{list-style:none;padding:0}
 /* ---------- Layout shell ---------- */
 .shell{max-width:960px;margin:0 auto;padding:0 var(--sp-4) var(--sp-7)}
 .app-header{
-  position:sticky;top:0;z-index:40;background:var(--bg);
+  position:sticky;top:0;z-index:60;background:var(--bg);
   border-bottom:1px solid var(--border);
 }
 .app-header-inner{
-  max-width:960px;margin:0 auto;padding:0 var(--sp-4);
+  padding:0 var(--sp-4);
   height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);
+}
+.header-left{display:flex;align-items:center;gap:var(--sp-2);min-width:0}
+
+/* ---------- Sidebar (F11) ---------- */
+#menu-toggle{display:flex}
+.sidebar{
+  position:fixed;top:var(--header-h);bottom:0;left:0;width:var(--sidebar-w);z-index:50;
+  background:var(--surface);border-right:1px solid var(--border);
+  overflow-y:auto;overscroll-behavior:contain;
+  padding:var(--sp-4) var(--sp-2) var(--sp-7);
+}
+.sidebar-heading{
+  font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-faint);padding:0 var(--sp-3);margin-bottom:var(--sp-2);
+}
+.side-nav{display:flex;flex-direction:column;gap:2px}
+.side-group-row{display:flex;align-items:stretch;gap:2px;border-radius:var(--radius-sm)}
+.side-group-row:hover{background:var(--surface-2)}
+.side-link{
+  flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);
+  padding:0 var(--sp-2) 0 var(--sp-3);min-height:44px;border-radius:var(--radius-sm);
+  font-size:.9375rem;font-weight:600;text-decoration:none;color:var(--ink);text-align:left;
+}
+.side-link .side-count{font-size:.75rem;font-weight:500;color:var(--ink-faint);font-variant-numeric:tabular-nums;flex:none}
+.side-group.is-current > .side-group-row{background:var(--accent-soft)}
+.side-group.is-current > .side-group-row .side-link{color:var(--accent-strong)}
+.side-toggle{
+  flex:none;width:36px;display:flex;align-items:center;justify-content:center;
+  border-radius:var(--radius-sm);color:var(--ink-faint);
+}
+.side-toggle svg{width:16px;height:16px;transition:transform .18s ease}
+.side-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.side-toggle:hover{color:var(--ink)}
+.side-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 var(--sp-2) 0;padding-left:var(--sp-4)}
+.side-sub[hidden]{display:none}
+.side-sub a{
+  display:block;padding:8px var(--sp-3);min-height:36px;border-radius:var(--radius-sm);
+  font-size:.8125rem;line-height:1.35;color:var(--ink-soft);text-decoration:none;
+  border-left:2px solid var(--border);
+}
+.side-sub a:hover{background:var(--surface-2);color:var(--ink);border-left-color:var(--border-strong)}
+.side-sub a.is-current{color:var(--accent-strong);border-left-color:var(--accent);font-weight:500}
+.sidebar-empty{padding:var(--sp-3);font-size:.8125rem;color:var(--ink-faint)}
+#sidebar-scrim{display:none}
+
+/* Desktop: sidebar always visible, content offset. Collapsing hides it. */
+@media (min-width:1024px){
+  body:not(.sidebar-collapsed) .content-area{margin-left:var(--sidebar-w)}
+  body.sidebar-collapsed .sidebar{display:none}
+  .app-footer{transition:margin-left .001s}
+  body:not(.sidebar-collapsed) .app-footer{margin-left:var(--sidebar-w)}
+}
+
+/* Mobile/tablet: off-canvas drawer behind a scrim. */
+@media (max-width:1023px){
+  .sidebar{
+    width:min(84vw,320px);transform:translateX(-100%);
+    transition:transform .22s ease;box-shadow:var(--shadow-float);
+  }
+  body.sidebar-open .sidebar{transform:translateX(0)}
+  body.sidebar-open #sidebar-scrim{
+    display:block;position:fixed;inset:var(--header-h) 0 0 0;z-index:45;
+    background:rgba(24,23,20,.45);
+  }
+  body.sidebar-open{overflow:hidden}
+}
+@media (prefers-reduced-motion: reduce){
+  .sidebar{transition:none}
 }
 .brand{display:flex;align-items:center;gap:var(--sp-2);font-weight:700;font-size:1.125rem;letter-spacing:-.01em}
 .brand-mark{width:28px;height:28px;border-radius:7px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
@@ -307,11 +376,16 @@ ul{list-style:none;padding:0}
 
 <header class="app-header">
   <div class="app-header-inner">
-    <div class="brand">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M4 18h5M4 12h9M4 6h16"/></svg>
-      </span>
-      UPInfradesk
+    <div class="header-left">
+      <button type="button" id="menu-toggle" class="icon-btn" aria-expanded="false" aria-controls="sidebar" aria-label="Show sections">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M4 18h5M4 12h9M4 6h16"/></svg>
+        </span>
+        UPInfradesk
+      </div>
     </div>
     <div class="header-actions">
       <button type="button" id="flagged-toggle" class="icon-btn flagged" aria-pressed="false">
@@ -327,7 +401,13 @@ ul{list-style:none;padding:0}
 
 <div id="offline-bar" role="status" hidden></div>
 
-<main id="main">
+<aside class="sidebar" id="sidebar" aria-label="Sections">
+  <div class="sidebar-heading">Sections</div>
+  <nav id="side-nav" class="side-nav"></nav>
+</aside>
+<div id="sidebar-scrim" hidden></div>
+
+<main id="main" class="content-area">
   <div id="index-view" class="shell">
 
     <section class="pinned-section" id="pinned-section" hidden>
@@ -436,7 +516,10 @@ var state = {
   openEl: null,
   pointerX: 0,
   pointerY: 0,
-  linkIndex: null
+  linkIndex: null,
+  sideOpen: loadJSON("upinfradesk:sideOpen", {}),
+  sidebarCollapsed: loadJSON("upinfradesk:sidebarCollapsed", false),
+  sectionObserver: null
 };
 
 function loadJSON(key, fallback){
@@ -453,6 +536,7 @@ function saveJSON(key, val){
 
 function init(){
   wireStaticUI();
+  wireSidebar();
   fetchData();
   if ("serviceWorker" in navigator){
     navigator.serviceWorker.register("sw.js").catch(function(){ /* offline support degrades gracefully without it */ });
@@ -685,6 +769,7 @@ function renderCategories(){
 
   var cats = (state.data.categories || []).slice().sort(function(a,b){ return a.order - b.order; });
   var flaggedTotal = 0;
+  var sidebarModel = [];
 
   cats.forEach(function(cat){
     var links = allLinksFlat().filter(function(l){ return l.category === cat.id; });
@@ -699,8 +784,11 @@ function renderCategories(){
 
     if (visible.length === 0) return;
 
+    sidebarModel.push({ cat: cat, links: visible });
+
     var section = el("section", "category");
     section.dataset.catId = cat.id;
+    section.id = "cat-" + cat.id;
     var collapsedState = !!state.collapsed[cat.id];
     section.dataset.collapsed = String(collapsedState && !q);
 
@@ -753,6 +841,179 @@ function renderCategories(){
       : "Turn off “flagged only” to see the full index."));
     root.appendChild(empty);
   }
+
+  renderSidebar(sidebarModel);
+}
+
+/* ---------------- Sidebar navigation (F11) ----------------
+   Mirrors whatever is currently on the page: filter the index and the sidebar
+   narrows with it, so it is always an accurate map rather than a fixed menu. */
+
+function isDesktopLayout(){
+  return window.matchMedia && window.matchMedia("(min-width:1024px)").matches;
+}
+
+// How much sticky chrome sits above the content at any moment.
+function stickyOffset(){
+  var header = document.querySelector(".app-header");
+  var search = document.querySelector(".search-wrap");
+  return (header ? header.offsetHeight : 0) + (search ? search.offsetHeight : 0) + 8;
+}
+
+function scrollToAnchor(id){
+  // The sidebar stays available while reading the Instructions page, so a jump
+  // from there has to bring the index back before the target exists.
+  if (!document.getElementById("instructions-view").hidden) closeInstructions();
+
+  var target = document.getElementById(id);
+  if (!target) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var y = window.pageYOffset + target.getBoundingClientRect().top - stickyOffset();
+  window.scrollTo({ top: Math.max(0, y), behavior: reduce ? "auto" : "smooth" });
+  // Move focus for screen-reader and keyboard users, without a second jump.
+  target.setAttribute("tabindex", "-1");
+  target.focus({ preventScroll: true });
+}
+
+function renderSidebar(model){
+  var nav = document.getElementById("side-nav");
+  nav.textContent = "";
+
+  if (!model.length){
+    nav.appendChild(el("div", "sidebar-empty", "Nothing matches the current filter."));
+    return;
+  }
+
+  model.forEach(function(entry){
+    var cat = entry.cat;
+    var group = el("div", "side-group");
+    group.dataset.catId = cat.id;
+
+    var row = el("div", "side-group-row");
+
+    var link = el("a", "side-link");
+    link.href = "#cat-" + cat.id;
+    link.appendChild(el("span", null, cat.label));
+    link.appendChild(el("span", "side-count", String(entry.links.length)));
+    link.addEventListener("click", function(e){
+      e.preventDefault();
+      scrollToAnchor("cat-" + cat.id);
+      if (!isDesktopLayout()) closeSidebar();
+    });
+    row.appendChild(link);
+
+    var expanded = !!state.sideOpen[cat.id];
+    var toggle = el("button", "side-toggle");
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", String(expanded));
+    toggle.setAttribute("aria-label", (expanded ? "Hide" : "Show") + " " + cat.label + " resources");
+    toggle.appendChild(icon("chevron-down"));
+    row.appendChild(toggle);
+    group.appendChild(row);
+
+    var sub = el("ul", "side-sub");
+    sub.hidden = !expanded;
+    entry.links.forEach(function(l){
+      var li = el("li");
+      var a = el("a", null, l.title);
+      a.href = "#link-" + l.id;
+      a.addEventListener("click", function(e){
+        e.preventDefault();
+        scrollToAnchor("link-" + l.id);
+        if (!isDesktopLayout()) closeSidebar();
+      });
+      li.appendChild(a);
+      sub.appendChild(li);
+    });
+    group.appendChild(sub);
+
+    toggle.addEventListener("click", function(){
+      var nowOpen = sub.hidden;
+      sub.hidden = !nowOpen;
+      toggle.setAttribute("aria-expanded", String(nowOpen));
+      toggle.setAttribute("aria-label", (nowOpen ? "Hide" : "Show") + " " + cat.label + " resources");
+      state.sideOpen[cat.id] = nowOpen;
+      saveJSON("upinfradesk:sideOpen", state.sideOpen);
+    });
+
+    nav.appendChild(group);
+  });
+
+  observeSections();
+}
+
+/* Highlight whichever section is currently in view. */
+function observeSections(){
+  if (state.sectionObserver) state.sectionObserver.disconnect();
+  if (!("IntersectionObserver" in window)) return;
+
+  state.sectionObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var id = e.target.dataset.catId;
+      document.querySelectorAll(".side-group").forEach(function(g){
+        g.classList.toggle("is-current", g.dataset.catId === id);
+      });
+    });
+  }, { rootMargin: "-25% 0px -65% 0px", threshold: 0 });
+
+  document.querySelectorAll(".category").forEach(function(s){ state.sectionObserver.observe(s); });
+}
+
+function openSidebar(){
+  document.body.classList.add("sidebar-open");
+  document.getElementById("sidebar-scrim").hidden = false;
+  syncMenuButton();
+}
+
+function closeSidebar(){
+  document.body.classList.remove("sidebar-open");
+  document.getElementById("sidebar-scrim").hidden = true;
+  syncMenuButton();
+}
+
+function syncMenuButton(){
+  var btn = document.getElementById("menu-toggle");
+  var shown = isDesktopLayout()
+    ? !document.body.classList.contains("sidebar-collapsed")
+    : document.body.classList.contains("sidebar-open");
+  btn.setAttribute("aria-expanded", String(shown));
+  btn.setAttribute("aria-label", shown ? "Hide sections" : "Show sections");
+}
+
+function wireSidebar(){
+  var btn = document.getElementById("menu-toggle");
+  var scrim = document.getElementById("sidebar-scrim");
+
+  if (state.sidebarCollapsed) document.body.classList.add("sidebar-collapsed");
+
+  btn.addEventListener("click", function(){
+    if (isDesktopLayout()){
+      // On a wide screen the sidebar is permanent furniture; this collapses it.
+      var collapsed = document.body.classList.toggle("sidebar-collapsed");
+      state.sidebarCollapsed = collapsed;
+      saveJSON("upinfradesk:sidebarCollapsed", collapsed);
+    } else {
+      if (document.body.classList.contains("sidebar-open")) closeSidebar(); else openSidebar();
+    }
+    syncMenuButton();
+  });
+
+  scrim.addEventListener("click", closeSidebar);
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && document.body.classList.contains("sidebar-open")) closeSidebar();
+  });
+
+  // Leaving the narrow layout must not strand the drawer/scrim on screen.
+  if (window.matchMedia){
+    var mq = window.matchMedia("(min-width:1024px)");
+    var onChange = function(){ closeSidebar(); syncMenuButton(); };
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else if (mq.addListener) mq.addListener(onChange);
+  }
+
+  syncMenuButton();
 }
 
 function badge(iconName, label, cls){
@@ -766,6 +1027,7 @@ function buildCard(link){
   var tpl = document.getElementById("tpl-card");
   var node = tpl.content.firstElementChild.cloneNode(true);
   node.dataset.id = link.id;
+  node.id = "link-" + link.id;
 
   var isStale = !link.deprecated && stalenessOf(link);
 
@@ -1103,6 +1365,7 @@ function renderPolicyTable(links){
 function policyRow(link, isChild){
   var tr = el("tr");
   tr.dataset.id = link.id;
+  tr.id = "link-" + link.id;
 
   var tdDoc = el("td");
   tdDoc.dataset.label = "Document";
@@ -1190,6 +1453,7 @@ function buildInstructions(){
 
   frag.appendChild(instrSection("3. Finding a link", function(s){
     instrP(s, "Use search — it matches titles, tags, notes, and, importantly, the data fields listed inside each resource’s detail panel. Typing “circle rate” or “spare capacity” will surface the right portal even if you don’t know its name. You can also browse by category, or check the Pinned strip at the top.");
+    instrP(s, "The sidebar on the left lists every section with a count, and each one expands to show the individual resources inside it — click any entry to jump straight there instead of scrolling. On a phone it opens from the ☰ button and closes when you tap outside it, press Escape, or pick something. On a laptop it stays open, and the same button collapses it if you want the extra width.");
   }));
 
   frag.appendChild(instrSection("4. Reading the detail panel", function(s){

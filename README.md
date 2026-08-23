@@ -10,6 +10,8 @@ Not an official government system. Hosts no content of its own, mirrors no docum
 
 See the in-app Instructions page (`[?]`) for full usage — search, badges, the detail panel, pinning, and the monthly maintenance routine.
 
+A left sidebar lists every section with a live count and expands to the individual resources inside each one. It is permanent on desktop (collapsible via the header menu button) and opens as a drawer behind the burger on mobile.
+
 ## Structure
 
 ```
